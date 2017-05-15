@@ -1,3 +1,5 @@
 /vendor/*
-/var/*
+/var/cache/*
+/var/session/*
+/var/logs/*
 
