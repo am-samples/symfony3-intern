@@ -90,14 +90,14 @@ class DefaultController extends Controller
 
     public function sendmailAction(Request $request)
     {
-
-        $name = $request->get('name');
-        $email = $request->get('email');
-        $comment = $request->get('comment');
+        $form = $request->request->get('form');
+        $name = $form['name'];
+        $email = $form['email'];
+        $comment = $form['comment'];
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Test e-mail')
-            ->setFrom('send@local.loc')
+            ->setFrom('debug@tradedealer.ru')
             ->setTo('a.malozemov@tradedealer.ru')
             ->setBody(
                 $this->renderView(
@@ -111,10 +111,9 @@ class DefaultController extends Controller
                 'text/html'
             );
 
-//        return $this->redirectToRoute('task_success');
-        return $this->render('AppBundle:callback:form_success.html.twig', array(
-            'name' => $name
-        ));
+        $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute('task_success');
     }
 
     /**
