@@ -26,8 +26,6 @@ class DefaultController extends Controller
 
 
     /**
-     * Matches /blog exactly
-     *
      * @Route("/hello", name="hello_name")
      */
     public function helloAction(Request $request)
@@ -37,8 +35,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * Matches /blog exactly
-     *
      * @Route("/callback", name="callback_form")
      */
 
@@ -67,14 +63,14 @@ class DefaultController extends Controller
             ))
             ->getForm();
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $task = $form->getData();
-
-            return $this->redirectToRoute('task_success');
-        }
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//            $task = $form->getData();
+//
+//            return $this->redirectToRoute('task_success');
+//        }
 
         return $this->render('AppBundle:callback:form.html.twig', array(
             'form' => $form->createView(),
@@ -83,18 +79,16 @@ class DefaultController extends Controller
     }
 
     /**
-     * Matches /blog exactly
-     *
      * @Route("/sendmail", name="sendmail")
      */
 
     public function sendmailAction(Request $request)
     {
+
         $form = $request->request->get('form');
         $name = $form['name'];
         $email = $form['email'];
         $comment = $form['comment'];
-
         $message = \Swift_Message::newInstance()
             ->setSubject('Test e-mail')
             ->setFrom('debug@tradedealer.ru')
@@ -117,8 +111,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * Matches /blog exactly
-     *
      * @Route("/task_success", name="task_success")
      */
     public function task_successAction(Request $request)
