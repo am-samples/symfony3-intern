@@ -18,4 +18,18 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }
+
+    /**
+     * Matches /blog exactly
+     *
+     * @Route("/hello", name="hello_name")
+     */
+
+    public function helloAction(Request $request)
+    {
+        return $this->render('default/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+        ]);
+
+    }
 }
