@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+//use AppBundle\Form\FormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -10,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
+
 
 class MailController extends Controller
 {
@@ -22,6 +25,7 @@ class MailController extends Controller
     public function callbackAction(Request $request)
     {
         $task = new Task();
+//        $form = $this->createForm(FormType::class, $task);
 
         $form = $this->createFormBuilder($task)
             ->setAction($this->generateUrl('sendmail'))
@@ -85,9 +89,7 @@ class MailController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Test e-mail')
             ->setFrom($this->container->getParameter('mailer_user'))
-//            ->setFrom('debug@tradedealer.ru')
             ->setTo($this->container->getParameter('mailer_recipient'))
-//            ->setTo('a.malozemov@tradedealer.ru')
             ->setBody(
                 $this->renderView(
                     'AppBundle:Emails:simple.html.twig',
