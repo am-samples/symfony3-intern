@@ -63,6 +63,9 @@ class DefaultController extends Controller
             ))
             ->getForm();
 
+
+//        $validator = $this->get('validator');
+
 //        $form->handleRequest($request);
 //
 //        if ($form->isSubmitted() && $form->isValid()) {
@@ -70,6 +73,16 @@ class DefaultController extends Controller
 //            $task = $form->getData();
 //
 //            return $this->redirectToRoute('task_success');
+//        }
+
+//        if ($request->isMethod('POST')) {
+//            $form->submit($request->request->get($form->getName()));
+//
+//            if ($form->isSubmitted() && $form->isValid()) {
+//                // perform some action...
+//
+//                return $this->redirectToRoute('task_success');
+//            }
 //        }
 
         return $this->render('AppBundle:callback:form.html.twig', array(
@@ -84,15 +97,14 @@ class DefaultController extends Controller
 
     public function sendmailAction(Request $request)
     {
-
         $form = $request->request->get('form');
         $name = $form['name'];
         $email = $form['email'];
         $comment = $form['comment'];
         $message = \Swift_Message::newInstance()
             ->setSubject('Test e-mail')
-            ->setFrom('debug@tradedealer.ru')
-            ->setTo('a.malozemov@tradedealer.ru')
+            ->setFrom($this->container->getParameter('mailer_user'))
+            ->setTo($this->container->getParameter('mailer_recipient'))
             ->setBody(
                 $this->renderView(
                     'AppBundle:Emails:simple.html.twig',
