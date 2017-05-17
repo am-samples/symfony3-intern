@@ -6,7 +6,7 @@
 
 {% block callback_form %}
     <div style="margin: 0 auto; width: 350px;">
-        {{ form_start(form, {'attr': {'class': 'form-group row'} }) }}
+        {{ form_start(form, {'attr': {'class': 'form-group row', 'action': '/app_dev.php/callback'} } ) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>

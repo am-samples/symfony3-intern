@@ -6,39 +6,54 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Task
 {
+
     protected $task;
+    protected $comment;
+
 
     /**
      * @Assert\NotBlank()
      */
-    public function name()
-    {
-        return $this->task;
-    }
+    protected $name;
 
     /**
      * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     message = "E-mail: '{{ value }}' не корректный!"
      * )
      */
-    public function email()
+    protected $email;
+
+
+    public function getName()
     {
-        return $this->task;
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
 
-    /**
-     * @Assert\NotBlank()
-     */
-    public function comment()
+    public function getEmail()
     {
-        return $this->task;
+        return $this->email;
     }
 
-    public function send()
+    public function setEmail($email)
     {
-        return true;
+        $this->email = $email;
+    }
+
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
 }
