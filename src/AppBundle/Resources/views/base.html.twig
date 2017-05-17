@@ -5,11 +5,17 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.css') }}">
+    {% stylesheets 'assets/vendor/bootstrap/dist/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 </head>
 <body>
 {% block main_header %}{% endblock %}
 {% block callback_form %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    {% javascripts 'assets/vendor/jquery/dist/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 </body>
 </html>
