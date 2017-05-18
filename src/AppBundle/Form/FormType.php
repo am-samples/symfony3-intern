@@ -20,33 +20,45 @@ class FormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('name', TextType::class, [
                 'label' => 'Имя: ',
-                'attr'  => array('class' => 'form-control', 'placeholder' => 'Введите ваше имя...')
-            ))
+                'attr'  => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Введите ваше имя...'
+                ]
+            ])
 
-            ->add('email', EmailType::class, array(
+            ->add('email', EmailType::class, [
                 'label' => 'E-mail: ',
-                'attr'  => array('class' => 'form-control', 'placeholder' => 'Введите ваш e-mail...'),
+                'attr'  => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Введите ваш e-mail...'
+                ],
                 'constraints' => [
                     new Assert\Email([
                         'message'=>'This is not the corect email format'
                     ])]
-            ))
-            ->add('comment', TextareaType::class, array(
+            ])
+            ->add('comment', TextareaType::class, [
                 'label' => 'Комментарий: ',
-                'attr'  => array('class' => 'form-control', 'placeholder' => 'Можете добавить комментарий...')
-            ))
-            ->add('send', SubmitType::class, array(
+                'attr'  => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Можете добавить комментарий...'
+                ]
+            ])
+            ->add('send', SubmitType::class, [
                 'label' => 'Отправить',
-                'attr'  => array('class' => 'btn btn-primary', 'style' => 'margin-top: 10px;')
-            ))->getForm();
+                'attr'  => [
+                    'class' => 'btn btn-primary',
+                    'style' => 'margin-top: 10px;'
+                ]
+            ])->getForm();
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Callback::class,
-        ));
+        ]);
     }
 }

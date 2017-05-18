@@ -9,6 +9,7 @@ parameters:
     locale: en
 
 framework:
+    translator: { fallbacks: ["%locale%"] }
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
@@ -36,6 +37,8 @@ framework:
 
 # Twig Configuration
 twig:
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
@@ -83,3 +86,10 @@ assetic:
         jquery:
             inputs:
                 - 'assets/vendor/jquery/dist/*'
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
