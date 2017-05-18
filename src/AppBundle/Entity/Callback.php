@@ -3,21 +3,27 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Класс данных формы
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="hellotrade")
  */
 class Callback
 {
     /**
-     * Поле комментария в форме
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $comment;
-
+    protected $id;
 
     /**
      * Имя отправителя - ФИО
      *
+     * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank()
      */
     protected $name;
@@ -25,11 +31,19 @@ class Callback
     /**
      * E-mail для обратной связи укзанный в форме
      *
+     * @ORM\Column(type="string", length=100)
      * @Assert\Email(
      *     message = "E-mail: '{{ value }}' не корректный!"
      * )
      */
     protected $email;
+
+    /**
+     * Поле комментария в форме
+     *
+     * @ORM\Column(type="string", length=300)
+     */
+    protected $comment;
 
     public function getName()
     {

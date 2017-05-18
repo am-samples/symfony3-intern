@@ -7,6 +7,8 @@ use AppBundle\Form\FormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 class MailController extends Controller
 {
@@ -30,23 +32,32 @@ class MailController extends Controller
             $name = $form['name'];
             $email = $form['email'];
             $comment = $form['comment'];
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Test e-mail')
-                ->setFrom($this->container->getParameter('mailer_user'))
-                ->setTo($this->container->getParameter('mailer_recipient'))
-                ->setBody(
-                    $this->renderView(
-                        'AppBundle:Emails:simple.html.twig',
-                        [
-                            'name' => $name,
-                            'email' => $email,
-                            'comment' => $comment
-                        ]
-                    ),
-                    'text/html'
-                );
+//            $message = \Swift_Message::newInstance()
+//                ->setSubject('Test e-mail')
+//                ->setFrom($this->container->getParameter('mailer_user'))
+//                ->setTo($this->container->getParameter('mailer_recipient'))
+//                ->setBody(
+//                    $this->renderView(
+//                        'AppBundle:Emails:simple.html.twig',
+//                        [
+//                            'name' => $name,
+//                            'email' => $email,
+//                            'comment' => $comment
+//                        ]
+//                    ),
+//                    'text/html'
+//                );
+//
+//            $this->get('mailer')->send($message);
+//
+//            return $this->redirectToRoute('task_success');
 
-            $this->get('mailer')->send($message);
+            $callback->setName($name);
+            $callback->setEmail($email);
+            $callback->setComment($comment);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($callback);
+            $em->flush();
 
             return $this->redirectToRoute('task_success');
         }
