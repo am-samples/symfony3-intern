@@ -4,15 +4,18 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Task
+class Callback
 {
+    /* Класс для работы с формой */
 
-    protected $task;
+    // Поле комментария в форме
     protected $comment;
 
 
     /**
      * @Assert\NotBlank()
+     *
+     * Имя отправителя - ФИО
      */
     protected $name;
 
@@ -20,9 +23,9 @@ class Task
      * @Assert\Email(
      *     message = "E-mail: '{{ value }}' не корректный!"
      * )
+     * E-mail для обратной связи укзанный в форме
      */
     protected $email;
-
 
     public function getName()
     {
@@ -32,6 +35,7 @@ class Task
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
 
@@ -43,6 +47,7 @@ class Task
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
 
@@ -54,6 +59,7 @@ class Task
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
     }
 
 }

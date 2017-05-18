@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Task;
+use AppBundle\Entity\Callback;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class FormType extends AbstractType
 {
+    // Класс описывающий форму (поля)
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -43,7 +44,7 @@ class FormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Task::class,
+            'data_class' => Callback::class,
         ));
     }
 }

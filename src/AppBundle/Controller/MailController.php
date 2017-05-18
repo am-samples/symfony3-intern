@@ -2,30 +2,27 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Task;
+use AppBundle\Entity\Callback;
 use AppBundle\Form\FormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 
 
 
 class MailController extends Controller
 {
 
-
     /**
      * @Route("/callback", name="callback_form")
+     *
+     * Создание формы и обработка данных (отправка, валидация)
      */
-
     public function callbackAction(Request $request)
     {
-        $task = new Task();
-        $form = $this->createForm(FormType::class, $task);
+        $callback = new Callback();
+        $form = $this->createForm(FormType::class, $callback);
 
         $form->handleRequest($request);
 
@@ -54,21 +51,17 @@ class MailController extends Controller
             $this->get('mailer')->send($message);
 
             return $this->redirectToRoute('task_success');
-
         }
-
 
         return $this->render('AppBundle:callback:form.html.twig', array(
             'form' => $form->createView(),
         ));
-
-
-
-
     }
 
     /**
      * @Route("/task_success", name="task_success")
+     *
+     * Thank you page.
      */
     public function taskSuccessAction(Request $request)
     {
