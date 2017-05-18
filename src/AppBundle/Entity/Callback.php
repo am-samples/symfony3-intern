@@ -4,11 +4,14 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Класс для работы с формой
+ */
 class Callback
 {
-    /* Класс для работы с формой */
-
-    // Поле комментария в форме
+    /**
+     * Поле комментария в форме
+     */
     protected $comment;
 
 
