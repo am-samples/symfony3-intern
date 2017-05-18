@@ -12,11 +12,6 @@ class CategoryAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'callback';
 
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->add('callback');
-    }
-
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', 'text');

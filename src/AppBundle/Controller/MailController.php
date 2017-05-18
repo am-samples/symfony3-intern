@@ -71,5 +71,4 @@ class MailController extends Controller
         return $this->render('AppBundle:callback:form_success.html.twig');
     }
 
-
 }
