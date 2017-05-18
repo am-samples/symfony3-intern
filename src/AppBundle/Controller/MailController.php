@@ -12,9 +12,10 @@ class MailController extends Controller
 {
 
     /**
+     * Создание формы и обработка данных (отправка, валидация)
+     *
      * @Route("/callback", name="callback_form")
      *
-     * Создание формы и обработка данных (отправка, валидация)
      */
     public function callbackAction(Request $request)
     {
@@ -36,11 +37,11 @@ class MailController extends Controller
                 ->setBody(
                     $this->renderView(
                         'AppBundle:Emails:simple.html.twig',
-                        array(
+                        [
                             'name' => $name,
                             'email' => $email,
                             'comment' => $comment
-                        )
+                        ]
                     ),
                     'text/html'
                 );
@@ -50,15 +51,16 @@ class MailController extends Controller
             return $this->redirectToRoute('task_success');
         }
 
-        return $this->render('AppBundle:callback:form.html.twig', array(
+        return $this->render('AppBundle:callback:form.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
+     * Thank you page.
+     *
      * @Route("/task_success", name="task_success")
      *
-     * Thank you page.
      */
     public function taskSuccessAction(Request $request)
     {

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Класс для работы с формой
+ * Класс данных формы
  */
 class Callback
 {
@@ -16,17 +16,18 @@ class Callback
 
 
     /**
-     * @Assert\NotBlank()
-     *
      * Имя отправителя - ФИО
+     *
+     * @Assert\NotBlank()
      */
     protected $name;
 
     /**
+     * E-mail для обратной связи укзанный в форме
+     *
      * @Assert\Email(
      *     message = "E-mail: '{{ value }}' не корректный!"
      * )
-     * E-mail для обратной связи укзанный в форме
      */
     protected $email;
 
