@@ -14,7 +14,7 @@ class CategoryAdmin extends AbstractAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-//        $collection->add('list', $this->getRouterIdParameter().'/view');
+        $collection->add('callback');
     }
 
     protected function configureFormFields(FormMapper $formMapper)
@@ -28,7 +28,7 @@ class CategoryAdmin extends AbstractAdmin
     {
         $datagridMapper->add('name');
     }
-    
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name');

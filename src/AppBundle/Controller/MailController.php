@@ -28,33 +28,26 @@ class MailController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $form = $request->request->get('form');
-            $name = $form['name'];
-            $email = $form['email'];
-            $comment = $form['comment'];
-//            $message = \Swift_Message::newInstance()
-//                ->setSubject('Test e-mail')
-//                ->setFrom($this->container->getParameter('mailer_user'))
-//                ->setTo($this->container->getParameter('mailer_recipient'))
-//                ->setBody(
-//                    $this->renderView(
-//                        'AppBundle:Emails:simple.html.twig',
-//                        [
-//                            'name' => $name,
-//                            'email' => $email,
-//                            'comment' => $comment
-//                        ]
-//                    ),
-//                    'text/html'
-//                );
-//
-//            $this->get('mailer')->send($message);
-//
-//            return $this->redirectToRoute('task_success');
+            $callback = $form->getData();
 
-            $callback->setName($name);
-            $callback->setEmail($email);
-            $callback->setComment($comment);
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Письмо из формы обратной связи')
+                ->setFrom($this->container->getParameter('mailer_user'))
+                ->setTo($this->container->getParameter('mailer_recipient'))
+                ->setBody(
+                    $this->renderView(
+                        'AppBundle:Emails:simple.html.twig',
+                        [
+                            'name' => $callback->getName(),
+                            'email' => $callback->getEmail(),
+                            'comment' => $callback->getComment()
+                        ]
+                    ),
+                    'text/html'
+                );
+
+            $this->get('mailer')->send($message);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($callback);
             $em->flush();
