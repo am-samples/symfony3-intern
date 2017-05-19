@@ -4,6 +4,9 @@ namespace AppBundle\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
+/**
+ * Класс отправки писем
+ */
 class MessageService
 {
     protected $mailer;
@@ -11,6 +14,14 @@ class MessageService
     protected $sender;
     protected $recipient;
 
+
+    /**
+     * MessageService constructor.
+     * @param \Swift_Mailer $mailer
+     * @param \Twig_Environment $twig
+     * @param $sender
+     * @param $recipient
+     */
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, $sender, $recipient)
     {
         $this->mailer = $mailer;
@@ -19,6 +30,12 @@ class MessageService
         $this->recipient = $recipient;
     }
 
+
+    /**
+     * Метод формирования и отправки сообщения на почту
+     *
+     * @param $callback
+     */
     public function send($callback)
     {
         $name = $callback->getName();
