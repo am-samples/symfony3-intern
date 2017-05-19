@@ -21,7 +21,8 @@ class MessageServiceTest extends WebTestCase
 
         $srv = static::createClient();
         $srv->getContainer()->get('app.message_service');
-//        $this->assertEquals($message, $message);
+//        $this->assertEquals($message, $srv->request());
+
 //        $this->assertTrue($message->concreteMethod('send'));
 
 
