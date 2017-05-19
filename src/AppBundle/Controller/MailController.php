@@ -12,7 +12,6 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 
 class MailController extends Controller
 {
-
     /**
      * Создание формы и обработка данных (отправка, валидация)
      *
@@ -30,27 +29,11 @@ class MailController extends Controller
 
             $callback = $form->getData();
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Письмо из формы обратной связи')
-                ->setFrom($this->container->getParameter('mailer_user'))
-                ->setTo($this->container->getParameter('mailer_recipient'))
-                ->setBody(
-                    $this->renderView(
-                        'AppBundle:Emails:simple.html.twig',
-                        [
-                            'name' => $callback->getName(),
-                            'email' => $callback->getEmail(),
-                            'comment' => $callback->getComment()
-                        ]
-                    ),
-                    'text/html'
-                );
+            $mail = $this->container->get('app.message_service');
+            $mail->send($callback);
 
-            $this->get('mailer')->send($message);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($callback);
-            $em->flush();
+            $form_data = $this->container->get('app.database_service');
+            $form_data->save($callback);
 
             return $this->redirectToRoute('task_success');
         }

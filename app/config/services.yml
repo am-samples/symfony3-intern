@@ -2,6 +2,8 @@
 # http://symfony.com/doc/current/service_container.html
 parameters:
     #parameter_name: value
+    sender: debug@tradedealer.ru
+    recipient: a.malozemov@tradedealer.ru
 
 services:
     #service_name:
@@ -13,3 +15,11 @@ services:
             arguments: [~, AppBundle\Entity\Callback, ~]
             tags:
                 - { name: sonata.admin, manager_type: orm, group: Категории, label: Заявки }
+
+    app.message_service:
+        class: AppBundle\Service\MessageService
+        arguments: ['@mailer', '@twig', '%sender%', '%recipient%']
+
+    app.database_service:
+        class: AppBundle\Service\DbService
+        arguments: ['@doctrine.orm.entity_manager']
