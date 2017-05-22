@@ -6,36 +6,32 @@ use AppBundle\Entity\Callback;
 use Prophecy\Call\Call;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use AppBundle\Service\MessageService;
-use Swift_Mailer;
+use AppBundle\Service\CallbackService;
+use Doctrine\ORM\EntityManager;
 
 class MessageServiceTest extends WebTestCase
 {
-
-    public function test_send()
+    public function test_save()
     {
 
         $client = self::createClient();
 
-        $mailer = $this->getMockBuilder(Swift_Mailer::class)
-            ->setMethods(['send'])
+        $save = $this->getMockBuilder(EntityManager::class)
+            ->setMethods(['persist', 'flush'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mailer
+        $save
             ->expects($this->once())
-            ->method('send');
-
-        $twig = $client->getContainer()->get('twig');
+            ->method('persist');
 
         $callback = new Callback();
         $callback->setName = 'Alex Malozemov';
         $callback->setEmail = 'a.malozemov@tradedealer.ru';
         $callback->setComment = 'Test comment';
 
-        $msg = new MessageService($mailer, $twig, 'debug@tradedealer.ru', 'a.malozemov@tradedealer.ru');
+        $ex = new CallbackService($save);
 
-        $msg->send($callback);
-
+        $ex->save($callback);
     }
 }

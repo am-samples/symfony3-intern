@@ -21,5 +21,5 @@ services:
         arguments: ['@mailer', '@twig', '%sender%', '%recipient%']
 
     app.database_service:
-        class: AppBundle\Service\DbService
+        class: AppBundle\Service\CallbackService
         arguments: ['@doctrine.orm.entity_manager']

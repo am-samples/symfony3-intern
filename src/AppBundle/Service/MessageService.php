@@ -14,7 +14,6 @@ class MessageService
     protected $sender;
     protected $recipient;
 
-
     /**
      * MessageService constructor.
      * @param \Swift_Mailer $mailer
@@ -29,7 +28,6 @@ class MessageService
         $this->sender = $sender;
         $this->recipient = $recipient;
     }
-
 
     /**
      * Метод формирования и отправки сообщения на почту

@@ -11,7 +11,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  *
  * @param $callback
  */
-class DbService
+class CallbackService
 {
     protected $em;
 
