@@ -3,10 +3,9 @@
 namespace Tests\AppBundle\Controller;
 
 use AppBundle\Entity\Callback;
-use Prophecy\Call\Call;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use AppBundle\Service\MessageService;
+use AppBundle\Service\MessageService as MsgService;
 use Swift_Mailer;
 
 class MessageServiceTest extends WebTestCase
@@ -33,7 +32,7 @@ class MessageServiceTest extends WebTestCase
         $callback->setEmail = 'a.malozemov@tradedealer.ru';
         $callback->setComment = 'Test comment';
 
-        $msg = new MessageService($mailer, $twig, 'debug@tradedealer.ru', 'a.malozemov@tradedealer.ru');
+        $msg = new MsgService($mailer, $twig, 'debug@tradedealer.ru', 'a.malozemov@tradedealer.ru');
 
         $msg->send($callback);
 
