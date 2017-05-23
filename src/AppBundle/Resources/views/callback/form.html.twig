@@ -3,6 +3,12 @@
 {% block body %}
     <h1 align="center">Hello TradeDealer! </h1>
     <div style="margin: 0 auto; width: 350px;">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                Выйти
+            </a>
+        {% endif %}
         {% form_theme form 'bootstrap_3_layout.html.twig' %}
         {{ form_start(form, {'attr': {'class': 'form-group row', 'action': '/app_dev.php/callback'} } ) }}
         {{ form_widget(form) }}

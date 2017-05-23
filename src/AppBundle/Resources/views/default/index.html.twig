@@ -1,9 +1,16 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
+
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        Выйти
+                    </a>
+                {% endif %}
                 <h1>Hello TradeDealer! </h1>
             </div>
 
