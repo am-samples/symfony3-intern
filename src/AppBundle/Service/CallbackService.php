@@ -35,4 +35,15 @@ class CallbackService
         $em->persist($callback);
         $em->flush();
     }
+
+    public function showCallback()
+    {
+        $sql = "SELECT `name`, `email`, `comment` FROM hellotrade";
+        $em = $this->em;
+        $query = $em->getConnection()->prepare($sql);
+        $query->execute();
+        $resQuery = $query->fetchAll();
+
+        return $resQuery;
+    }
 }
