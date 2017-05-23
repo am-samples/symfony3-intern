@@ -15,7 +15,7 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', 'text');
-        $formMapper->add('email', 'text');
+        $formMapper->add('email', 'email');
         $formMapper->add('comment', 'text');
 
     }
