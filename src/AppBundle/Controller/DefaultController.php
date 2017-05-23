@@ -17,7 +17,6 @@ class DefaultController extends Controller
        return $this->render('AppBundle:default:index.html.twig');
     }
 
-
     /**
      * @Route("/hello", name="hello_name")
      */
@@ -26,11 +25,4 @@ class DefaultController extends Controller
         return $this->render('AppBundle:default:index.html.twig');
 
     }
-
-//    public function showCallback()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $query = $em->createQuery("SELECT `name`, `email`, `comment` FROM `hellotrade`");
-//        return $query->getResult();
-//    }
 }
