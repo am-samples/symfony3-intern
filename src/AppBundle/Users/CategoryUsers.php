@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CategoryUsers extends AbstractAdmin
 {
@@ -18,7 +19,16 @@ class CategoryUsers extends AbstractAdmin
         $formMapper->add('username', 'text');
         $formMapper->add('email',   'text');
         $formMapper->add('enabled',   'checkbox');
-        $formMapper->add('roles', 'collection');
+
+        $option = array('multiple' => true);
+        $formMapper->add('roles', ChoiceType::class, array(
+            'multiple' => true,
+            'choices'  => array(
+                'Пользователь' => 'ROLE_USER',
+                'Менеджер' => 'ROLE_MANAGER',
+                'Администратор' => 'ROLE_ADMIN',
+            )
+        ));
 
     }
 
@@ -26,6 +36,11 @@ class CategoryUsers extends AbstractAdmin
     {
         $listMapper->addIdentifier('username');
         $listMapper->addIdentifier('email');
-        $listMapper->addIdentifier('roles');
+        $listMapper->addIdentifier('roles')->add('_action', 'actions', array(
+            'actions' => array(
+                'edit' => array(),
+                'delete' => array(),
+            )
+        ));
     }
 }

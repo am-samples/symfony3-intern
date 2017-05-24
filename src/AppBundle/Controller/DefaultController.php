@@ -30,6 +30,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/cms", name="cms")
+     */
+    public function cmsAction(Request $request)
+    {
+
+    }
+
+    /**
      * @Route("/orders", name="orders")
      */
     public function ordersAction(Request $request)
