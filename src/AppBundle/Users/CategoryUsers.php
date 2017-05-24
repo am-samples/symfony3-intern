@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Manager;
+namespace AppBundle\Users;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use FOS\UserBundle\Model\UserManagerInterface;
 
-class CategoryManager extends AbstractAdmin
+class CategoryUsers extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 
@@ -17,6 +17,7 @@ class CategoryManager extends AbstractAdmin
     {
         $formMapper->add('username', 'text');
         $formMapper->add('email',   'text');
+        $formMapper->add('enabled',   'checkbox');
         $formMapper->add('roles', 'collection');
 
     }

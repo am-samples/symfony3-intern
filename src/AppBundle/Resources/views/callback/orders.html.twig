@@ -1,0 +1,32 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <div style="margin: 0 auto; padding-top: 30px; width: 550px;">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                Выйти
+            </a>
+        {% endif %}
+        <h1>Заявки из формы</h1>
+        {%if is_granted('ROLE_MANAGER')%}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="success">Имя</th>
+                        <th class="success">E-mail</th>
+                        <th class="warning">Комментарий</th>
+                    </tr>
+                </thead>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.email }}</td>
+                    <td>{{ order.comment }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {%endif%}
+    </div>
+{% endblock %}

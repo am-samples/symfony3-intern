@@ -6,6 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\Callback;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 class DefaultController extends Controller
 {
@@ -25,4 +28,18 @@ class DefaultController extends Controller
         return $this->render('AppBundle:default:index.html.twig');
 
     }
+
+    /**
+     * @Route("/orders", name="orders")
+     */
+    public function ordersAction(Request $request)
+    {
+        $clientManager = $mail = $this->container->get('app.database_service');
+        $res = $clientManager->showCallback();
+
+        return $this->render('AppBundle:callback:orders.html.twig', [
+            'orders' => $res,
+        ]);
+    }
+
 }

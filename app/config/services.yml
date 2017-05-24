@@ -17,7 +17,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Категории, label: Заявки }
 
     manager.catgory:
-        class: AppBundle\Manager\CategoryManager
+        class: AppBundle\Users\CategoryUsers
         arguments: [~, AppBundle\Entity\User, ~]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Категории, label: Пользователи}
