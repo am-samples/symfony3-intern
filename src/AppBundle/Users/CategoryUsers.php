@@ -14,33 +14,58 @@ class CategoryUsers extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 
+    protected static function flattenRoles($rolesHierarchy)
+    {
+        $flatRoles = [];
+        $namesOfRoles = [
+            'ROLE_USER' =>    "Пользователь",
+            'ROLE_MANAGER' => "Менеджер",
+            'ROLE_ADMIN' =>   "Администратор"
+        ];
+        foreach($rolesHierarchy as $roles) {
+
+            if(empty($roles)) {
+                continue;
+            }
+
+            foreach($roles as $role) {
+                if(!isset($flatRoles[$role])) {
+
+                    isset($namesOfRoles[$role]) ? $flatRoles[$namesOfRoles[$role]] = $role : $flatRoles[$role] = $role;
+                }
+            }
+        }
+
+        return $flatRoles;
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $container = $this->getConfigurationPool()->getContainer();
+        $roles = $container->getParameter('security.role_hierarchy.roles');
+        $rolesChoices = self::flattenRoles($roles);
+
         $formMapper->add('username', 'text');
         $formMapper->add('email',   'text');
         $formMapper->add('enabled',   'checkbox');
-
-        $option = array('multiple' => true);
-        $formMapper->add('roles', ChoiceType::class, array(
+        $formMapper->add('roles', ChoiceType::class, [
             'multiple' => true,
-            'choices'  => array(
-                'Пользователь' => 'ROLE_USER',
-                'Менеджер' => 'ROLE_MANAGER',
-                'Администратор' => 'ROLE_ADMIN',
-            )
-        ));
+            'choices'  => $rolesChoices
+        ]);
 
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('username');
-        $listMapper->addIdentifier('email');
-        $listMapper->addIdentifier('roles')->add('_action', 'actions', array(
-            'actions' => array(
-                'edit' => array(),
-                'delete' => array(),
-            )
-        ));
+        $listMapper
+            ->addIdentifier('username')
+            ->addIdentifier('email')
+            ->addIdentifier('roles')
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ]);
     }
 }
