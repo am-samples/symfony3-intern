@@ -53,10 +53,11 @@ class CategoryUsers extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('username', 'text');
-        $formMapper->add('email',   'text');
-        $formMapper->add('enabled',   'checkbox');
-        $formMapper->add('roles', ChoiceType::class, [
+        $formMapper
+            ->add('username', 'text')
+            ->add('email',   'text')
+            ->add('enabled',   'checkbox')
+            ->add('roles', ChoiceType::class, [
             'multiple' => true,
             'choices'  => $this->configureRoles()
         ]);
