@@ -25,13 +25,14 @@ class CategoryUsers extends AbstractAdmin
 
     static protected function flattenRoles($rolesHierarchy)
     {
+        $keys = [];
         $flatRoles = [];
         $namesOfRoles = [
             'ROLE_USER' =>    "Пользователь",
             'ROLE_MANAGER' => "Менеджер",
             'ROLE_ADMIN' =>   "Администратор"
         ];
-        foreach($rolesHierarchy as $roles) {
+        foreach($rolesHierarchy as $k => $roles) {
 
             if(empty($roles)) {
                 continue;
@@ -39,13 +40,13 @@ class CategoryUsers extends AbstractAdmin
 
             foreach($roles as $role) {
                 $flatRoles[] = $role;
+                $keys[] = isset($namesOfRoles[$role]) ? $namesOfRoles[$role] : $role;
             }
         }
 
         $_flatRoles = [];
         foreach ($flatRoles as $k => $flatRole) {
-            $k = isset($namesOfRoles[$flatRole]) ? $namesOfRoles[$flatRole] : $flatRole;
-            $_flatRoles[$k] = $flatRole;
+            $_flatRoles[$keys[$k]] = $flatRole;
         }
 
         return $_flatRoles;
