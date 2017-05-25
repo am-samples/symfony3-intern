@@ -16,11 +16,17 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Категории, label: Заявки }
 
-    manager.catgory:
+    manager.category:
         class: AppBundle\Admin\UsersAdmin
         arguments: [~, AppBundle\Entity\User, ~]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Категории, label: Пользователи}
+
+    news.category:
+        class: AppBundle\Admin\NewsAdmin
+        arguments: [~, AppBundle\Entity\News, ~]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Категории, label: Новости}
 
     app.message_service:
         class: AppBundle\Service\MessageService
