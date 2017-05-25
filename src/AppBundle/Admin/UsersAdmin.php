@@ -25,7 +25,7 @@ class UsersAdmin extends AbstractAdmin
      *
      * @return array
      */
-    protected function configureRoles()
+    protected function getRolesFromConfig()
     {
         $container = $this->getConfigurationPool()->getContainer();
         $roles = $container->getParameter('security.role_hierarchy.roles');
