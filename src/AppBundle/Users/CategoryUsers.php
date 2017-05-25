@@ -14,7 +14,16 @@ class CategoryUsers extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 
-    protected static function flattenRoles($rolesHierarchy)
+    protected function configureRoles()
+    {
+        $container = $this->getConfigurationPool()->getContainer();
+        $roles = $container->getParameter('security.role_hierarchy.roles');
+        $rolesChoices = self::flattenRoles($roles);
+
+        return $rolesChoices;
+    }
+
+    static protected function flattenRoles($rolesHierarchy)
     {
         $flatRoles = [];
         $namesOfRoles = [
@@ -22,35 +31,34 @@ class CategoryUsers extends AbstractAdmin
             'ROLE_MANAGER' => "Менеджер",
             'ROLE_ADMIN' =>   "Администратор"
         ];
-        foreach($rolesHierarchy as $roles) {
+        foreach($rolesHierarchy as $k => $roles) {
 
             if(empty($roles)) {
                 continue;
             }
 
             foreach($roles as $role) {
-                if(!isset($flatRoles[$role])) {
-
-                    isset($namesOfRoles[$role]) ? $flatRoles[$namesOfRoles[$role]] = $role : $flatRoles[$role] = $role;
-                }
+                $flatRoles[] = $role;
             }
         }
 
-        return $flatRoles;
+        $_flatRoles = [];
+        foreach ($flatRoles as $k => $flatRole) {
+            $k = isset($namesOfRoles[$flatRole]) ? $namesOfRoles[$flatRole] : $flatRole;
+            $_flatRoles[$k] = $flatRole;
+        }
+
+        return $_flatRoles;
     }
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $container = $this->getConfigurationPool()->getContainer();
-        $roles = $container->getParameter('security.role_hierarchy.roles');
-        $rolesChoices = self::flattenRoles($roles);
-
         $formMapper->add('username', 'text');
         $formMapper->add('email',   'text');
         $formMapper->add('enabled',   'checkbox');
         $formMapper->add('roles', ChoiceType::class, [
             'multiple' => true,
-            'choices'  => $rolesChoices
+            'choices'  => $this->configureRoles()
         ]);
 
     }
@@ -60,7 +68,10 @@ class CategoryUsers extends AbstractAdmin
         $listMapper
             ->addIdentifier('username')
             ->addIdentifier('email')
-            ->addIdentifier('roles')
+            ->addIdentifier('roles', 'choice', [
+                'multiple'=> true,
+                'choices'  => array_flip($this->configureRoles())
+            ])
             ->add('_action', 'actions', [
                 'actions' => [
                     'edit' => [],

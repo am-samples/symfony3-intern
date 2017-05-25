@@ -34,7 +34,7 @@ class DefaultController extends Controller
      */
     public function cmsAction(Request $request)
     {
-
+        return true;
     }
 
     /**
