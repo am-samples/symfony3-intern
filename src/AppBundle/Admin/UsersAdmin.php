@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class Users extends AbstractAdmin
+class UsersAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 

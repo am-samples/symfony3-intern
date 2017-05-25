@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class Admin extends AbstractAdmin
+class CallbackAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'callback';
 
