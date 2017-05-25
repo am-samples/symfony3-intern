@@ -18,11 +18,12 @@ class NewsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('date', 'date')
-            ->add('author', 'text')
             ->add('title', 'text')
-            ->add('content', 'text');
-
+            ->add('slug', 'text')
+            ->add('publication_date', 'date')
+            ->add('content', 'text')
+            ->add('active', 'checkbox')
+            ->add('description', 'text');
     }
 
     /**
@@ -33,10 +34,15 @@ class NewsAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('date')
-            ->addIdentifier('author')
             ->addIdentifier('title')
+            ->addIdentifier('slug')
+                    ->addIdentifier('publication_date', 'date', [
+                'format' => 'Y-m-d',
+                'timezone' => 'America/New_York'
+            ])
             ->addIdentifier('content')
+            ->addIdentifier('active')
+            ->addIdentifier('description')
             ->add('_action', 'actions', [
                 'actions' => [
                     'edit' => [],

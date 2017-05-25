@@ -18,64 +18,45 @@ class News
     protected $id;
 
     /**
-     * Дата публикации
+     * Заголовок
      *
-     * @ORM\Column(type="date")
-     */
-    protected $date;
-
-    /**
-     * Автор публикации
-     *
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $author;
-
-    /**
-     * Заголовок Новости
-     *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     protected $title;
 
     /**
-     * Содержание Новости
+     * Тема
+     *
+     * @ORM\Column(type="string", length=128)
+     */
+    protected $slug;
+    /**
+     * Дата публикации
+     *
+     * @ORM\Column(type="date")
+     */
+    protected $publicationDate;
+
+    /**
+     * Содержание новости
      *
      * @ORM\Column(type="text")
      */
     protected $content;
 
     /**
-     * @return mixed
+     * Cтатус новости
+     *
+     * @ORM\Column(type="boolean")
      */
-    public function getDate()
-    {
-        return $this->date;
-    }
+    protected $active;
 
     /**
-     * @param mixed $date
+     * Описание новости
+     *
+     * @ORM\Column(type="text")
      */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
+    protected $description;
 
     /**
      * @return mixed
@@ -96,6 +77,38 @@ class News
     /**
      * @return mixed
      */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublicationDate()
+    {
+        return $this->publicationDate;
+    }
+
+    /**
+     * @param mixed $publicationDate
+     */
+    public function setPublicationDate($publicationDate)
+    {
+        $this->publicationDate = $publicationDate;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getContent()
     {
         return $this->content;
@@ -109,5 +122,36 @@ class News
         $this->content = $content;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
 }
