@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Users;
+namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class CategoryUsers extends AbstractAdmin
+class Users extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 
