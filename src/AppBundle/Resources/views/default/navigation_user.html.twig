@@ -5,11 +5,11 @@
     </a>
 {% endif %}
 {%if is_granted('ROLE_MANAGER')%}
-    |<a href="{{ path('orders') }}"> Заявки</a>
+    |<a href="{{ path('callback_list') }}"> Заявки</a>
 {% endif %}
 
 {%if is_granted('ROLE_ADMIN')%}
-    |<a href="{{ path('cms') }}"> CMS</a>
+    |<a href="{{ path('sonata_admin_redirect') }}"> CMS</a>
 {% endif %}
 <br>
 {%if is_granted('IS_AUTHENTICATED_REMEMBERED')%}

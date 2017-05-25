@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-class MailController extends Controller
+class CallbackController extends Controller
 {
     /**
      * Создание формы и обработка данных (отправка, валидация)
@@ -35,7 +35,7 @@ class MailController extends Controller
             $form_data = $this->container->get('app.database_service');
             $form_data->save($callback);
 
-            return $this->redirectToRoute('task_success');
+            return $this->redirectToRoute('callback_success');
         }
 
         return $this->render('AppBundle:callback:form.html.twig', [
@@ -46,12 +46,25 @@ class MailController extends Controller
     /**
      * Thank you page.
      *
-     * @Route("/task_success", name="task_success")
+     * @Route("/callback_success", name="callback_success")
      *
      */
-    public function taskSuccessAction(Request $request)
+    public function callbackSuccessAction(Request $request)
     {
         return $this->render('AppBundle:callback:form_success.html.twig');
+    }
+
+    /**
+     * @Route("/callback_list", name="callback_list")
+     */
+    public function listAction(Request $request)
+    {
+        $clientManager = $mail = $this->container->get('app.database_service');
+        $res = $clientManager->showCallback();
+
+        return $this->render('AppBundle:callback:list.html.twig', [
+            'orders' => $res,
+        ]);
     }
 
 }

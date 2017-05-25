@@ -3,7 +3,7 @@
 {% block body %}
 
     <div style="margin: 0 auto; padding-top: 30px; width: 550px;">
-        {{ include('AppBundle::default/navigation_user.html.twig') }}
+        {{ include('AppBundle:default:navigation_user.html.twig') }}
         <h1>Заявки из формы</h1>
         {%if is_granted('ROLE_MANAGER')%}
             <table class="table table-bordered">

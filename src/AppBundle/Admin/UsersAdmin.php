@@ -17,8 +17,11 @@ class UsersAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 
-    public $keys = [];
-    public $flatRoles = [];
+    static public $namesOfRoles = [
+        'ROLE_USER' =>    "Пользователь",
+        'ROLE_MANAGER' => "Менеджер",
+        'ROLE_ADMIN' =>   "Администратор"
+    ];
 
     /**
      * Получение иерархии ролей из конфигурационного файла
@@ -42,30 +45,25 @@ class UsersAdmin extends AbstractAdmin
      */
     static protected function flattenRoles($rolesHierarchy)
     {
-        $namesOfRoles = [
-            'ROLE_USER' =>    "Пользователь",
-            'ROLE_MANAGER' => "Менеджер",
-            'ROLE_ADMIN' =>   "Администратор"
-        ];
+        $namesOfRoles = self::$namesOfRoles;
 
-        foreach($rolesHierarchy as $k => $roles) {
+        $flatRoles = [];
+        foreach($rolesHierarchy as $roles) {
 
             if(empty($roles)) {
                 continue;
             }
 
             foreach($roles as $role) {
-                $flatRoles[] = $role;
-                $keys[] = isset($namesOfRoles[$role]) ? $namesOfRoles[$role] : $role;
+                $flatRoles[$role] = $role;
             }
         }
 
-        $_flatRoles = [];
-        foreach ($flatRoles as $k => $flatRole) {
-            $_flatRoles[$keys[$k]] = $flatRole;
+        foreach ($flatRoles as &$flatRole) {
+            $flatRole = isset($namesOfRoles[$flatRole]) ? $namesOfRoles[$flatRole] : $flatRole;
         }
 
-        return $_flatRoles;
+        return $flatRoles;
     }
 
     /**
@@ -81,7 +79,7 @@ class UsersAdmin extends AbstractAdmin
             ->add('enabled',   'checkbox')
             ->add('roles', ChoiceType::class, [
             'multiple' => true,
-            'choices'  => $this->configureRoles()
+            'choices'  => array_flip($this->getRolesFromConfig())
         ]);
 
     }
@@ -98,7 +96,7 @@ class UsersAdmin extends AbstractAdmin
             ->addIdentifier('email')
             ->addIdentifier('roles', 'choice', [
                 'multiple'=> true,
-                'choices'  => array_flip($this->configureRoles())
+                'choices'  => $this->getRolesFromConfig()
             ])
             ->add('_action', 'actions', [
                 'actions' => [
