@@ -31,7 +31,7 @@ class CategoryUsers extends AbstractAdmin
             'ROLE_MANAGER' => "Менеджер",
             'ROLE_ADMIN' =>   "Администратор"
         ];
-        foreach($rolesHierarchy as $k => $roles) {
+        foreach($rolesHierarchy as $roles) {
 
             if(empty($roles)) {
                 continue;

@@ -5,25 +5,8 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                    <a href="{{ path('fos_user_security_logout') }}">
-                        Выйти
-                    </a>
-                {% endif %}
-                {%if is_granted('ROLE_MANAGER')%}
-                |<a href="{{ path('orders') }}"> Заявки</a>
-                {% endif %}
-
-                {%if is_granted('ROLE_ADMIN')%}
-                    |<a href="{{ path('cms') }}"> CMS</a>
-                {% endif %}
-                <br>
-                {%if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
-                {% else %}
-                    <a href="{{ path('fos_user_security_login') }}">Вход</a>
-                {% endif %}
-
+                {{ include('AppBundle::default/navigation_user.html.twig') }}
+                {#{% block navigation_user %} {% endblock navigation_user %}#}
                 <h1>Hello TradeDealer! </h1>
             </div>
             <div id="status">
