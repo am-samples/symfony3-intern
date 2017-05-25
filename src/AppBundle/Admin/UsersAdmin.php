@@ -10,10 +10,21 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+/**
+ * Класс для работы с зарегистрированными пользователями
+ */
 class UsersAdmin extends AbstractAdmin
 {
     protected $baseRoutePattern = 'users';
 
+    public $keys = [];
+    public $flatRoles = [];
+
+    /**
+     * Получение иерархии ролей из конфигурационного файла
+     *
+     * @return array
+     */
     protected function configureRoles()
     {
         $container = $this->getConfigurationPool()->getContainer();
@@ -23,15 +34,20 @@ class UsersAdmin extends AbstractAdmin
         return $rolesChoices;
     }
 
+    /**
+     * Получение  корректного массива ролей для опций в полях формы и списка
+     *
+     * @param $rolesHierarchy
+     * @return array
+     */
     static protected function flattenRoles($rolesHierarchy)
     {
-        $keys = [];
-        $flatRoles = [];
         $namesOfRoles = [
             'ROLE_USER' =>    "Пользователь",
             'ROLE_MANAGER' => "Менеджер",
             'ROLE_ADMIN' =>   "Администратор"
         ];
+
         foreach($rolesHierarchy as $k => $roles) {
 
             if(empty($roles)) {
@@ -52,6 +68,11 @@ class UsersAdmin extends AbstractAdmin
         return $_flatRoles;
     }
 
+    /**
+     * Формирование полей формы для работы с данными
+     *
+     * @param FormMapper $formMapper
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -65,6 +86,11 @@ class UsersAdmin extends AbstractAdmin
 
     }
 
+    /**
+     * Формирование полей списка записей
+     *
+     * @param ListMapper $listMapper
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

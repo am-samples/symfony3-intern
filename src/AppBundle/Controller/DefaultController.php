@@ -30,6 +30,8 @@ class DefaultController extends Controller
     }
 
     /**
+     * Action для возможности роутинга из шаблона twig
+     *
      * @Route("/cms", name="cms")
      */
     public function cmsAction(Request $request)
