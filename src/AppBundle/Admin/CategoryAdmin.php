@@ -14,9 +14,10 @@ class CategoryAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', 'text');
-        $formMapper->add('email', 'email');
-        $formMapper->add('comment', 'text');
+        $formMapper
+            ->add('name', 'text')
+            ->add('email', 'email')
+            ->add('comment', 'text');
 
     }
 
@@ -27,8 +28,14 @@ class CategoryAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
-        $listMapper->addIdentifier('email');
-        $listMapper->addIdentifier('comment');
+        $listMapper->addIdentifier('name')
+            ->addIdentifier('email')
+            ->addIdentifier('comment')
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ],
+            ]);
     }
 }
