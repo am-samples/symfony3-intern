@@ -32,6 +32,10 @@ services:
         class: AppBundle\Service\MessageService
         arguments: ['@mailer', '@twig', '%sender%', '%recipient%']
 
-    app.database_service:
+    app.database_service_callback:
         class: AppBundle\Service\CallbackService
+        arguments: ['@doctrine.orm.entity_manager']
+
+    app.database_service_news:
+        class: AppBundle\Service\NewsService
         arguments: ['@doctrine.orm.entity_manager']

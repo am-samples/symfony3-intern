@@ -17,7 +17,11 @@ class NewsController extends Controller
      */
     public function newsAction()
     {
+        $clientManager = $mail = $this->container->get('app.database_service_news');
+        $news = $clientManager->showNews();
 
-        return $this->render('AppBundle:news:news.html.twig');
+        return $this->render('AppBundle:news:news.html.twig',[
+            'news' => $news,
+        ]);
     }
 }
