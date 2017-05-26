@@ -21,7 +21,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('title', 'text')
             ->add('slug', 'text')
             ->add('publicationDate', 'datetime')
-            ->add('content', 'text')
+            ->add('content', 'textarea')
             ->add('active', 'checkbox')
             ->add('description', 'text');
     }
