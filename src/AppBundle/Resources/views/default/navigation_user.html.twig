@@ -2,7 +2,8 @@
     {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
     <a href="{{ path('fos_user_security_logout') }}">
         Выйти
-    </a>
+    </a> |
+     <a href="{{ path('news') }}">Новости</a>
 {% endif %}
 {%if is_granted('ROLE_MANAGER')%}
     |<a href="{{ path('callback_list') }}"> Заявки</a>

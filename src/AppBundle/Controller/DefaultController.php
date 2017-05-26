@@ -29,17 +29,4 @@ class DefaultController extends Controller
 
     }
 
-    /**
-     * @Route("/orders", name="orders")
-     */
-    public function ordersAction(Request $request)
-    {
-        $clientManager = $mail = $this->container->get('app.database_service');
-        $res = $clientManager->showCallback();
-
-        return $this->render('AppBundle:callback:orders.html.twig', [
-            'orders' => $res,
-        ]);
-    }
-
 }

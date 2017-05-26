@@ -1,0 +1,31 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <div style="margin: 0 auto; padding-top: 30px; width: 950px;">
+        {{ include('AppBundle:default:navigation_user.html.twig') }}
+        <h1>Новости</h1>
+        {%if is_granted('ROLE_MANAGER')%}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="success">Номер</th>
+                    <th class="success">Заголовок</th>
+                    <th class="success">Дата</th>
+                    <th class="warning">Содержание</th>
+                    <th class="warning">Описание</th>
+                </tr>
+                </thead>
+                {% for item_news in news %}
+                    <tr>
+                        <td>{{ item_news.id }}</td>
+                        <td>{{ item_news.title }}</td>
+                        <td>{{ item_news.publication_date }}</td>
+                        <td>{{ item_news.content|slice(0, 200)}}</td>
+                        <td>{{ item_news.description }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {%endif%}
+    </div>
+{% endblock %}
