@@ -11,10 +11,16 @@ services:
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
 
     admin.category:
-            class: AppBundle\Admin\CategoryAdmin
-            arguments: [~, AppBundle\Entity\Callback, ~]
-            tags:
-                - { name: sonata.admin, manager_type: orm, group: Категории, label: Заявки }
+        class: AppBundle\Admin\CallbackAdmin
+        arguments: [~, AppBundle\Entity\Callback, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Категории, label: Заявки }
+
+    manager.catgory:
+        class: AppBundle\Admin\UsersAdmin
+        arguments: [~, AppBundle\Entity\User, ~]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Категории, label: Пользователи}
 
     app.message_service:
         class: AppBundle\Service\MessageService

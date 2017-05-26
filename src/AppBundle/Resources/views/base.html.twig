@@ -10,7 +10,8 @@
     {% endstylesheets %}
 </head>
 <body>
-{% block body %}{% endblock %}
+{% block body %}
+{% endblock %}
 {% block javascripts %}
     {% javascripts '@jquery' %}
         <script src="{{ asset_url }}"></script>
