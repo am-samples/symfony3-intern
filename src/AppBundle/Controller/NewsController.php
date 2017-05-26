@@ -17,6 +17,7 @@ class NewsController extends Controller
      */
     public function newsAction()
     {
+
         return $this->render('AppBundle:news:news.html.twig');
     }
 }

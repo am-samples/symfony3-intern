@@ -33,7 +33,7 @@ class News
     /**
      * Дата публикации
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     protected $publicationDate;
 
@@ -54,7 +54,7 @@ class News
     /**
      * Описание новости
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
 

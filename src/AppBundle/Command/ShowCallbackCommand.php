@@ -9,7 +9,6 @@ use Symfony\Component\Console\Helper\Table;
 use AppBundle\Entity\Callback;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
-
 class ShowCallbackCommand extends ContainerAwareCommand
 {
     protected function configure()
