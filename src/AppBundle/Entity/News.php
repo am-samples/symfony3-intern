@@ -73,6 +73,14 @@ class News
     /**
      * @return mixed
      */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getTitle()
     {
         return $this->title;
@@ -190,26 +198,13 @@ class News
         }
 
         $this->getImage()->move(
-            self::SERVER_PATH_TO_IMAGE_FOLDER,
+            self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId(),
             $this->getImage()->getClientOriginalName()
         );
 
-        $this->image = self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getImage()->getClientOriginalName();
+        $this->image = self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId()."/".$this->getImage()->getClientOriginalName();
 
         $this->setImage(null);
     }
-
-    /**
-     * Lifecycle callback to upload the file to the server
-     */
-//    public function lifecycleFileUpload()
-//    {
-//        $this->upload();
-//    }
-//
-//    public function refreshUpdated()
-//    {
-//        return $this;
-//    }
 
 }

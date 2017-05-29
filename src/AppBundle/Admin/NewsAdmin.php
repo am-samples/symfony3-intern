@@ -29,6 +29,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('description', 'text')
             ->add('image', 'file', [
                 'label' => 'Image',
+                'required' => false,
                 'data_class' => null,
             ]);
     }
