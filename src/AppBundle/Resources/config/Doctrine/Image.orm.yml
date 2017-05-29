@@ -1,13 +1,13 @@
-AppBundleBundle\Entity\News:
-    type: entity
-    repositoryClass: AppBundle\Entity\Repositories\ImageRepository
-    table: news
-    fields:
-        image:
-            type:         string
-            length:       255
-
-        # ... other fields ...
-    lifecycleCallbacks:
-        prePersist:   [ lifecycleFileUpload ]
-        preUpdate:    [ lifecycleFileUpload ]
+#AppBundleBundle\Entity\News:
+#    type: entity
+#    repositoryClass: AppBundle\Entity\Repositories\ImageRepository
+#    table: news
+#    fields:
+#        image:
+#            type:         string
+#            length:       255
+#
+#        # ... other fields ...
+#    lifecycleCallbacks:
+#        prePersist:   [ lifecycleFileUpload ]
+#        preUpdate:    [ lifecycleFileUpload ]

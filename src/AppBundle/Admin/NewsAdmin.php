@@ -6,10 +6,12 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\File;
-
+use AppBundle\Entity\News;
+use Sonata\AdminBundle\Admin\AdminInterface;
 
 class NewsAdmin extends AbstractAdmin
 {
@@ -20,6 +22,7 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+
         $formMapper
             ->add('title', 'text')
             ->add('slug', 'text')
@@ -31,7 +34,14 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Изображение',
                 'required' => false,
                 'data_class' => null,
+            ])
+            ->add('del', 'checkbox', [
+                'label'=> 'Удалить изображение' ,
+                'required' => false,
             ]);
+
+
+
     }
 
     /**
@@ -65,10 +75,22 @@ class NewsAdmin extends AbstractAdmin
 //        $this->manageFileUpload($image);
 //    }
 //
-//    public function preUpdate($image)
+//    public function postUpdate($image)
 //    {
-//        $this->manageFileUpload($image);
+//        $news = new News();
+//        $news->setImage($image);
+//        $image = $news->getImage();
+//        $img = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
+//        $img->upload($image);
 //    }
+
+
+    public function preUpdate($image)
+    {
+        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
+        $correctPath = $imgService->upload($image);
+        $image->setImage($correctPath);
+    }
 //
 //    private function manageFileUpload($image)
 //    {

@@ -71,6 +71,13 @@ class News
     protected $description;
 
     /**
+     * Статус изображения
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $del;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -185,26 +192,42 @@ class News
     /**
      * @param mixed $image
      */
-    public function setImage(File $image)
+    public function setImage($image)
     {
         $this->image = $image;
-        $this->upload();
+
     }
 
-    public function upload()
+//    public function upload()
+//    {
+//        if (null === $this->getImage()) {
+//            return;
+//        }
+//
+//        $this->getImage()->move(
+//            self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId(),
+//            $this->getImage()->getClientOriginalName()
+//        );
+//
+//        $this->image = self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId()."/".$this->getImage()->getClientOriginalName();
+//
+//        $this->setImage(null);
+//    }
+
+    /**
+     * @return mixed
+     */
+    public function getDel()
     {
-        if (null === $this->getImage()) {
-            return;
-        }
+        return $this->del;
+    }
 
-        $this->getImage()->move(
-            self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId(),
-            $this->getImage()->getClientOriginalName()
-        );
-
-        $this->image = self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId()."/".$this->getImage()->getClientOriginalName();
-
-        $this->setImage(null);
+    /**
+     * @param mixed $delete
+     */
+    public function setDel($del)
+    {
+        $this->del = $del;
     }
 
 }

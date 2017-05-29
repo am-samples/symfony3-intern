@@ -39,3 +39,7 @@ services:
     app.database_service_news:
         class: AppBundle\Service\NewsService
         arguments: ['@doctrine.orm.entity_manager']
+
+    app.image_upload:
+        class: AppBundle\Service\ImageService
+        arguments: ['@doctrine.orm.entity_manager']
