@@ -26,7 +26,18 @@ class NewsService
 
     public function showNews()
     {
-        $sql = "SELECT `id`, `title`, `publication_date`, `content`, `description` FROM news";
+        $sql = "SELECT * FROM news";
+        $em = $this->em;
+        $query = $em->getConnection()->prepare($sql);
+        $query->execute();
+        $resQuery = $query->fetchAll();
+
+        return $resQuery;
+    }
+
+    public function showNewsById($id)
+    {
+        $sql = "SELECT * FROM news WHERE id={$id}";
         $em = $this->em;
         $query = $em->getConnection()->prepare($sql);
         $query->execute();

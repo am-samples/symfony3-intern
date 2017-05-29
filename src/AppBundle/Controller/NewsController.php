@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class NewsController extends Controller
 {
+    public function clientManager()
+    {
+        $clientManager = $this->container->get('app.database_service_news');
+        return $clientManager;
+    }
     /**
      * Отображение новостей
      *
@@ -16,11 +21,28 @@ class NewsController extends Controller
      *
      */
     public function newsAction()
-    {
-        $clientManager = $mail = $this->container->get('app.database_service_news');
-        $news = $clientManager->showNews();
+
+    {   $cm = $this->clientManager();
+        $news = $cm->showNews();
 
         return $this->render('AppBundle:news:news.html.twig',[
+            'news' => $news,
+        ]);
+    }
+
+    /**
+     * Отображение новостей
+     *
+     * @Route("/news/{id}", name="news_post")
+     *
+     */
+    public function newsPostAction($id)
+    {
+        $cm = $this->clientManager();
+
+        $news = $cm->showNewsById($id);
+
+        return $this->render('AppBundle:news:news_post.html.twig',[
             'news' => $news,
         ]);
     }

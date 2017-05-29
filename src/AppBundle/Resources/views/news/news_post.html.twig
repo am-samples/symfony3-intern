@@ -1,0 +1,20 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <div style="margin: 0 auto; padding-top: 30px; width: 1200px;">
+        {{ include('AppBundle:default:navigation_user.html.twig') }}
+        {%if is_granted('ROLE_MANAGER')%}
+
+                {% for item_news in news %}
+                    <h2>{{ item_news.title }}</h2>
+                    <span><b>Опубликовано</b> - {{ item_news.publication_date }}</span>
+                    <div><img src="/{{ item_news.image }}" alt=""></div>
+                    <article>
+                        {{ item_news.content | raw }}
+                    </article>
+                {% endfor %}
+
+        {%endif%}
+    </div>
+{% endblock %}
