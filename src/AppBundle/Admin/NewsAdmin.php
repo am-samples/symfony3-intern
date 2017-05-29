@@ -7,6 +7,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 class NewsAdmin extends AbstractAdmin
 {
@@ -23,7 +26,11 @@ class NewsAdmin extends AbstractAdmin
             ->add('publicationDate', 'datetime')
             ->add('content', 'textarea')
             ->add('active', 'checkbox')
-            ->add('description', 'text');
+            ->add('description', 'text')
+            ->add('image', 'file', [
+                'label' => 'Image',
+                'data_class' => null,
+            ]);
     }
 
     /**
@@ -35,8 +42,9 @@ class NewsAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('title')
+            ->addIdentifier('image')
             ->addIdentifier('slug')
-                    ->addIdentifier('publicationDate', 'datetime', [
+            ->addIdentifier('publicationDate', 'datetime', [
                 'format' => 'Y-m-d',
                 'timezone' => 'America/New_York'
             ])
@@ -50,4 +58,21 @@ class NewsAdmin extends AbstractAdmin
                 ],
             ]);
     }
+
+//    public function prePersist($image)
+//    {
+//        $this->manageFileUpload($image);
+//    }
+//
+//    public function preUpdate($image)
+//    {
+//        $this->manageFileUpload($image);
+//    }
+//
+//    private function manageFileUpload($image)
+//    {
+//        if ($image->getImage()) {
+//            $image->refreshUpdated();
+//        }
+//    }
 }

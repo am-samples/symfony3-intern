@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile as UploadedImage;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 /**
  * @ORM\Entity
@@ -30,6 +33,15 @@ class News
      * @ORM\Column(type="string", length=128)
      */
     protected $slug;
+
+    const SERVER_PATH_TO_IMAGE_FOLDER = 'assets/upload';
+    /**
+     * Фото новости
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $image;
+
     /**
      * Дата публикации
      *
@@ -153,5 +165,51 @@ class News
     {
         $this->description = $description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage(File $image)
+    {
+        $this->image = $image;
+        $this->upload();
+    }
+
+    public function upload()
+    {
+        if (null === $this->getImage()) {
+            return;
+        }
+
+        $this->getImage()->move(
+            self::SERVER_PATH_TO_IMAGE_FOLDER,
+            $this->getImage()->getClientOriginalName()
+        );
+
+        $this->image = self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getImage()->getClientOriginalName();
+
+        $this->setImage(null);
+    }
+
+    /**
+     * Lifecycle callback to upload the file to the server
+     */
+//    public function lifecycleFileUpload()
+//    {
+//        $this->upload();
+//    }
+//
+//    public function refreshUpdated()
+//    {
+//        return $this;
+//    }
 
 }
