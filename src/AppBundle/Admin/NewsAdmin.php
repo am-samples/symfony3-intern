@@ -70,32 +70,10 @@ class NewsAdmin extends AbstractAdmin
             ]);
     }
 
-//    public function prePersist($image)
-//    {
-//        $this->manageFileUpload($image);
-//    }
-//
-//    public function postUpdate($image)
-//    {
-//        $news = new News();
-//        $news->setImage($image);
-//        $image = $news->getImage();
-//        $img = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
-//        $img->upload($image);
-//    }
-
-
     public function preUpdate($image)
     {
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
         $correctPath = $imgService->upload($image);
         $image->setImage($correctPath);
     }
-//
-//    private function manageFileUpload($image)
-//    {
-//        if ($image->getImage()) {
-//            $image->refreshUpdated();
-//        }
-//    }
 }

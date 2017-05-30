@@ -195,24 +195,7 @@ class News
     public function setImage($image)
     {
         $this->image = $image;
-
     }
-
-//    public function upload()
-//    {
-//        if (null === $this->getImage()) {
-//            return;
-//        }
-//
-//        $this->getImage()->move(
-//            self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId(),
-//            $this->getImage()->getClientOriginalName()
-//        );
-//
-//        $this->image = self::SERVER_PATH_TO_IMAGE_FOLDER."/".$this->getId()."/".$this->getImage()->getClientOriginalName();
-//
-//        $this->setImage(null);
-//    }
 
     /**
      * @return mixed
