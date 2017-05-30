@@ -8,10 +8,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\HttpFoundation\File\File;
-use AppBundle\Entity\News;
-use Sonata\AdminBundle\Admin\AdminInterface;
+//use Symfony\Component\Form\Extension\Core\Type\FileType;
+//use Symfony\Component\HttpFoundation\File\File;
+//use AppBundle\Entity\News;
+//use Sonata\AdminBundle\Admin\AdminInterface;
 
 class NewsAdmin extends AbstractAdmin
 {
