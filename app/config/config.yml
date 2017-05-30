@@ -92,6 +92,9 @@ assetic:
         jquery:
             inputs:
                 - 'assets/vendor/jquery/dist/*'
+        angularjs:
+            inputs:
+                - 'assets/vendor/angular/*'
 
 sonata_block:
     default_contexts: [cms]
