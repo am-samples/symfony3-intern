@@ -95,6 +95,9 @@ assetic:
         angularjs:
             inputs:
                 - 'assets/vendor/angular/*'
+        angularjs_route:
+            inputs:
+                - 'assets/vendor/angular-route/*'
 
 sonata_block:
     default_contexts: [cms]
