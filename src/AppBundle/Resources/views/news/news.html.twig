@@ -5,6 +5,7 @@
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         <h1>Новости</h1>
         {%if is_granted('ROLE_MANAGER')%}
+            <p>Nothing here {{'yet' + '!'}}</p>
             <table class="table table-bordered">
                 <thead>
                 <tr>

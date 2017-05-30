@@ -6,6 +6,7 @@ use AppBundle\Entity\News;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NewsController extends Controller
 {
@@ -25,10 +26,10 @@ class NewsController extends Controller
     {   $cm = $this->clientManager();
         $news = $cm->showNews();
 
-
         return $this->render('AppBundle:news:news.html.twig',[
             'news' => $news,
         ]);
+//        return new JsonResponse($news);
     }
 
     /**
