@@ -42,4 +42,4 @@ services:
 
     app.image_upload:
         class: AppBundle\Service\ImageService
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@liip_imagine.cache.manager']

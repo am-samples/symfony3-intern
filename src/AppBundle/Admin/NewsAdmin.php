@@ -75,5 +75,9 @@ class NewsAdmin extends AbstractAdmin
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
         $correctPath = $imgService->upload($image);
         $image->setImage($correctPath);
+
+        if($image->getDel() == 1) { $image->setImage(null); }
+        $image->setDel(0);
+
     }
 }

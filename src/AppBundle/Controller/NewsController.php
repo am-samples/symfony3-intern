@@ -25,6 +25,7 @@ class NewsController extends Controller
     {   $cm = $this->clientManager();
         $news = $cm->showNews();
 
+
         return $this->render('AppBundle:news:news.html.twig',[
             'news' => $news,
         ]);

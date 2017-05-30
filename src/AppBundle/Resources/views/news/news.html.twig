@@ -22,7 +22,11 @@
                         <td>{{ item_news.id }}</td>
                         <td><a href="{{ path('news')}}/{{ item_news.id }}">{{ item_news.title }}</a></td>
                         <td>{{ item_news.publication_date }}</td>
-                        <td><img src="/{{ item_news.image }}" alt="car"/></td>
+                        {% if item_news.image != null %}
+                            <td><img src="{{ asset(item_news.image) | imagine_filter('my_thumb') }}" alt="car"/></td>
+                        {% else %}
+                            <td><img src="#" alt="пусто"/></td>
+                        {% endif %}
                         <td>{{ item_news.content|slice(0, 200)}}</td>
                         <td>{{ item_news.description }}</td>
                     </tr>

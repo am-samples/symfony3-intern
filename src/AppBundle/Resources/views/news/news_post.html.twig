@@ -9,7 +9,11 @@
                 {% for item_news in news %}
                     <h2>{{ item_news.title }}</h2>
                     <span><b>Опубликовано</b> - {{ item_news.publication_date }}</span>
-                    <div><img src="/{{ item_news.image }}" alt=""></div>
+                    {% if item_news.image != null %}
+                        <div><img src="{{ asset(item_news.image) | imagine_filter('post_img') }}" alt=""></div>
+                    {% else %}
+                        <div><img src="#" alt="Пусто"></div>
+                    {% endif %}
                     <article>
                         {{ item_news.content | raw }}
                     </article>
