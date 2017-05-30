@@ -2,4 +2,5 @@
 /var/*
 /web/assets/vendor/*
 /web/bundles/*
+/web/media/*
 /app/config/parameters.yml
