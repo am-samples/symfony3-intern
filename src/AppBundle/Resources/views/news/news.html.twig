@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
-    <div style="margin: 0 auto; padding-top: 30px; width: 1200px;">
+    <div class="news-column">
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         <h1>Новости</h1>
         {%if is_granted('ROLE_MANAGER')%}

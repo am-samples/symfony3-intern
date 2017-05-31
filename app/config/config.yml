@@ -107,6 +107,9 @@ assetic:
         newsapp_component_module:
             inputs:
                 - '@AppBundle/Resources/public/js/news-list/news-list.module.js'
+        customst:
+            inputs:
+                - 'assets/custom.css'
 
 sonata_block:
     default_contexts: [cms]

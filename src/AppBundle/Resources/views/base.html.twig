@@ -8,6 +8,9 @@
     {% stylesheets '@bootstrap_css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+    {% stylesheets '@customst' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 </head>
 <body>
 {% block body %}
