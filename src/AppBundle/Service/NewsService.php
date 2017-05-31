@@ -24,7 +24,7 @@ class NewsService
         $this->em = $em;
     }
 
-    public function showNews()
+    public function getNews()
     {
         $sql = "SELECT * FROM news";
         $em = $this->em;
@@ -35,9 +35,9 @@ class NewsService
         return $resQuery;
     }
 
-    public function showNewsById($id)
+    public function showNewsBySlug($slug)
     {
-        $sql = "SELECT * FROM news WHERE id={$id}";
+        $sql = "SELECT * FROM news WHERE slug='{$slug}'";
         $em = $this->em;
         $query = $em->getConnection()->prepare($sql);
         $query->execute();

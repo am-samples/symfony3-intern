@@ -92,12 +92,21 @@ assetic:
         jquery:
             inputs:
                 - 'assets/vendor/jquery/dist/*'
-        angularjs:
+        angjs:
             inputs:
-                - 'assets/vendor/angular/*'
+                - 'assets/vendor/angular/angular.js'
         angularjs_route:
             inputs:
                 - 'assets/vendor/angular-route/*'
+        newsapp_module:
+            inputs:
+                - '@AppBundle/Resources/public/js/app.module.js'
+        newsapp_component:
+            inputs:
+                - '@AppBundle/Resources/public/js/news-list/news-list.component.js'
+        newsapp_component_module:
+            inputs:
+                - '@AppBundle/Resources/public/js/news-list/news-list.module.js'
 
 sonata_block:
     default_contexts: [cms]

@@ -5,33 +5,7 @@
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         <h1>Новости</h1>
         {%if is_granted('ROLE_MANAGER')%}
-            <p>Nothing here {{'yet' + '!'}}</p>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th class="success">Номер</th>
-                    <th class="success">Заголовок</th>
-                    <th class="success">Дата</th>
-                    <th class="warning">Изображение</th>
-                    <th class="warning">Содержание</th>
-                    <th class="warning">Описание</th>
-                </tr>
-                </thead>
-                {% for item_news in news %}
-                    <tr>
-                        <td>{{ item_news.id }}</td>
-                        <td><a href="{{ path('news')}}/{{ item_news.id }}">{{ item_news.title }}</a></td>
-                        <td>{{ item_news.publication_date }}</td>
-                        {% if item_news.image != null %}
-                            <td><img src="{{ asset(item_news.image) | imagine_filter('my_thumb') }}" alt="car"/></td>
-                        {% else %}
-                            <td><img src="#" alt="пусто"/></td>
-                        {% endif %}
-                        <td>{{ item_news.content|slice(0, 200)}}</td>
-                        <td>{{ item_news.description }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
+            <news-list></news-list>
         {%endif%}
     </div>
 {% endblock %}

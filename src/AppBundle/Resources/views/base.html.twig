@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" ng-app="NewsApp">
+<html lang="en" ng-app="NewsApp">
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -16,10 +16,16 @@
     {% javascripts '@jquery' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    {% javascripts '@angularjs' %}
+    {% javascripts '@angjs' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    {% javascripts '@angularjs_route' %}
+    {% javascripts '@newsapp_module' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts '@newsapp_component' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts '@newsapp_component_module' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
