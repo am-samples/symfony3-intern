@@ -34,7 +34,6 @@ class News
      */
     protected $slug;
 
-    const SERVER_PATH_TO_IMAGE_FOLDER = 'assets/upload';
     /**
      * Фото новости
      *

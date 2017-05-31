@@ -44,6 +44,7 @@ class NewsController extends Controller
             if ($item["image"] != null){
                 $news[$k]["thumbnails"] = $liipm->getBrowserPath($item["image"], 'my_thumb');
             }
+            $news[$k]["slug"] = "news/".$item["slug"];
         }
 
         return new JsonResponse($news);

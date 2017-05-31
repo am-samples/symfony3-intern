@@ -12,7 +12,7 @@
                     {% if item_news.image != null %}
                         <div><img src="{{ asset(item_news.image) | imagine_filter('post_img') }}" alt=""></div>
                     {% else %}
-                        <div><img src="#" alt="Пусто"></div>
+                        <div></div>
                     {% endif %}
                     <article>
                         {{ item_news.content | raw }}
