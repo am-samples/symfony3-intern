@@ -3,4 +3,5 @@
 /web/assets/vendor/*
 /web/bundles/*
 /web/media/*
+/web/assets/upload/*
 /app/config/parameters.yml
