@@ -26,22 +26,25 @@ class NewsService
 
     public function getNews()
     {
-        $sql = "SELECT * FROM news";
         $em = $this->em;
-        $query = $em->getConnection()->prepare($sql);
-        $query->execute();
-        $resQuery = $query->fetchAll();
+        $qb= $em->createQueryBuilder();
+        $qb ->select('h')
+            ->from('AppBundle:News', 'h');
+        $query = $qb->getQuery();
+        $resQuery = $query->getArrayResult();
 
         return $resQuery;
     }
 
     public function showNewsBySlug($slug)
     {
-        $sql = "SELECT * FROM news WHERE slug='{$slug}'";
         $em = $this->em;
-        $query = $em->getConnection()->prepare($sql);
-        $query->execute();
-        $resQuery = $query->fetchAll();
+        $qb= $em->createQueryBuilder();
+        $qb ->select('h')
+            ->from('AppBundle:News', 'h')
+            ->where("h.slug='{$slug}'");
+        $query = $qb->getQuery();
+        $resQuery = $query->getArrayResult();
 
         return $resQuery;
     }

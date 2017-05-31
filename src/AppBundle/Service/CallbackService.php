@@ -38,11 +38,12 @@ class CallbackService
 
     public function showCallback()
     {
-        $sql = "SELECT `name`, `email`, `comment` FROM hellotrade";
         $em = $this->em;
-        $query = $em->getConnection()->prepare($sql);
-        $query->execute();
-        $resQuery = $query->fetchAll();
+        $qb= $em->createQueryBuilder();
+        $qb ->select('h.name, h.email, h.comment')
+            ->from('AppBundle:Callback', 'h');
+        $query = $qb->getQuery();
+        $resQuery = $query->getArrayResult();
 
         return $resQuery;
     }
