@@ -67,11 +67,7 @@ class News
      */
     protected $description;
 
-    /**
-     * Статус изображения
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+
     protected $del;
 
     /**

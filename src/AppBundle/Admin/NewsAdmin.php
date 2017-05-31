@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use AppBundle\Form\FormType;
 
 
 class NewsAdmin extends AbstractAdmin
@@ -71,7 +72,6 @@ class NewsAdmin extends AbstractAdmin
         $image->setImage($correctPath);
 
         if($image->getDel() == 1) { $image->setImage(null); }
-        $image->setDel(0);
 
     }
 }
