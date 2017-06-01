@@ -27,11 +27,8 @@ class NewsService
     public function getNews()
     {
         $em = $this->em;
-        $qb= $em->createQueryBuilder();
-        $qb ->select('h')
-            ->from('AppBundle:News', 'h');
-        $query = $qb->getQuery();
-        $resQuery = $query->getArrayResult();
+        $repo = $em->getRepository('AppBundle:News');
+        $resQuery = $repo->findAll();
 
         return $resQuery;
     }
@@ -39,12 +36,11 @@ class NewsService
     public function showNewsBySlug($slug)
     {
         $em = $this->em;
-        $qb= $em->createQueryBuilder();
-        $qb ->select('h')
-            ->from('AppBundle:News', 'h')
-            ->where("h.slug='{$slug}'");
-        $query = $qb->getQuery();
-        $resQuery = $query->getArrayResult();
+        $repo = $em->getRepository('AppBundle:News');
+
+        $resQuery = $repo->findBy(
+            ['slug' => $slug]
+        );
 
         return $resQuery;
     }

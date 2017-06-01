@@ -23,16 +23,17 @@ class ShowCallbackCommand extends ContainerAwareCommand
     {
         $clientManager = $this->getContainer()->get('app.database_service_callback');
         $res = $clientManager->showCallback();
-        $rows = [];
 
-        foreach ($res as $val){
-
-            $rows[] = [$val["name"], $val["email"], $val["comment"]];
+        $results = [];
+        foreach ($res as $k => $item){
+            $results[$k]["name"] = $item->getName();
+            $results[$k]["email"] = $item->getEmail();
+            $results[$k]["comment"] = $item->getComment();
         }
 
         $table = new Table($output);
             $table
-                ->setHeaders(array('Name', 'Email', 'Comment'))->setRows($rows);
+                ->setHeaders(array('Name', 'Email', 'Comment'))->setRows($results);
 
         $table->render();
     }

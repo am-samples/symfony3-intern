@@ -39,15 +39,24 @@ class NewsController extends Controller
         $cm = $this->clientManager();
         $news = $cm->getNews();
 
+        $news_arr = [];
         $liipm = $this->container->get('liip_imagine.cache.manager');
-        foreach ($news as $k => $item) {
-            if ($item["image"] != null){
-                $news[$k]["thumbnails"] = $liipm->getBrowserPath($item["image"], 'my_thumb');
+        foreach ($news as $k => $item){
+            $news_arr[$k]["id"] = $item->getId();
+            $news_arr[$k]["title"] = $item->getTitle();
+            $news_arr[$k]["slug"] = "news/".$item->getSlug();
+            $news_arr[$k]["image"] = $item->getImage();
+            $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d-m-Y');
+            $news_arr[$k]["content"] = $item->getContent();
+            $news_arr[$k]["active"] = $item->getActive();
+            $news_arr[$k]["description"] = $item->getDescription();
+
+            if ($item->getImage() != null){
+                $news_arr[$k]["thumbnails"] = $liipm->getBrowserPath($item->getImage(), 'my_thumb');
             }
-            $news[$k]["slug"] = "news/".$item["slug"];
         }
 
-        return new JsonResponse($news);
+        return new JsonResponse($news_arr);
     }
 
     /**

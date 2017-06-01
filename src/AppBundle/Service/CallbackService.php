@@ -39,11 +39,8 @@ class CallbackService
     public function showCallback()
     {
         $em = $this->em;
-        $qb= $em->createQueryBuilder();
-        $qb ->select('h.name, h.email, h.comment')
-            ->from('AppBundle:Callback', 'h');
-        $query = $qb->getQuery();
-        $resQuery = $query->getArrayResult();
+        $repo = $em->getRepository('AppBundle:Callback');
+        $resQuery = $repo->findAll();
 
         return $resQuery;
     }
