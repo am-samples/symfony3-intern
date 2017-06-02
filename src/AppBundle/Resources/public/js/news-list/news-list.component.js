@@ -9,16 +9,22 @@ component('newsList', {
 
         $http.get('getJsonNews').success(function(data) {
             $scope.news = data;
-            $scope.totalItems = $scope.data.length;
+            $scope.totalItems = data['all'];
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
-            $scope.maxSize = 5; //Number of pager buttons to show
+            $scope.totalPages = Math.ceil($scope.totalItems / 10);
         });
 
         $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
         };
 
+        $scope.viewby = function (countNews) {
+            $http.get('getJsonNews/'+countNews).success(function(data) {
+                $scope.news = data;
+                console.log('Вызвана функция, значение - ' + countNews);
+            });
+        }
 
         
 
