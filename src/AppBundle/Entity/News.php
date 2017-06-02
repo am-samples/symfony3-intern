@@ -30,7 +30,7 @@ class News
      *
      * @ORM\Column(type="string", length=128)
      */
-    protected $slug;
+    protected $url;
 
     /**
      * Фото новости
@@ -38,6 +38,10 @@ class News
      * @ORM\Column(type="string", nullable=true)
      */
     protected $image;
+
+    protected $img;
+
+    protected $nameOfImage;
 
     /**
      * Дата публикации
@@ -97,17 +101,17 @@ class News
     /**
      * @return mixed
      */
-    public function getSlug()
+    public function getUrl()
     {
-        return $this->slug;
+        return $this->url;
     }
 
     /**
-     * @param mixed $slug
+     * @param mixed $url
      */
-    public function setSlug($slug)
+    public function setUrl($url)
     {
-        $this->slug = $slug;
+        $this->url = $url;
     }
 
     /**
@@ -204,6 +208,38 @@ class News
     public function setDel($del)
     {
         $this->del = $del;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param mixed $img
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameOfImage()
+    {
+        return $this->nameOfImage;
+    }
+
+    /**
+     * @param mixed $nameOfImage
+     */
+    public function setNameOfImage($nameOfImage)
+    {
+        $this->nameOfImage = $nameOfImage;
     }
 
 }

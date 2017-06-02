@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Callback;
+use AppBundle\Entity\News;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
@@ -33,13 +33,14 @@ class NewsService
         return $resQuery;
     }
 
-    public function showNewsBySlug($slug)
+
+    public function getNewsByUrl($url)
     {
         $em = $this->em;
         $repo = $em->getRepository('AppBundle:News');
 
         $resQuery = $repo->findBy(
-            ['slug' => $slug]
+            ['url' => $url]
         );
 
         return $resQuery;

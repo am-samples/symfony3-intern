@@ -30,20 +30,18 @@ class ImageService
         $this->liipmg = $liipmg;
     }
 
-    const SERVER_PATH_TO_IMAGE_FOLDER = 'assets/upload';
-
-    public function upload($news)
+    public function upload($news, $path)
     {
-        if (null === $news->getImage()) {
+        if (null === $news->getImg()) {
             return;
         }
 
-        $news->getImage()->move(
-            self::SERVER_PATH_TO_IMAGE_FOLDER."/".$news->getId(),
-            $news->getImage()->getClientOriginalName()
+        $news->getImg()->move(
+            $path."/".$news->getId(),
+            $news->getImg()->getClientOriginalName()
         );
 
-        $pathImage = "/".self::SERVER_PATH_TO_IMAGE_FOLDER."/".$news->getId()."/".$news->getImage()->getClientOriginalName();
+        $pathImage = "/".$path."/".$news->getId()."/".$news->getImg()->getClientOriginalName();
 
         $liipmg = $this->liipmg;
         $liipmg->getBrowserPath($pathImage, 'my_thumb');

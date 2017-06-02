@@ -15,6 +15,7 @@ parameters:
     mailer_recipient: a.malozemov@tradedealer.ru
     mailer_user: debug@tradedealer.ru
     mailer_password: debugtrade123
+    img_path: assets/upload
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt

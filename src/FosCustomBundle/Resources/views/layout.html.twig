@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    {% stylesheets '@bootstrap_css' filter='cssrewrite' %}
+    {% stylesheets '@css_includes' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 </head>
@@ -34,7 +34,7 @@
         {% endif %}
 </div>
 {% block javascripts %}
-    {% javascripts '@jquery' %}
+    {% javascripts 'assets/vendor/jquery/dist/*' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
