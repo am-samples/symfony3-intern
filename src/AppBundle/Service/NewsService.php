@@ -33,6 +33,17 @@ class NewsService
         return $resQuery;
     }
 
+    public function getLimitNews($start, $end)
+    {
+        $em = $this->em;
+        $sql = "SELECT * FROM `news` LIMIT {$start}, {$end}";
+        $resQuery = $em->getConnection()->prepare($sql);
+        $resQuery->execute();
+        $resQuery = $resQuery->fetchAll();
+
+        return $resQuery;
+    }
+
 
     public function getNewsByUrl($url)
     {

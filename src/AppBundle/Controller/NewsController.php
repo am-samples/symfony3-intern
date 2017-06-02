@@ -31,28 +31,44 @@ class NewsController extends Controller
     /**
      * Отображение новостей Json
      *
-     * @Route("/getJsonNews", name="JsonNews")
+     * @Route("/getJsonNews/{start}", name="JsonNews")
      *
      */
-    public function getJsonNewsAction()
+    public function getJsonNewsAction($start=0 , $end=10)
     {
         $cm = $this->clientManager();
-        $news = $cm->getNews();
+        $news = $cm->getLimitNews($start, $end);
 
+//        $news_arr = [];
+//        $liipm = $this->container->get('liip_imagine.cache.manager');
+//        foreach ($news as $k => $item){
+//            $news_arr[$k]["id"] = $item->getId();
+//            $news_arr[$k]["title"] = $item->getTitle();
+//            $news_arr[$k]["url"] = "news/".$item->getUrl();
+//            $news_arr[$k]["image"] = $item->getImage();
+//            $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d-m-Y');
+//            $news_arr[$k]["content"] = $item->getContent();
+//            $news_arr[$k]["active"] = $item->getActive();
+//            $news_arr[$k]["description"] = $item->getDescription();
+//
+//            if ($item->getImage() != null){
+//                $news_arr[$k]["thumbnails"] = $liipm->getBrowserPath($item->getImage(), 'my_thumb');
+//            }
+//        }
         $news_arr = [];
         $liipm = $this->container->get('liip_imagine.cache.manager');
         foreach ($news as $k => $item){
-            $news_arr[$k]["id"] = $item->getId();
-            $news_arr[$k]["title"] = $item->getTitle();
-            $news_arr[$k]["url"] = "news/".$item->getUrl();
-            $news_arr[$k]["image"] = $item->getImage();
-            $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d-m-Y');
-            $news_arr[$k]["content"] = $item->getContent();
-            $news_arr[$k]["active"] = $item->getActive();
-            $news_arr[$k]["description"] = $item->getDescription();
+            $news_arr[$k]["id"] = $item["id"];
+            $news_arr[$k]["title"] = $item["title"];
+            $news_arr[$k]["url"] = "news/".$item["url"];
+            $news_arr[$k]["image"] = $item["image"];
+            $news_arr[$k]["publication_date"] = $item["publication_date"];
+            $news_arr[$k]["content"] = $item["content"];
+            $news_arr[$k]["active"] = $item["active"];
+            $news_arr[$k]["description"] = $item["description"];
 
-            if ($item->getImage() != null){
-                $news_arr[$k]["thumbnails"] = $liipm->getBrowserPath($item->getImage(), 'my_thumb');
+            if ($item["image"] != null){
+                $news_arr[$k]["thumbnails"] = $liipm->getBrowserPath($item["image"], 'my_thumb');
             }
         }
 
