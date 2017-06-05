@@ -20,12 +20,12 @@ class NewsAdmin extends AbstractAdmin
 
         $formMapper
             ->add('title', 'text')
-            ->add('url', 'text')
+            ->add('slug', 'text')
             ->add('publicationDate', 'datetime')
             ->add('content', 'textarea')
             ->add('active', 'checkbox')
             ->add('description', 'text')
-            ->add('img', 'file', [
+            ->add('fileImage', 'file', [
                 'label' => 'Изображение',
                 'required' => false,
                 'data_class' => null,
@@ -58,7 +58,7 @@ class NewsAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->addIdentifier('image')
-            ->addIdentifier('url')
+            ->addIdentifier('slug')
             ->addIdentifier('publicationDate', 'datetime', [
                 'format' => 'Y-m-d',
                 'timezone' => 'America/New_York'
@@ -79,21 +79,20 @@ class NewsAdmin extends AbstractAdmin
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
         $correctPath = $imgService->upload($news, $path);
-        $news->setImage($correctPath);
 
-//        if(($news->getDel() == 1) && (!empty($news->getImage()))) {
-//            $del = unlink(substr($news->getImage(), 1));
-//            $news->setImage(null);
-//        }
-//
-//        if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
-//            $del = unlink(substr($news->getImage(), 1));
-//            $news->setImage($correctPath);
-//        }
-//
-//        if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
-//            $news->setImage($correctPath);
-//        }
+        if(($news->getDel() == 1) && (!empty($news->getImage()))) {
+            $del = unlink(substr($news->getImage(), 1));
+            $news->setImage(null);
+        }
+
+        if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
+            $del = unlink(substr($news->getImage(), 1));
+            $news->setImage($correctPath);
+        }
+
+        if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
+            $news->setImage($correctPath);
+        }
 
     }
 

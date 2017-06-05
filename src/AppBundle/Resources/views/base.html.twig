@@ -13,12 +13,7 @@
 {% block body %}
 {% endblock %}
 {% block javascripts %}
-    {% javascripts
-        'assets/vendor/jquery/dist/*'
-        'assets/vendor/angular/angular.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    {% javascripts '@newsapp_component' %}
+    {% javascripts '@js_libs' '@newsapp_component' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

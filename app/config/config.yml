@@ -90,6 +90,10 @@ assetic:
             inputs:
                 - 'assets/vendor/bootstrap/dist/css/*'
                 - 'assets/custom.css'
+        js_libs:
+            inputs:
+                - 'assets/vendor/jquery/dist/jquery.js'
+                - 'assets/vendor/angular/angular.js'
         newsapp_component:
             inputs:
                 - '@AppBundle/Resources/public/js/app.module.js'

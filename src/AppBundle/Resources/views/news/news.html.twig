@@ -5,18 +5,6 @@
     <div class="news-column">
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         <h1>Новости</h1>
-        {%if is_granted('ROLE_MANAGER')%}
-            {#<nav aria-label="Page navigation example">#}
-                {#<ul class="pagination">#}
-                    {#<li class="page-item"><a class="page-link" href="#">&larr;</a></li>#}
-                    {#<li class="page-item active"><a ng-click="[[ setPage(currentPage+1) ]]" class="page-link" href="#">[[ currentPage + 1]]</a></li>#}
-                    {#<li class="page-item"><a ng-click="[[ viewby(10) ]]" class="page-link" href="#">[[ currentPage + 2]]</a></li>#}
-                    {#<li class="page-item"><a ng-click="[[ setPage(currentPage+3) ]]" class="page-link" href="#">[[ currentPage + 3]]</a></li>#}
-                    {#<li class="page-item"><a class="page-link" href="#">&rarr;</a></li>#}
-                    {#<button ng-click="viewby()">Отправить запрос</button>#}
-                {#</ul>#}
-            {#</nav>#}
             <news-list></news-list>
-        {%endif%}
     </div>
 {% endblock %}

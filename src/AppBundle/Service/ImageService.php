@@ -32,16 +32,16 @@ class ImageService
 
     public function upload($news, $path)
     {
-        if (null === $news->getImg()) {
+        if (null === $news->getFileImage()) {
             return;
         }
 
-        $news->getImg()->move(
+        $news->getFileImage()->move(
             $path."/".$news->getId(),
-            $news->getImg()->getClientOriginalName()
+            $news->getFileImage()->getClientOriginalName()
         );
 
-        $pathImage = "/".$path."/".$news->getId()."/".$news->getImg()->getClientOriginalName();
+        $pathImage = "/".$path."/".$news->getId()."/".$news->getFileImage()->getClientOriginalName();
 
         $liipmg = $this->liipmg;
         $liipmg->getBrowserPath($pathImage, 'my_thumb');

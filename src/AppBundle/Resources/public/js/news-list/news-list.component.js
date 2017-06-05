@@ -25,19 +25,5 @@ component('newsList', {
                 console.log('Вызвана функция, значение - ' + countNews);
             });
         }
-
-        
-
-
-        // $scope.pageChanged = function() {
-        //     console.log('Page changed to: ' + $scope.currentPage);
-        // };
-
-        // $scope.setItemsPerPage = function(num) {
-        //     $scope.itemsPerPage = num;
-        //     $scope.currentPage = 1; //reset to first paghe
-        // }
-
-
     }
 });
