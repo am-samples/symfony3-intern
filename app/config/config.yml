@@ -123,3 +123,9 @@ liip_imagine:
         post_img:
             filters:
                 thumbnail: { size: [277, 205], mode: outbound}
+
+knp_menu:
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+    templating: false
+    default_renderer: twig
