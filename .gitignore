@@ -4,4 +4,5 @@
 /web/bundles/*
 /web/media/*
 /web/assets/upload/*
+/web/assetic/*
 /app/config/parameters.yml
