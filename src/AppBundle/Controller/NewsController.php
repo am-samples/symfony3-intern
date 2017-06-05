@@ -34,10 +34,10 @@ class NewsController extends Controller
      * @Route("/getJsonNews/{start}", name="JsonNews")
      *
      */
-    public function getJsonNewsAction($start=0 , $end=10)
+    public function getJsonNewsAction($start=0 , $count=10)
     {
         $cm = $this->clientManager();
-        $news = $cm->getLimitNews($start, $end);
+        $news = $cm->getLimitNews($start, $count);
         $allNews = $cm->getNews();
 
         $news_arr = [];

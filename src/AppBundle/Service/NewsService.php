@@ -33,14 +33,14 @@ class NewsService
         return $resQuery;
     }
 
-    public function getLimitNews($start, $end)
+    public function getLimitNews($start, $count)
     {
         $em = $this->em;
         $qb = $em->createQueryBuilder();
         $qb ->add('select', 'u')
             ->add('from', 'AppBundle:News u')
             ->setFirstResult( $start )
-            ->setMaxResults( $end );
+            ->setMaxResults( $count );
 
         $query = $qb->getQuery();
         $resQuery = $query->getResult();
