@@ -6,3 +6,10 @@
     .news-column-date {
         width: 120px;
     }
+.nav-menu {
+    padding-left: 0px;
+}
+.nav-menu li {
+    display: inline-block;
+    list-style: none;
+}

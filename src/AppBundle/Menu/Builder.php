@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Menu;
 
+use AppBundle\Entity\Menu;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -12,6 +13,11 @@ class Builder implements ContainerAwareInterface
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
+
+        // Routes from Database
+        $em = $this->container->get('doctrine')->getManager();
+        $mn = $em->getRepository('AppBundle:Menu');
+
 
         $menu->addChild('Главная', ['route' => 'homepage']);
         $menu->addChild('Новости', ['route' => 'news']);
