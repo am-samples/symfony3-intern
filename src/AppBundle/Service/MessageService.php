@@ -42,7 +42,7 @@ class MessageService
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Письмо из формы обратной связи')
-            ->setFrom($this->sender)
+            ->setFrom($this->sender) //Убрать из сервисов => $this->container->getParameter('sender')
             ->setTo($this->recipient)
             ->setBody(
                 $this->twig->render(

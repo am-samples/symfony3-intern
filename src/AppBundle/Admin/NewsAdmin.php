@@ -4,9 +4,9 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class NewsAdmin extends AbstractAdmin
 {
@@ -17,13 +17,35 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+
         $formMapper
             ->add('title', 'text')
             ->add('slug', 'text')
             ->add('publicationDate', 'datetime')
             ->add('content', 'textarea')
             ->add('active', 'checkbox')
-            ->add('description', 'text');
+            ->add('description', 'text')
+            ->add('fileImage', 'file', [
+                'label' => 'Изображение',
+                'required' => false,
+                'data_class' => null,
+            ])
+            ->add('nameOfImage', 'text', [
+                'label' => 'Текущее изображение:',
+                'attr' => [
+                    'readonly' => true,
+                    'placeholder' => 'Something.jpg',
+                    'style' => 'width: 200px; font-size: 16px;',
+                ],
+                'required' => false,
+            ])
+            ->add('del', 'checkbox', [
+                'label'=> 'Удалить изображение' ,
+                'required' => false,
+            ]);
+
+
+
     }
 
     /**
@@ -35,8 +57,9 @@ class NewsAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('title')
+            ->addIdentifier('image')
             ->addIdentifier('slug')
-                    ->addIdentifier('publicationDate', 'datetime', [
+            ->addIdentifier('publicationDate', 'datetime', [
                 'format' => 'Y-m-d',
                 'timezone' => 'America/New_York'
             ])
@@ -50,4 +73,27 @@ class NewsAdmin extends AbstractAdmin
                 ],
             ]);
     }
+
+    public function preUpdate($news)
+    {
+        $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
+        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
+        $correctPath = $imgService->upload($news, $path);
+
+        if(($news->getDel() == 1) && (!empty($news->getImage()))) {
+            $del = unlink(substr($news->getImage(), 1));
+            $news->setImage(null);
+        }
+
+        if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
+            $del = unlink(substr($news->getImage(), 1));
+            $news->setImage($correctPath);
+        }
+
+        if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
+            $news->setImage($correctPath);
+        }
+
+    }
+
 }

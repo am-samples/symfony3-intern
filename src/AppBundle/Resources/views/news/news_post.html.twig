@@ -1,0 +1,24 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+
+    <div class="news-column">
+        {{ include('AppBundle:default:navigation_user.html.twig') }}
+        {%if is_granted('ROLE_MANAGER')%}
+
+                {% for item_news in news %}
+                    <h2>{{ item_news.title }}</h2>
+                    <span><b>Опубликовано</b> - {{ item_news.publicationDate|date('d-m-Y')}}</span>
+                    {% if item_news.image != null %}
+                        <div><img src="{{ asset(item_news.image) | imagine_filter('post_img') }}" alt=""></div>
+                    {% else %}
+                        <div></div>
+                    {% endif %}
+                    <article>
+                        {{ item_news.content | raw }}
+                    </article>
+                {% endfor %}
+
+        {%endif%}
+    </div>
+{% endblock %}

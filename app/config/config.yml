@@ -86,12 +86,18 @@ assetic:
     filters:
         cssrewrite: ~
     assets:
-        bootstrap_css:
+        css_includes:
             inputs:
                 - 'assets/vendor/bootstrap/dist/css/*'
-        jquery:
+                - 'assets/custom.css'
+        js_libs:
             inputs:
-                - 'assets/vendor/jquery/dist/*'
+                - 'assets/vendor/jquery/dist/jquery.js'
+                - 'assets/vendor/angular/angular.js'
+        newsapp_component:
+            inputs:
+                - '@AppBundle/Resources/public/js/app.module.js'
+                - '@AppBundle/Resources/public/js/news-list/*'
 
 sonata_block:
     default_contexts: [cms]
@@ -106,3 +112,18 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path: ~
+
+    filter_sets:
+        cache: ~
+        my_thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 80], mode: outbound }
+        post_img:
+            filters:
+                thumbnail: { size: [277, 205], mode: outbound}

@@ -2,4 +2,9 @@
 /var/*
 /web/assets/vendor/*
 /web/bundles/*
+/web/media/*
+/web/assets/upload/*
+/web/assetic/*
+/web/css/*
+/web/js/*
 /app/config/parameters.yml

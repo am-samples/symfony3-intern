@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="NewsApp">
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    {% stylesheets '@bootstrap_css' filter='cssrewrite' %}
+    {% stylesheets '@css_includes' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 </head>
@@ -13,7 +13,7 @@
 {% block body %}
 {% endblock %}
 {% block javascripts %}
-    {% javascripts '@jquery' %}
+    {% javascripts '@js_libs' '@newsapp_component' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="news")
@@ -30,6 +31,22 @@ class News
      * @ORM\Column(type="string", length=128)
      */
     protected $slug;
+
+    /**
+     * Фото новости в БД
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $image;
+
+    /**
+     * Фото новости загружаемое в админке
+     *
+     */
+    protected $fileImage;
+
+    protected $nameOfImage;
+
     /**
      * Дата публикации
      *
@@ -58,6 +75,17 @@ class News
      */
     protected $description;
 
+
+    protected $del;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * @return mixed
      */
@@ -72,6 +100,7 @@ class News
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -88,6 +117,7 @@ class News
     public function setSlug($slug)
     {
         $this->slug = $slug;
+        return $this;
     }
 
     /**
@@ -104,6 +134,7 @@ class News
     public function setPublicationDate($publicationDate)
     {
         $this->publicationDate = $publicationDate;
+        return $this;
     }
 
     /**
@@ -120,6 +151,7 @@ class News
     public function setContent($content)
     {
         $this->content = $content;
+        return $this;
     }
 
     /**
@@ -136,6 +168,7 @@ class News
     public function setActive($active)
     {
         $this->active = $active;
+        return $this;
     }
 
     /**
@@ -152,6 +185,75 @@ class News
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDel()
+    {
+        return $this->del;
+    }
+
+    /**
+     * @param mixed $delete
+     */
+    public function setDel($del)
+    {
+        $this->del = $del;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileImage()
+    {
+        return $this->fileImage;
+    }
+
+    /**
+     * @param mixed $fileImage
+     */
+    public function setFileImage($fileImage)
+    {
+        $this->fileImage = $fileImage;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameOfImage()
+    {
+        return $this->nameOfImage;
+    }
+
+    /**
+     * @param mixed $nameOfImage
+     */
+    public function setNameOfImage($nameOfImage)
+    {
+        $this->nameOfImage = $nameOfImage;
+        return $this;
     }
 
 }

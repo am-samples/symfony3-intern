@@ -1,0 +1,53 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#" ng-click="[viewby(0), setPage(1)]">&larr;</a>
+        </li>
+
+        <li class="page-item">
+            <a ng-if="(currentPage <= totalPages) && ((currentPage-2) > 0)" ng-click="[viewby((currentPage-2)*10-10), setPage(currentPage-2)]" class="page-link" href="#">[[ currentPage - 2]]</a>
+        </li>
+
+        <li class="page-item">
+            <a ng-if="(currentPage <= totalPages) && ((currentPage-1) > 0)" ng-click="[viewby((currentPage-1)*10-10), setPage(currentPage-1)]" class="page-link" href="#">[[ currentPage - 1]]</a>
+        </li>
+
+        <li class="page-item active">
+            <a ng-click="[viewby(currentPage*10-10), setPage(currentPage)]" class="page-link" href="#">[[ currentPage ]]</a>
+        </li>
+
+        <li class="page-item">
+            <a ng-if="currentPage < totalPages && currentPage+1 <= totalPages" ng-click="[viewby((currentPage+1)*10-10), setPage(currentPage+1)]" class="page-link" href="#">[[ currentPage + 1]]</a>
+        </li>
+
+        <li class="page-item">
+            <a ng-if="currentPage < totalPages && currentPage+2 <= totalPages" ng-click="[viewby((currentPage+2)*10-10), setPage(currentPage+2)]" class="page-link" href="#">[[ currentPage + 2]]</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="#" ng-click="[viewby(totalItems-10), setPage(totalPages)]">&rarr;</a>
+        </li>
+    </ul>
+</nav>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="success">Номер</th>
+            <th class="success">Заголовок</th>
+            <th class="success news-column-date">Дата</th>
+            <th class="warning">Изображение</th>
+            <th class="warning">Содержание</th>
+            <th class="warning">Описание</th>
+        </tr>
+    </thead>
+
+    <tr ng-repeat="item_news in news">
+        <td>[[ item_news.id ]]</td>
+        <td><a href="[[ item_news.uri ]]">[[ item_news.title ]]</a></td>
+        <td>[[ item_news.publication_date ]]</td>
+        <td><img src="[[ item_news.thumbnails ]]" ng-if="item_news.thumbnails != null"></td>
+        <td>[[ item_news.content | limitTo:200 ]]</td>
+        <td>[[ item_news.description ]]</td>
+    </tr>
+</table>

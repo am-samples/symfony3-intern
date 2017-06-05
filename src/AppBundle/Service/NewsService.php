@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Callback;
+use AppBundle\Entity\News;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
@@ -24,13 +24,39 @@ class NewsService
         $this->em = $em;
     }
 
-    public function showNews()
+    public function getNews()
     {
-        $sql = "SELECT `id`, `title`, `publication_date`, `content`, `description` FROM news";
         $em = $this->em;
-        $query = $em->getConnection()->prepare($sql);
-        $query->execute();
-        $resQuery = $query->fetchAll();
+        $repo = $em->getRepository('AppBundle:News');
+        $resQuery = $repo->findAll();
+
+        return $resQuery;
+    }
+
+    public function getLimitNews($start, $end)
+    {
+        $em = $this->em;
+        $qb = $em->createQueryBuilder();
+        $qb ->add('select', 'u')
+            ->add('from', 'AppBundle:News u')
+            ->setFirstResult( $start )
+            ->setMaxResults( $end );
+
+        $query = $qb->getQuery();
+        $resQuery = $query->getResult();
+
+        return $resQuery;
+    }
+
+
+    public function getNewsBySlug($slug)
+    {
+        $em = $this->em;
+        $repo = $em->getRepository('AppBundle:News');
+
+        $resQuery = $repo->findBy(
+            ['slug' => $slug]
+        );
 
         return $resQuery;
     }
