@@ -79,21 +79,20 @@ class NewsAdmin extends AbstractAdmin
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
         $correctPath = $imgService->upload($news, $path);
-        $news->setImage($correctPath);
 
-//        if(($news->getDel() == 1) && (!empty($news->getImage()))) {
-//            $del = unlink(substr($news->getImage(), 1));
-//            $news->setImage(null);
-//        }
-//
-//        if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
-//            $del = unlink(substr($news->getImage(), 1));
-//            $news->setImage($correctPath);
-//        }
-//
-//        if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
-//            $news->setImage($correctPath);
-//        }
+        if(($news->getDel() == 1) && (!empty($news->getImage()))) {
+            $del = unlink(substr($news->getImage(), 1));
+            $news->setImage(null);
+        }
+
+        if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
+            $del = unlink(substr($news->getImage(), 1));
+            $news->setImage($correctPath);
+        }
+
+        if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
+            $news->setImage($correctPath);
+        }
 
     }
 

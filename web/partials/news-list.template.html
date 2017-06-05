@@ -3,30 +3,6 @@
         <li class="page-item">
             <a class="page-link" href="#" ng-click="[viewby(0), setPage(1)]">&larr;</a>
         </li>
-        <!-- Left Arrow -->
-
-        <!--<li class="page-item active">-->
-            <!--<a ng-click="[viewby(currentPage*10-10), setPage(currentPage)]" class="page-link" href="#">[[ currentPage ]]</a>-->
-        <!--</li>-->
-
-        <!--<li class="page-item">-->
-            <!--<a ng-if="currentPage<totalPages" ng-click="[viewby((currentPage+1)*10-10), setPage(currentPage+1)]" class="page-link" href="#">[[ currentPage + 1]]</a>-->
-        <!--</li>-->
-
-        <!--<li class="page-item">-->
-            <!--<a ng-if="currentPage<totalPages" ng-click="[viewby((currentPage+2)*10-10), setPage(currentPage+2)]" class="page-link" href="#">[[ currentPage + 2]]</a>-->
-        <!--</li>-->
-
-        <!--<li class="page-item">-->
-            <!--<a ng-if="currentPage<totalPages" ng-click="[viewby((currentPage+3)*10-10), setPage(currentPage+3)]" class="page-link" href="#">[[ currentPage + 3]]</a>-->
-        <!--</li>-->
-
-        <!--<li class="page-item">-->
-            <!--<a ng-if="currentPage<totalPages" ng-click="[viewby((currentPage+4)*10-10), setPage(currentPage+4)]" class="page-link" href="#">[[ currentPage + 4]]</a>-->
-        <!--</li>-->
-
-
-
 
         <li class="page-item">
             <a ng-if="(currentPage <= totalPages) && ((currentPage-2) > 0)" ng-click="[viewby((currentPage-2)*10-10), setPage(currentPage-2)]" class="page-link" href="#">[[ currentPage - 2]]</a>
@@ -48,31 +24,23 @@
             <a ng-if="currentPage < totalPages && currentPage+2 <= totalPages" ng-click="[viewby((currentPage+2)*10-10), setPage(currentPage+2)]" class="page-link" href="#">[[ currentPage + 2]]</a>
         </li>
 
-        <!--<li ng-class="var_active" class="page-item">-->
-            <!--<a ng-click="var_active='active'" class="page-link" href="#">some1</a>-->
-        <!--</li>-->
-
-        <!-- Right arrow-->
         <li class="page-item">
             <a class="page-link" href="#" ng-click="[viewby(totalItems-10), setPage(totalPages)]">&rarr;</a>
         </li>
     </ul>
 </nav>
 
-
-
 <table class="table table-bordered">
     <thead>
-    <tr>
-        <th class="success">Номер</th>
-        <th class="success">Заголовок</th>
-        <th class="success news-column-date">Дата</th>
-        <th class="warning">Изображение</th>
-        <th class="warning">Содержание</th>
-        <th class="warning">Описание</th>
-    </tr>
+        <tr>
+            <th class="success">Номер</th>
+            <th class="success">Заголовок</th>
+            <th class="success news-column-date">Дата</th>
+            <th class="warning">Изображение</th>
+            <th class="warning">Содержание</th>
+            <th class="warning">Описание</th>
+        </tr>
     </thead>
-
 
     <tr ng-repeat="item_news in news">
         <td>[[ item_news.id ]]</td>
