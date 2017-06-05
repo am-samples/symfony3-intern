@@ -30,12 +30,14 @@ class Menu
     /**
      * Путь
      *
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     protected $link;
 
     /**
-     *  Путь заданный пользователем в админке
+     *  Путь заданный пользователем в админке]
+     *
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     protected $customLink;
 

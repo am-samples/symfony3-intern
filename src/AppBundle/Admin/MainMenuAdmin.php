@@ -107,6 +107,7 @@ class MainMenuAdmin extends AbstractAdmin
     {
         $listMapper->addIdentifier('name')
             ->addIdentifier('link')
+            ->addIdentifier('customLink')
             ->addIdentifier('active')
             ->add('_action', 'actions', [
                 'actions' => [
@@ -114,13 +115,5 @@ class MainMenuAdmin extends AbstractAdmin
                     'delete' => [],
                 ],
             ]);
-    }
-
-    public function preUpdate($itemMenu)
-    {
-        if (!empty($itemMenu->getcustomLink()))
-        {
-            $itemMenu->setLink($itemMenu->getcustomLink());
-        }
     }
 }
