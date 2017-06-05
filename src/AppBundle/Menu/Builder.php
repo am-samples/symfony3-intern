@@ -16,13 +16,20 @@ class Builder implements ContainerAwareInterface
 
         // Routes from Database
         $em = $this->container->get('doctrine')->getManager();
-        $mn = $em->getRepository('AppBundle:Menu');
+//        $em->getRepository('AppBundle:Menu');
 
+        $qb = $em->createQueryBuilder();
 
-        $menu->addChild('Главная', ['route' => 'homepage']);
-        $menu->addChild('Новости', ['route' => 'news']);
-        $menu->addChild('Заявки', ['route' => 'callback_list']);
-        $menu->addChild('CMS', ['route' => 'sonata_admin_redirect']);
+        $qb ->add('select', 'm')
+            ->add('from', 'AppBundle:Menu:items_menu m')
+            ->add('where', 'm.active = 1');
+
+        $query = $qb->getQuery();
+        $resQuery = $query->getResult();
+
+        foreach ($resQuery as $item) {
+            $menu->addChild($item->getName(), ['route' => $item->getLink()]);
+        }
 
         return $menu;
     }
