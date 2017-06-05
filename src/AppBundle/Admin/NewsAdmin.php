@@ -25,7 +25,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('content', 'textarea')
             ->add('active', 'checkbox')
             ->add('description', 'text')
-            ->add('img', 'file', [
+            ->add('fileImage', 'file', [
                 'label' => 'Изображение',
                 'required' => false,
                 'data_class' => null,

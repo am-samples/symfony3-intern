@@ -33,13 +33,17 @@ class News
     protected $slug;
 
     /**
-     * Фото новости
+     * Фото новости в БД
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $image;
 
-    protected $img;
+    /**
+     * Фото новости загружаемое в админке
+     *
+     */
+    protected $fileImage;
 
     protected $nameOfImage;
 
@@ -96,6 +100,7 @@ class News
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -112,6 +117,7 @@ class News
     public function setSlug($slug)
     {
         $this->slug = $slug;
+        return $this;
     }
 
     /**
@@ -128,6 +134,7 @@ class News
     public function setPublicationDate($publicationDate)
     {
         $this->publicationDate = $publicationDate;
+        return $this;
     }
 
     /**
@@ -144,6 +151,7 @@ class News
     public function setContent($content)
     {
         $this->content = $content;
+        return $this;
     }
 
     /**
@@ -160,6 +168,7 @@ class News
     public function setActive($active)
     {
         $this->active = $active;
+        return $this;
     }
 
     /**
@@ -176,6 +185,7 @@ class News
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
     }
 
     /**
@@ -192,6 +202,7 @@ class News
     public function setImage($image)
     {
         $this->image = $image;
+        return $this;
     }
 
     /**
@@ -208,22 +219,24 @@ class News
     public function setDel($del)
     {
         $this->del = $del;
+        return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getImg()
+    public function getFileImage()
     {
-        return $this->img;
+        return $this->fileImage;
     }
 
     /**
-     * @param mixed $img
+     * @param mixed $fileImage
      */
-    public function setImg($img)
+    public function setFileImage($fileImage)
     {
-        $this->img = $img;
+        $this->fileImage = $fileImage;
+        return $this;
     }
 
     /**
@@ -240,6 +253,7 @@ class News
     public function setNameOfImage($nameOfImage)
     {
         $this->nameOfImage = $nameOfImage;
+        return $this;
     }
 
 }
