@@ -20,7 +20,7 @@ class NewsAdmin extends AbstractAdmin
 
         $formMapper
             ->add('title', 'text')
-            ->add('url', 'text')
+            ->add('slug', 'text')
             ->add('publicationDate', 'datetime')
             ->add('content', 'textarea')
             ->add('active', 'checkbox')
@@ -58,7 +58,7 @@ class NewsAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->addIdentifier('image')
-            ->addIdentifier('url')
+            ->addIdentifier('slug')
             ->addIdentifier('publicationDate', 'datetime', [
                 'format' => 'Y-m-d',
                 'timezone' => 'America/New_York'

@@ -36,22 +36,26 @@ class NewsService
     public function getLimitNews($start, $end)
     {
         $em = $this->em;
-        $sql = "SELECT * FROM `news` LIMIT {$start}, {$end}";
-        $resQuery = $em->getConnection()->prepare($sql);
-        $resQuery->execute();
-        $resQuery = $resQuery->fetchAll();
+        $qb = $em->createQueryBuilder();
+        $qb ->add('select', 'u')
+            ->add('from', 'AppBundle:News u')
+            ->setFirstResult( $start )
+            ->setMaxResults( $end );
+
+        $query = $qb->getQuery();
+        $resQuery = $query->getResult();
 
         return $resQuery;
     }
 
 
-    public function getNewsByUrl($url)
+    public function getNewsBySlug($slug)
     {
         $em = $this->em;
         $repo = $em->getRepository('AppBundle:News');
 
         $resQuery = $repo->findBy(
-            ['url' => $url]
+            ['slug' => $slug]
         );
 
         return $resQuery;

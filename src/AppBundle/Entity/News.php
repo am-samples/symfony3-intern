@@ -30,7 +30,7 @@ class News
      *
      * @ORM\Column(type="string", length=128)
      */
-    protected $url;
+    protected $slug;
 
     /**
      * Фото новости
@@ -101,17 +101,17 @@ class News
     /**
      * @return mixed
      */
-    public function getUrl()
+    public function getSlug()
     {
-        return $this->url;
+        return $this->slug;
     }
 
     /**
-     * @param mixed $url
+     * @param mixed $slug
      */
-    public function setUrl($url)
+    public function setSlug($slug)
     {
-        $this->url = $url;
+        $this->slug = $slug;
     }
 
     /**
