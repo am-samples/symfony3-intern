@@ -35,6 +35,11 @@ class Menu
     protected $link;
 
     /**
+     *  Путь заданный пользователем в админке
+     */
+    protected $customLink;
+
+    /**
      * Статус пункта меню
      *
      * @ORM\Column(type="boolean", nullable=true)
@@ -106,6 +111,23 @@ class Menu
     public function setActive($active)
     {
         $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomLink()
+    {
+        return $this->customLink;
+    }
+
+    /**
+     * @param mixed $customLink
+     */
+    public function setCustomLink($customLink)
+    {
+        $this->customLink = $customLink;
         return $this;
     }
 

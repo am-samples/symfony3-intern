@@ -13,7 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class MainMenuAdmin extends AbstractAdmin
 {
-
+    /**
+     * Получение массива нужных имен путей
+     */
     protected function getNameOfRoutes()
     {
         /**
@@ -59,7 +61,6 @@ class MainMenuAdmin extends AbstractAdmin
         {
             $key = explode('\C', $k);
 
-            print_r($key);
             if ($key[0] == 'AppBundle' || in_array($k, $trueNamespaces)) {
                 foreach ($item_route as $route) {
                     $correctRoutes[$route] = $route;
@@ -80,16 +81,22 @@ class MainMenuAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', 'text')
+            ->add('name', 'text',[
+                'label' => 'Название пункта меню'
+            ])
             ->add('link', ChoiceType::class, [
+                'label' => 'Путь',
+                'required' => false,
                 'choices'  => $this->getNameOfRoutes(),
+            ])
+            ->add('customLink', 'text',[
+                'label' => 'Свой путь',
+                'required' => false,
             ])
             ->add('active', 'checkbox',[
                 'required' => false,
             ]);
-
     }
-
 
     /**
      * Формирование полей списка пунктов меню
@@ -107,5 +114,13 @@ class MainMenuAdmin extends AbstractAdmin
                     'delete' => [],
                 ],
             ]);
+    }
+
+    public function preUpdate($itemMenu)
+    {
+        if (!empty($itemMenu->getcustomLink()))
+        {
+            $itemMenu->setLink($itemMenu->getcustomLink());
+        }
     }
 }
