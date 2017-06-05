@@ -16,7 +16,6 @@ class Builder implements ContainerAwareInterface
 
         // Routes from Database
         $em = $this->container->get('doctrine')->getManager();
-//        $em->getRepository('AppBundle:Menu');
 
         $qb = $em->createQueryBuilder();
 
