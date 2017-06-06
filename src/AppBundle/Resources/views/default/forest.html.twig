@@ -1,0 +1,11 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1 align="center">Демонстрация кавычек</h1>
+    <div class="login-align">
+        {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
+        <p>{{ "Этот замечательный 'пасмурный' день...'прошел'" | FutTree }}</p>
+        <p>{{ "'пасмурный'" | FutTree }}</p>
+        <p>{{ '"Кааак" надо было вчера сделать?!' | FutTree }}</p>
+    </div>
+{% endblock %}

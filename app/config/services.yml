@@ -49,3 +49,9 @@ services:
     app.image_upload:
         class: AppBundle\Service\ImageService
         arguments: ['@doctrine.orm.entity_manager', '@liip_imagine.cache.manager']
+
+    app.twig_extension:
+        class: AppBundle\Twig\FutTree
+        public: false
+        tags:
+            - { name: twig.extension }
