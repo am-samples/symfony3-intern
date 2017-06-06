@@ -27,7 +27,7 @@ class Builder implements ContainerAwareInterface
         $resQuery = $query->getResult();
 
         foreach ($resQuery as $item) {
-            if(!empty($item->getCustomLink())){
+            if($item->getCustomLink()){
                 $menu->addChild($item->getName(), ['uri' => $item->getCustomLink()]);
             }
             else {
