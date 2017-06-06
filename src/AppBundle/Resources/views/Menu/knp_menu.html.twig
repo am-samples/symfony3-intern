@@ -1,4 +1,5 @@
 {% extends 'knp_menu_base.html.twig' %}
+{% trans_default_domain 'messages' %}
 
 {% macro attributes(attributes) %}
     {% for name, value in attributes %}
@@ -23,7 +24,7 @@
     {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
         {% import _self as knp_menu %}
         <ul class="nav-menu" {{ knp_menu.attributes(listAttributes) }}>
-            <b>Mеню:</b>{{ block('children') }}
+            <b>{{ 'menu.knp_menu.name'|trans  }}:</b>{{ block('children') }}
         </ul>
     {% endif %}
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% trans_default_domain 'messages' %}
 
 {% block body %}
 
@@ -8,7 +9,7 @@
                 {{ include('AppBundle:default:navigation_user.html.twig') }}
                 {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
 
-                <h1>Hello TradeDealer! </h1>
+                <h1>{{ 'default.index.title'|trans  }}</h1>
             </div>
             <div id="status">
                 <p>

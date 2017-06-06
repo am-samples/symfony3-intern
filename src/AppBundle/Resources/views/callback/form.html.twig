@@ -1,8 +1,9 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% trans_default_domain 'messages' %}
 
 {% block body %}
-    <h1 align="center">Hello TradeDealer! </h1>
-    <div style="margin: 0 auto; width: 350px;">
+    <h1 align="center">{{ 'callback.form.hello'|trans  }}</h1>
+    <div class="callback-form">
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
         {% form_theme form 'bootstrap_3_layout.html.twig' %}
@@ -11,5 +12,3 @@
         {{ form_end(form) }}
     </div>
 {% endblock %}
-
-

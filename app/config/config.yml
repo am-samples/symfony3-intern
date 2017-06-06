@@ -10,10 +10,7 @@ parameters:
 
 framework:
     translator: { fallbacks: ["%locale%"] }
-    translator:
-        paths: - '%kernel.project_dir%/translations'
-    #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+
     secret: '%secret%'
     router:
         resource: '%kernel.root_dir%/config/routing.yml'

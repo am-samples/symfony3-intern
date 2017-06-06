@@ -1,0 +1,40 @@
+callback:
+    form_success:
+        message: 'Thank you for your message!'
+        hello: 'Hello TradeDealer!'
+    form:
+        hello: 'Hello TradeDealer!'
+        username: 'Name'
+        plname: 'Write your FirstName...'
+        email: 'E-mail'
+        plmail: 'Write your E-mail...'
+        comment: 'Comment'
+        plcomment: 'Write your comment...'
+        submit: 'Send'
+    list:
+        title: 'Tickets'
+        name: 'Name'
+        email: 'E-mail'
+        comment: 'Comment'
+menu:
+    knp_menu:
+        name: 'Menu'
+default:
+    forest:
+        title: 'Demonstration quotes'
+    index:
+        title: 'Hello TradeDealer!'
+    navigation_user:
+        login:  'Login'
+        logout:  'Log out'
+news:
+    news:
+        title: 'News'
+        num: 'Id'
+        title_news: 'Title'
+        img: 'Image'
+        content: 'Content'
+        description: 'Description'
+form:
+    login:
+        title: 'Authorization'

@@ -1,0 +1,40 @@
+callback:
+    form_success:
+        message: 'Спасибо, ваше сообщение отправлено!'
+        hello: 'Привет TradeDealer!'
+    form:
+        hello: 'Привет TradeDealer!'
+        username: 'Имя'
+        plname: 'Введите ваше имя...'
+        email: 'E-mail'
+        plmail: 'Введите ваш e-mail...'
+        comment: 'Комментарий'
+        plcomment: 'Введите ваш комментарий...'
+        submit: 'Отправить'
+    list:
+        title: 'Заявки из формы'
+        name: 'Имя'
+        email: 'E-mail'
+        comment: 'Комментарий'
+menu:
+    knp_menu:
+        name: 'Меню'
+default:
+    forest:
+        title: 'Демонстрация кавычек'
+    index:
+        title: 'Привет TradeDealer!'
+    navigation_user:
+        login:  'Вход'
+        logout:  'Выйти'
+news:
+    news:
+        title: 'Новости'
+        num: 'Номер'
+        title_news: 'Заголовок'
+        img: 'Изображение'
+        content: 'Содержание'
+        description: 'Описание'
+form:
+    login:
+        title: 'Авторизация'

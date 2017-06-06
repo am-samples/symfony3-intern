@@ -1,3 +1,0 @@
-callback:
-    form_success:
-        message: 'Спасибо, ваше сообщение отправлено!';
