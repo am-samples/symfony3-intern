@@ -10,12 +10,12 @@
     {% endstylesheets %}
 </head>
 <body>
-{% block body %}
-{% endblock %}
-{% block javascripts %}
-    {% javascripts '@js_libs' '@newsapp_component' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
+{% block body %}{% endblock %}
+
+{% javascripts '@js_libs' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% block javascripts %}{% endblock %}
 </body>
 </html>

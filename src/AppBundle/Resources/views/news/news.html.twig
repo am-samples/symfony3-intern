@@ -8,3 +8,8 @@
             <news-list></news-list>
     </div>
 {% endblock %}
+{% block javascripts %}
+    {% javascripts '@newsapp_component' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

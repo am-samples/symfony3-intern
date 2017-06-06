@@ -12,14 +12,14 @@
 {% if app.request.hasPreviousSession %}
     {% for type, messages in app.session.flashbag.all() %}
         {% for message in messages %}
-            <div class="flash-{{ type }}">
+            <div>
                 {{ message }}
             </div>
         {% endfor %}
     {% endfor %}
 {% endif %}
 
-<div class="form-group" style="width: 500px; margin: 0 auto;">
+<div class="form-group login-align">
     {% block fos_user_content %}
     {% endblock fos_user_content %}
 
@@ -34,7 +34,7 @@
         {% endif %}
 </div>
 {% block javascripts %}
-    {% javascripts 'assets/vendor/jquery/dist/*' %}
+    {% javascripts '@js_libs' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
