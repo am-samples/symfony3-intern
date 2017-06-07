@@ -3,7 +3,6 @@
 angular.
 module('NewsApp').
 component('newsList', {
-    templateUrl: '/app_dev.php/news_list',
     controller: function NewsListController($scope, $http) {
         var self = this;
 
@@ -13,6 +12,7 @@ component('newsList', {
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.totalPages = Math.ceil($scope.totalItems / 10);
+            var item = $scope.currentPage;
         });
 
         $scope.setPage = function (pageNo) {
@@ -25,5 +25,14 @@ component('newsList', {
                 console.log('Вызвана функция, значение - ' + countNews);
             });
         }
+    },
+    templateUrl: function url($http) {
+
+        var loc;
+        $http.get('/app_dev.php/getJsonNews').success(function(data) {
+            loc = data['all'];
+        });
+        var locale = '/en';
+        return '/app_dev.php/news_list' + locale;
     }
 });
