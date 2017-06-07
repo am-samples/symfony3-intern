@@ -30,8 +30,9 @@ default:
 news:
     news:
         title: 'News'
-        num: 'Id'
+        num: 'id'
         title_news: 'Title'
+        date: 'Date'
         img: 'Image'
         content: 'Content'
         description: 'Description'

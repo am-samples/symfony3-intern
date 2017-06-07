@@ -1,5 +1,13 @@
 {% extends "FosCustomBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
+    <span class="lang-bar">
+        <span>Выбор языка:</span>
+        <a href="{{ path(app.request.get('_route'),
+        app.request.get('_route_params')|merge({'_locale': 'en'})) }}">EN</a>
+        <span>/</span>
+        <a href="{{ path(app.request.get('_route'),
+        app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">RU</a>
+    </span>
     {{ include('FosCustomBundle::Security/login_content.html.twig') }}
 {% endblock fos_user_content %}

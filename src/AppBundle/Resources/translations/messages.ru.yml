@@ -32,6 +32,7 @@ news:
         title: 'Новости'
         num: 'Номер'
         title_news: 'Заголовок'
+        date: 'Дата'
         img: 'Изображение'
         content: 'Содержание'
         description: 'Описание'

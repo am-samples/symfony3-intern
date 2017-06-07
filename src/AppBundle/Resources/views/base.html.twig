@@ -10,6 +10,15 @@
     {% endstylesheets %}
 </head>
 <body>
+<div class="lang-bar">
+    <span>Выбор языка:</span>
+    <a href="{{ path(app.request.get('_route'),
+    app.request.get('_route_params')|merge({'_locale': 'en'})) }}">EN</a>
+    <span>/</span>
+    <a href="{{ path(app.request.get('_route'),
+    app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">RU</a>
+</div>
+
 {% block body %}{% endblock %}
 
 {% javascripts '@js_libs' %}
