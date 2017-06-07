@@ -29,10 +29,10 @@ component('newsList', {
     templateUrl: function url($http) {
 
         var loc;
-        $http.get('/app_dev.php/getJsonNews').success(function(data) {
+        $http.get('/app_dev.php/getJsonNews').finally(function(data) {
             loc = data['all'];
         });
         var locale = '/en';
-        return '/app_dev.php/news_list' + locale;
+        return '/app_dev.php/news_list';
     }
 });
