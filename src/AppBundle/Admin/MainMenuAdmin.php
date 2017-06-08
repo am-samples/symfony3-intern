@@ -28,8 +28,7 @@ class MainMenuAdmin extends AbstractAdmin
          */
         $collection = $router->getRouteCollection();
         $allRoutes = $collection->all();
-
-        $routes = array();
+        $routes = [];
 
         /**
          * @var $params \Symfony\Component\Routing\Route
@@ -44,7 +43,7 @@ class MainMenuAdmin extends AbstractAdmin
                 $controller = $controllerAction[0];
 
                 if (!isset($routes[$controller])) {
-                    $routes[$controller] = array();
+                    $routes[$controller] = [];
                 }
 
                 $routes[$controller][]= $route;
