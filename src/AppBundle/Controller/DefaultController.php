@@ -35,10 +35,4 @@ class DefaultController extends Controller
     {
         return $this->render('AppBundle:default:forest.html.twig');
     }
-
-    /**
-     * @Route("/forest", name="forest")
-     */
-
-
 }
