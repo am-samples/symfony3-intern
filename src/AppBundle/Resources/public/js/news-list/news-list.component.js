@@ -3,6 +3,7 @@
 angular.
 module('NewsApp').
 component('newsList', {
+    templateUrl:  '/app_dev.php/news_list' + window.appinit.init,
     controller: function NewsListController($scope, $http) {
         var self = this;
 
@@ -25,14 +26,6 @@ component('newsList', {
                 console.log('Вызвана функция, значение - ' + countNews);
             });
         }
-    },
-    templateUrl: function url($http) {
-
-        var loc;
-        $http.get('/app_dev.php/getJsonNews').finally(function(data) {
-            loc = data['all'];
-        });
-        var locale = '/en';
-        return '/app_dev.php/news_list';
     }
 });
+

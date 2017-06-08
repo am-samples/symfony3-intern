@@ -23,9 +23,12 @@ class NewsController extends Controller
      * @Route("/news_all", name="news")
      *
      */
-    public function newsAction()
+    public function newsAction(Request $request)
     {
-        return $this->render('AppBundle:news:news.html.twig');
+        $locale = "/".$request->getLocale();
+        return $this->render('AppBundle:news:news.html.twig',[
+            'locale' => $locale,
+        ]);
     }
 
     /**
