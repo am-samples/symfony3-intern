@@ -26,7 +26,14 @@ class DefaultController extends Controller
     public function helloAction(Request $request)
     {
         return $this->render('AppBundle:default:index.html.twig');
+    }
 
+    /**
+     * @Route("/forest", name="forest")
+    */
+    public function forestAction()
+    {
+        return $this->render('AppBundle:default:forest.html.twig');
     }
 
 }
