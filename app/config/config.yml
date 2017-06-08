@@ -96,8 +96,10 @@ assetic:
                 - 'assets/vendor/angular/angular.js'
         newsapp_component:
             inputs:
-                - '@AppBundle/Resources/public/js/app.module.js'
                 - '@AppBundle/Resources/public/js/news-list/*'
+        app_module:
+            inputs:
+                - '@AppBundle/Resources/public/js/app.module.js'
 
 sonata_block:
     default_contexts: [cms]

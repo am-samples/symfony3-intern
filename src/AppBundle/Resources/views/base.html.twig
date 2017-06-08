@@ -21,7 +21,7 @@
 
 {% block body %}{% endblock %}
 
-{% javascripts '@js_libs' %}
+{% javascripts '@js_libs' '@app_module' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
