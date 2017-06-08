@@ -4,9 +4,9 @@
 
     <div class="news-column">
         {{ include('AppBundle:default:navigation_user.html.twig') }}
-        {%if is_granted('ROLE_MANAGER')%}
+        {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
 
-                {% for item_news in news %}
+        {% for item_news in news %}
                     <h2>{{ item_news.title }}</h2>
                     <span><b>Опубликовано</b> - {{ item_news.publicationDate|date('d-m-Y')}}</span>
                     {% if item_news.image != null %}
@@ -17,8 +17,6 @@
                     <article>
                         {{ item_news.content | raw }}
                     </article>
-                {% endfor %}
-
-        {%endif%}
+        {% endfor %}
     </div>
 {% endblock %}

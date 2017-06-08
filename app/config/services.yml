@@ -28,6 +28,12 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: Категории, label: Новости}
 
+    menu.category:
+            class: AppBundle\Admin\MainMenuAdmin
+            arguments: [~, AppBundle\Entity\Menu, ~]
+            tags:
+                - {name: sonata.admin, manager_type: orm, group: Категории, label: Основное меню}
+
     app.message_service:
         class: AppBundle\Service\MessageService
         arguments: ['@mailer', '@twig', '%sender%', '%recipient%']

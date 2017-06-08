@@ -3,7 +3,13 @@
 {% block body %}
     <div class="news-column">
         {{ include('AppBundle:default:navigation_user.html.twig') }}
+        {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
         <h1>Новости</h1>
             <news-list></news-list>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {% javascripts '@newsapp_component' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

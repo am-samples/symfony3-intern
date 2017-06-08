@@ -6,6 +6,8 @@
         <div id="container">
             <div id="welcome">
                 {{ include('AppBundle:default:navigation_user.html.twig') }}
+                {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
+
                 <h1>Hello TradeDealer! </h1>
             </div>
             <div id="status">

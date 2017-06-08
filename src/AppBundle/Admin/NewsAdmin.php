@@ -40,7 +40,7 @@ class NewsAdmin extends AbstractAdmin
                 'required' => false,
             ])
             ->add('del', 'checkbox', [
-                'label'=> 'Удалить изображение' ,
+                'label'=> 'Удалить изображение',
                 'required' => false,
             ]);
 
