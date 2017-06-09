@@ -9,7 +9,7 @@ component('newsList', {
 
         $http.get('/app_dev.php/getJsonNews').success(function(data) {
             $scope.news = data;
-            $scope.totalItems = data['all'];
+            $scope.totalItems = data.all;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.totalPages = Math.ceil($scope.totalItems / 10);

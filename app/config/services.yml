@@ -8,43 +8,43 @@ services:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
 
-    admin.category:
+    cms.category.tickets:
         class: AppBundle\Admin\CallbackAdmin
         arguments: [~, AppBundle\Entity\Callback, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Категории, label: Заявки }
 
-    manager.category:
+    cms.category.manager:
         class: AppBundle\Admin\UsersAdmin
         arguments: [~, AppBundle\Entity\User, ~]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Категории, label: Пользователи}
 
-    news.category:
+    cms.category.news:
         class: AppBundle\Admin\NewsAdmin
         arguments: [~, AppBundle\Entity\News, ~]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Категории, label: Новости}
 
-    menu.category:
+    cms.category.menu:
             class: AppBundle\Admin\MainMenuAdmin
             arguments: [~, AppBundle\Entity\Menu, ~]
             tags:
                 - {name: sonata.admin, manager_type: orm, group: Категории, label: Основное меню}
 
-    app.message_service:
+    app.message:
         class: AppBundle\Service\MessageService
         arguments: ['@mailer', '@twig', '@kernel']
 
-    app.database_service_callback:
+    app.database_callback:
         class: AppBundle\Service\CallbackService
         arguments: ['@doctrine.orm.entity_manager']
 
-    app.database_service_news:
+    app.database_news:
         class: AppBundle\Service\NewsService
         arguments: ['@doctrine.orm.entity_manager']
 
-    app.image_upload:
+    app.image_manager:
         class: AppBundle\Service\ImageService
         arguments: ['@doctrine.orm.entity_manager', '@liip_imagine.cache.manager']
 

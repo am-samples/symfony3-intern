@@ -32,9 +32,6 @@ class Callback
      * E-mail для обратной связи укзанный в форме
      *
      * @ORM\Column(type="string", length=100)
-     * @Assert\Email(
-     *     message = "E-mail: '{{ value }}' не корректный!"
-     * )
      */
     protected $email;
 
@@ -45,11 +42,18 @@ class Callback
      */
     protected $comment;
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -57,11 +61,18 @@ class Callback
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * @param $email
+     * @return $this
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -69,11 +80,18 @@ class Callback
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getComment()
     {
         return $this->comment;
     }
 
+    /**
+     * @param $comment
+     * @return $this
+     */
     public function setComment($comment)
     {
         $this->comment = $comment;

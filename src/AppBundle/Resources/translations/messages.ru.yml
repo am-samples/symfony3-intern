@@ -11,6 +11,7 @@ callback:
         comment: 'Комментарий'
         plcomment: 'Введите ваш комментарий...'
         submit: 'Отправить'
+        vemail: 'This is not the corect email format'
     list:
         title: 'Заявки из формы'
         name: 'Имя'

@@ -49,3 +49,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cms, role: ROLE_ADMIN }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/callback_list, role: ROLE_MANAGER }

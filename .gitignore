@@ -8,3 +8,4 @@
 /web/css/*
 /web/js/*
 /app/config/parameters.yml
+/bin/bootstrap.php.cache

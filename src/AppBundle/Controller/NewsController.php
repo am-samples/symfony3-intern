@@ -13,7 +13,7 @@ class NewsController extends Controller
 {
     public function clientManager()
     {
-        $clientManager = $this->container->get('app.database_service_news');
+        $clientManager = $this->container->get('app.database_news');
         return $clientManager;
     }
 
@@ -32,7 +32,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Отображение списка новостей
+     * Шаблон списка новостей для последующей обработки Angular.js
      *
      * @Route("/news_list", name="news_list")
      *
@@ -52,7 +52,7 @@ class NewsController extends Controller
     {
         $cm = $this->clientManager();
         $news = $cm->getLimitNews($start, $count);
-        $allNews = $cm->getNews();
+        $allNews = $cm->getCountNews();
 
         $news_arr = [];
         $liipm = $this->container->get('liip_imagine.cache.manager');
@@ -66,7 +66,6 @@ class NewsController extends Controller
             );
             $news_arr[$k]["image"] = $item->getImage();
             $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d-m-Y');
-            $news_arr[$k]["content"] = $item->getContent();
             $news_arr[$k]["active"] = $item->getActive();
             $news_arr[$k]["description"] = $item->getDescription();
 
@@ -74,7 +73,7 @@ class NewsController extends Controller
                 $news_arr[$k]["thumbnails"] = $liipm->getBrowserPath($item->getImage(), 'my_thumb');
             }
         }
-        $news_arr["all"] = count($allNews);
+        $news_arr["all"] = $allNews;
 
         return new JsonResponse($news_arr);
     }
@@ -91,8 +90,16 @@ class NewsController extends Controller
 
         $news = $cm->getNewsBySlug($slug);
 
-        return $this->render('AppBundle:news:news_post.html.twig',[
-            'news' => $news,
-        ]);
+        if ($news) {
+            return $this->render('AppBundle:news:news_post.html.twig',[
+                'news' => $news,
+            ]);
+        }
+        else {
+            throw $this->createNotFoundException('Нет такой страницы!');
+        }
+
+
+
     }
 }
