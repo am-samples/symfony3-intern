@@ -24,6 +24,11 @@ class NewsService
         $this->em = $em;
     }
 
+    /**
+     * Получение количества новостей
+     *
+     * @return mixed
+     */
     public function getCountNews()
     {
         $em = $this->em;
@@ -37,6 +42,11 @@ class NewsService
         return $resQuery;
     }
 
+    /**
+     * Получение всех новостей
+     *
+     * @return array
+     */
     public function getNews()
     {
         $em = $this->em;
@@ -46,6 +56,14 @@ class NewsService
         return $resQuery;
     }
 
+    /**
+     * Получение выборки новостей из 10 записей
+     *
+     *
+     * @param $start
+     * @param $count
+     * @return array
+     */
     public function getLimitNews($start, $count)
     {
         $em = $this->em;
@@ -62,6 +80,12 @@ class NewsService
     }
 
 
+    /**
+     * Получение конкретной новости
+     *
+     * @param $slug
+     * @return array
+     */
     public function getNewsBySlug($slug)
     {
         $em = $this->em;
