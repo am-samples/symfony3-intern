@@ -20,12 +20,22 @@ class NewsAdmin extends AbstractAdmin
     {
 
         $formMapper
-            ->add('title', 'text')
+            ->add('title', 'text', [
+                'label' => 'Заголовок'
+            ])
             ->add('slug', 'text')
-            ->add('publicationDate', 'datetime')
-            ->add('content', 'textarea')
-            ->add('active', 'checkbox')
-            ->add('description', 'text')
+            ->add('publicationDate', 'datetime', [
+                'label' => 'Дата публикации'
+            ])
+            ->add('content', 'textarea', [
+                'label' => 'Содержание'
+            ])
+            ->add('active', 'checkbox', [
+                'label' => 'Активен'
+            ])
+            ->add('description', 'text', [
+                'label' => 'Описание'
+            ])
             ->add('fileImage', 'file', [
                 'label' => 'Изображение',
                 'required' => false,
