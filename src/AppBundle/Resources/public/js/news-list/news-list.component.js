@@ -13,6 +13,7 @@ component('newsList', {
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.totalPages = Math.ceil($scope.totalItems / 10);
+            var it = $scope.locale;
             var item = $scope.currentPage;
         });
 

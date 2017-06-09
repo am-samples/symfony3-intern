@@ -72,10 +72,15 @@ class UsersAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('username', 'text')
+            ->add('username', 'text', [
+                'label' => 'Имя пользователя'
+            ])
             ->add('email',   'text')
-            ->add('enabled',   'checkbox')
+            ->add('enabled',   'checkbox', [
+                'label' => 'Активен'
+            ])
             ->add('roles', ChoiceType::class, [
+            'label' => 'Роли',
             'multiple' => true,
             'choices'  => array_flip($this->getRolesFromConfig())
         ]);

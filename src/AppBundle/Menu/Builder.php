@@ -19,7 +19,7 @@ class Builder implements ContainerAwareInterface
         $resQuery = $em->getRepository('AppBundle:Menu')->findBy(['active' => '1']);
 
         foreach ($resQuery as $item) {
-            if(!empty($item->getCustomLink())){
+            if($item->getCustomLink()){
                 $menu->addChild($item->getName(), ['uri' => $item->getCustomLink()]);
             }
             else {
