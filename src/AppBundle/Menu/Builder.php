@@ -16,15 +16,7 @@ class Builder implements ContainerAwareInterface
 
         // Routes from Database
         $em = $this->container->get('doctrine')->getManager();
-
-        $qb = $em->createQueryBuilder();
-
-        $qb ->add('select', 'm')
-            ->add('from', 'AppBundle:Menu:items_menu m')
-            ->add('where', 'm.active = 1');
-
-        $query = $qb->getQuery();
-        $resQuery = $query->getResult();
+        $resQuery = $em->getRepository('AppBundle:Menu')->findBy(['active' => '1']);
 
         foreach ($resQuery as $item) {
             if($item->getCustomLink()){
