@@ -90,6 +90,9 @@ assetic:
             inputs:
                 - 'assets/vendor/bootstrap/dist/css/*'
                 - 'assets/custom.css'
+        css_default:
+            inputs:
+                - 'assets/default.css'
         js_libs:
             inputs:
                 - 'assets/vendor/jquery/dist/jquery.js'
