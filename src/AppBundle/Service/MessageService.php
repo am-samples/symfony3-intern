@@ -11,8 +11,7 @@ class MessageService
 {
     protected $mailer;
     protected $twig;
-    protected $sender;
-    protected $recipient;
+    protected $kernel;
 
     /**
      * MessageService constructor.
@@ -21,12 +20,11 @@ class MessageService
      * @param $sender
      * @param $recipient
      */
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, $sender, $recipient)
+    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, $kernel)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
-        $this->sender = $sender;
-        $this->recipient = $recipient;
+        $this->kernel = $kernel;
     }
 
     /**
@@ -40,10 +38,13 @@ class MessageService
         $email = $callback->getEmail();
         $comment = $callback->getComment();
 
+        $sender = $this->kernel->getContainer()->getParameter('mailer_user');
+        $recipient = $this->kernel->getContainer()->getParameter('mailer_recipient');
+
         $message = \Swift_Message::newInstance()
             ->setSubject('Письмо из формы обратной связи')
-            ->setFrom($this->sender) //Убрать из сервисов => $this->container->getParameter('sender')
-            ->setTo($this->recipient)
+            ->setFrom($sender) //Убрать из сервисов => $this->container->getParameter('sender')
+            ->setTo($recipient)
             ->setBody(
                 $this->twig->render(
                 'AppBundle:Emails:simple.html.twig',
