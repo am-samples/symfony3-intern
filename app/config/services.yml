@@ -44,7 +44,7 @@ services:
         class: AppBundle\Service\NewsService
         arguments: ['@doctrine.orm.entity_manager']
 
-    app.image_upload:
+    app.image_manager:
         class: AppBundle\Service\ImageService
         arguments: ['@doctrine.orm.entity_manager', '@liip_imagine.cache.manager']
 

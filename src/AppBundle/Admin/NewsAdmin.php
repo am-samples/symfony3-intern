@@ -78,17 +78,17 @@ class NewsAdmin extends AbstractAdmin
     public function preUpdate($news)
     {
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
-        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_upload');
+        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
         $correctPath = $imgService->upload($news, $path);
 
         if(($news->getDel() == 1) && (!empty($news->getImage()))) {
-            $del = unlink(substr($news->getImage(), 1));
+            $imgService->remove($news->getImage());
             $news->setImage(null);
         }
 
         if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
             if ($correctPath != $news->getImage()) {
-                $del = unlink(substr($news->getImage(), 1));
+                $imgService->remove($news->getImage());
                 $news->setImage($correctPath);
             }
         }

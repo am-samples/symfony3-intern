@@ -59,4 +59,9 @@ class ImageService
 
         return $pathImage;
     }
+
+    public function remove(String $pathImage)
+    {
+        unlink(substr($pathImage, 1));
+    }
 }
