@@ -3,7 +3,7 @@
 angular.
 module('NewsApp').
 component('newsList', {
-    templateUrl:  '/app_dev.php/news_list' + window.appinit.init,
+    templateUrl:  '/app_dev.php/news_list',
     controller: function NewsListController($scope, $http) {
         var self = this;
 

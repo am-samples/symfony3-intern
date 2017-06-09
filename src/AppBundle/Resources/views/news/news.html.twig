@@ -2,9 +2,6 @@
 {% trans_default_domain 'messages' %}
 
 {% block body %}
-    <script>
-        window.appinit = {init: "{{ locale }}"}
-    </script>
     <div class="news-column">
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
