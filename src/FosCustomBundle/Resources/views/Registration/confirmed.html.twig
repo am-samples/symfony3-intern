@@ -1,0 +1,23 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div>
+    <p align="center">{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+    {% if targetUrl %}
+    <p align="center"><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="flash-align">
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                Выйти
+            </a>
+        </div>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>&nbsp;&nbsp;
+        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+    {% endif %}
+    </div>
+{% endblock fos_user_content %}

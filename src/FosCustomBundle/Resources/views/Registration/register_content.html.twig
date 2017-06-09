@@ -1,0 +1,19 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" class="btn btn-primary" value="{{ 'registration.submit'|trans }}" />
+    </div>
+{{ form_end(form) }}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div>
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            Выйти
+        </a>
+    </div>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>&nbsp;&nbsp;
+    <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+{% endif %}

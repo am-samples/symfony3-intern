@@ -12,8 +12,8 @@
 {% if app.request.hasPreviousSession %}
     {% for type, messages in app.session.flashbag.all() %}
         {% for message in messages %}
-            <div>
-                {{ message }}
+            <div class="flash-align">
+                <h2>{{ message }}</h2>
             </div>
         {% endfor %}
     {% endfor %}
@@ -22,16 +22,6 @@
 <div class="form-group login-align">
     {% block fos_user_content %}
     {% endblock fos_user_content %}
-
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-            <a href="{{ path('fos_user_security_logout') }}">
-                    Выйти
-            </a>
-        {% else %}
-            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>&nbsp;&nbsp;
-            <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-        {% endif %}
 </div>
 {% block javascripts %}
     {% javascripts '@js_libs' %}
