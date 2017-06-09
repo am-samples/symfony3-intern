@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
+ * Класс работы с новостями
+ *
  * @ORM\Entity
  * @ORM\Table(name="news")
  */
@@ -33,18 +35,22 @@ class News
     protected $slug;
 
     /**
-     * Фото новости в БД
+     * Путь изображения новости в БД
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $image;
 
     /**
-     * Фото новости загружаемое в админке
+     * Изображение новости загружаемое в админке
      *
      */
     protected $fileImage;
 
+    /**
+     * Название файла текущего изображения в админке
+     *
+     */
     protected $nameOfImage;
 
     /**
@@ -75,7 +81,10 @@ class News
      */
     protected $description;
 
-
+    /**
+     * Поле статуса для принятия решения об удалении текущего изображения
+     *
+     */
     protected $del;
 
     /**

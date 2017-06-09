@@ -32,7 +32,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Отображение списка новостей
+     * Шаблон списка новостей для последующей обработки Angular.js
      *
      * @Route("/news_list", name="news_list")
      *
