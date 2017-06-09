@@ -37,7 +37,6 @@
         <th class="success">{{ 'news.news.title_news' | trans}}</th>
         <th class="success news-column-date">{{ 'news.news.date' | trans}}</th>
         <th class="warning">{{ 'news.news.img' | trans}}</th>
-        <th class="warning">{{ 'news.news.content' | trans}}</th>
         <th class="warning">{{ 'news.news.description' | trans}}</th>
     </tr>
     </thead>
@@ -47,7 +46,6 @@
         <td><a href="[[ item_news.uri ]]">[[ item_news.title ]]</a></td>
         <td>[[ item_news.publication_date ]]</td>
         <td><img src="[[ item_news.thumbnails ]]" ng-if="item_news.thumbnails != null"></td>
-        <td>[[ item_news.content | limitTo:200 ]]</td>
         <td>[[ item_news.description ]]</td>
     </tr>
 </table>

@@ -66,7 +66,6 @@ class NewsController extends Controller
             );
             $news_arr[$k]["image"] = $item->getImage();
             $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d-m-Y');
-            $news_arr[$k]["content"] = $item->getContent();
             $news_arr[$k]["active"] = $item->getActive();
             $news_arr[$k]["description"] = $item->getDescription();
 
