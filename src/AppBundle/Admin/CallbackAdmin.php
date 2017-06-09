@@ -22,9 +22,13 @@ class CallbackAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', 'text')
+            ->add('name', 'text', [
+                'label' => 'Имя клиента'
+            ])
             ->add('email', 'email')
-            ->add('comment', 'text');
+            ->add('comment', 'text', [
+                'label' => 'Комментарий'
+            ]);
 
     }
 
