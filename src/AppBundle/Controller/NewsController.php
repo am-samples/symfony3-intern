@@ -13,7 +13,7 @@ class NewsController extends Controller
 {
     public function clientManager()
     {
-        $clientManager = $this->container->get('app.database_service_news');
+        $clientManager = $this->container->get('app.database_news');
         return $clientManager;
     }
 

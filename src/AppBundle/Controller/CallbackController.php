@@ -29,10 +29,10 @@ class CallbackController extends Controller
 
             $callback = $form->getData();
 
-            $mail = $this->container->get('app.message_service');
+            $mail = $this->container->get('app.message');
             $mail->send($callback);
 
-            $form_data = $this->container->get('app.database_service_callback');
+            $form_data = $this->container->get('app.database_callback');
             $form_data->save($callback);
 
             return $this->redirectToRoute('callback_success');
@@ -59,7 +59,7 @@ class CallbackController extends Controller
      */
     public function listAction(Request $request)
     {
-        $clientManager = $mail = $this->container->get('app.database_service_callback');
+        $clientManager = $mail = $this->container->get('app.database_callback');
         $res = $clientManager->showCallback();
 
         return $this->render('AppBundle:callback:list.html.twig', [
