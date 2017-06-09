@@ -52,7 +52,7 @@ class NewsController extends Controller
     {
         $cm = $this->clientManager();
         $news = $cm->getLimitNews($start, $count);
-        $allNews = $cm->getNews();
+        $allNews = $cm->getCountNews();
 
         $news_arr = [];
         $liipm = $this->container->get('liip_imagine.cache.manager');
@@ -74,7 +74,7 @@ class NewsController extends Controller
                 $news_arr[$k]["thumbnails"] = $liipm->getBrowserPath($item->getImage(), 'my_thumb');
             }
         }
-        $news_arr["all"] = count($allNews);
+        $news_arr["all"] = $allNews;
 
         return new JsonResponse($news_arr);
     }

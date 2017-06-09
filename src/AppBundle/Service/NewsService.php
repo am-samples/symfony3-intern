@@ -24,6 +24,19 @@ class NewsService
         $this->em = $em;
     }
 
+    public function getCountNews()
+    {
+        $em = $this->em;
+
+        $qb = $em->createQueryBuilder();
+        $qb->select('COUNT(n.id)');
+        $qb->from('AppBundle:News','n');
+
+        $resQuery = $qb->getQuery()->getSingleScalarResult();
+
+        return $resQuery;
+    }
+
     public function getNews()
     {
         $em = $this->em;
