@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Класс отправки писем
@@ -11,7 +12,8 @@ class MessageService
 {
     protected $mailer;
     protected $twig;
-    protected $kernel;
+    protected $sender;
+    protected $recipient;
 
     /**
      * MessageService constructor.
@@ -20,11 +22,12 @@ class MessageService
      * @param $sender
      * @param $recipient
      */
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, $kernel)
+    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, String $sender, String $recipient)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
-        $this->kernel = $kernel;
+        $this->sender = $sender;
+        $this->recipient = $recipient;
     }
 
     /**
@@ -38,13 +41,10 @@ class MessageService
         $email = $callback->getEmail();
         $comment = $callback->getComment();
 
-        $sender = $this->kernel->getContainer()->getParameter('mailer_user');
-        $recipient = $this->kernel->getContainer()->getParameter('mailer_recipient');
-
         $message = \Swift_Message::newInstance()
             ->setSubject('Письмо из формы обратной связи')
-            ->setFrom($sender) //Убрать из сервисов => $this->container->getParameter('sender')
-            ->setTo($recipient)
+            ->setFrom($this->sender)
+            ->setTo($this->recipient)
             ->setBody(
                 $this->twig->render(
                 'AppBundle:Emails:simple.html.twig',
