@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 /**
- * Класс для работы с данными
+ * Класс для работы с картинками
  *
  * @param $callback
  */
@@ -30,6 +30,13 @@ class ImageService
         $this->liipmg = $liipmg;
     }
 
+    /**
+     * Перемещение и формирование пути загруженного изображения.
+     *
+     * @param $news
+     * @param $path
+     * @return string|void
+     */
     public function upload($news, $path)
     {
         if (null === $news->getFileImage()) {
