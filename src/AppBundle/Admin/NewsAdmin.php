@@ -86,8 +86,10 @@ class NewsAdmin extends AbstractAdmin
         }
 
         if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
-            $del = unlink(substr($news->getImage(), 1));
-            $news->setImage($correctPath);
+            if ($correctPath != $news->getImage()) {
+                $del = unlink(substr($news->getImage(), 1));
+                $news->setImage($correctPath);
+            }
         }
 
         if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
