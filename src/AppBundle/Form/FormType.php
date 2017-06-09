@@ -38,7 +38,7 @@ class FormType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Email([
-                        'message'=>'This is not the corect email format'
+                        'message'=>'Вы ввели некорректный E-mail'
                     ])]
             ])
             ->add('comment', TextareaType::class, [

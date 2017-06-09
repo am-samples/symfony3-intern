@@ -32,9 +32,6 @@ class Callback
      * E-mail для обратной связи укзанный в форме
      *
      * @ORM\Column(type="string", length=100)
-     * @Assert\Email(
-     *     message = "E-mail: '{{ value }}' не корректный!"
-     * )
      */
     protected $email;
 

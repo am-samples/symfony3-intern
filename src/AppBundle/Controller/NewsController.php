@@ -91,8 +91,16 @@ class NewsController extends Controller
 
         $news = $cm->getNewsBySlug($slug);
 
-        return $this->render('AppBundle:news:news_post.html.twig',[
-            'news' => $news,
-        ]);
+        if ($news) {
+            return $this->render('AppBundle:news:news_post.html.twig',[
+                'news' => $news,
+            ]);
+        }
+        else {
+            throw $this->createNotFoundException('Нет такой страницы!');
+        }
+
+
+
     }
 }
