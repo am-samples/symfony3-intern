@@ -5,8 +5,10 @@ namespace AppBundle\Service;
 use AppBundle\Entity\News;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\Mapping\Entity;
 use Liip\ImagineBundle\DependencyInjection\LiipImagineExtension;
 use Liip\ImagineBundle\LiipImagineBundle;
+use phpDocumentor\Reflection\Types\Mixed;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
@@ -30,14 +32,15 @@ class ImageService
         $this->liipmg = $liipmg;
     }
 
+
     /**
      * Перемещение и формирование пути загруженного изображения.
      *
-     * @param $news
-     * @param $path
+     * @param News $news
+     * @param String $path
      * @return string|void
      */
-    public function upload($news, $path)
+    public function upload(News $news, String $path)
     {
         if (null === $news->getFileImage()) {
             return;
