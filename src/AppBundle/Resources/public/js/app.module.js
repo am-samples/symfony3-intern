@@ -2,8 +2,7 @@
 
 var NewsApp = angular.module('NewsApp', [])
     .config(function($interpolateProvider){
-
-        $interpolateProvider.startSymbol('[[').endSymbol(']]');
+    $interpolateProvider.startSymbol('[[').endSymbol(']]');
 });
 
 

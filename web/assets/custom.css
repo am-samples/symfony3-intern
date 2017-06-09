@@ -19,3 +19,20 @@
     margin: 0 auto;
     padding-left: 50px;
 }
+
+.callback-form {
+    margin: 0 auto;
+    width: 410px;
+}
+
+.lang-bar {
+    margin-left: 45%;
+    margin-top: 50px;
+
+}
+
+span.lang-bar {
+    display: block;
+    margin-left: 35%;
+    margin-top: 50px;
+}

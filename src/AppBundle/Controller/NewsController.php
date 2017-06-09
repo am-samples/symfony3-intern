@@ -20,12 +20,26 @@ class NewsController extends Controller
     /**
      * Отображение новостей
      *
-     * @Route("/news", name="news")
+     * @Route("/news_all", name="news")
      *
      */
-    public function newsAction()
+    public function newsAction(Request $request)
     {
-        return $this->render('AppBundle:news:news.html.twig');
+        $locale = "/".$request->getLocale();
+        return $this->render('AppBundle:news:news.html.twig',[
+            'locale' => $locale,
+        ]);
+    }
+
+    /**
+     * Отображение списка новостей
+     *
+     * @Route("/news_list", name="news_list")
+     *
+     */
+    public function newsListAction()
+    {
+        return $this->render('AppBundle:news:news-list.template.html.twig');
     }
 
     /**

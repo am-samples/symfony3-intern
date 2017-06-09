@@ -1,8 +1,9 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% trans_default_domain 'messages' %}
 
 {% block body %}
-    <h1 align="center">Hello TradeDealer! </h1>
-    <h2 align="center">Данные успешно отправлены!</h2>
+    <h1 align="center">{{ 'callback.form_success.hello'|trans  }}</h1>
+    <h2 align="center">{{ 'callback.form_success.message'|trans  }}</h2>
 {% endblock %}
 
 

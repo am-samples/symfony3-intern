@@ -1,7 +1,8 @@
 {% extends 'AppBundle::base.html.twig' %}
+{% trans_default_domain 'messages' %}
 
 {% block body %}
-    <h1 align="center">Демонстрация кавычек</h1>
+    <h1 align="center">{{ 'default.forest.title'|trans  }}</h1>
     <div class="login-align">
         {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
         <p>{{ "Этот замечательный 'пасмурный' день...'прошел'" }}</p>

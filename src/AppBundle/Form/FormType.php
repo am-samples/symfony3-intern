@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,18 +23,18 @@ class FormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Имя: ',
+                'label' => 'callback.form.username',
                 'attr'  => [
                     'class' => 'form-control',
-                    'placeholder' => 'Введите ваше имя...'
+                    'placeholder' =>  'callback.form.plname',
                 ]
             ])
 
             ->add('email', EmailType::class, [
-                'label' => 'E-mail: ',
+                'label' => 'callback.form.email',
                 'attr'  => [
                     'class' => 'form-control',
-                    'placeholder' => 'Введите ваш e-mail...'
+                    'placeholder' => 'callback.form.plmail',
                 ],
                 'constraints' => [
                     new Assert\Email([
@@ -40,14 +42,14 @@ class FormType extends AbstractType
                     ])]
             ])
             ->add('comment', TextareaType::class, [
-                'label' => 'Комментарий: ',
+                'label' => 'callback.form.comment',
                 'attr'  => [
                     'class' => 'form-control',
-                    'placeholder' => 'Можете добавить комментарий...'
+                    'placeholder' => 'callback.form.plcomment',
                 ]
             ])
             ->add('send', SubmitType::class, [
-                'label' => 'Отправить',
+                'label' => 'callback.form.submit',
                 'attr'  => [
                     'class' => 'btn btn-primary',
                     'style' => 'margin-top: 10px;'

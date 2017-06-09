@@ -32,7 +32,7 @@ class CallbackController extends Controller
             $mail = $this->container->get('app.message_service');
             $mail->send($callback);
 
-            $form_data = $this->container->get('app.database_service');
+            $form_data = $this->container->get('app.database_service_callback');
             $form_data->save($callback);
 
             return $this->redirectToRoute('callback_success');

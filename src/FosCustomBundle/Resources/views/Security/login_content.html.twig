@@ -4,7 +4,7 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 <div style="width: 450px; margin: 0 auto;">
-    <h1 align="center">Авторизация</h1>
+    <h1 align="center">{{ 'form.login.title' | trans({}, 'messages')}}</h1>
     <form action="{{ path("fos_user_security_check") }}" class="form-group row" method="post">
         {% if csrf_token %}
             <input type="hidden" class="form-control" name="_csrf_token" value="{{ csrf_token }}" />

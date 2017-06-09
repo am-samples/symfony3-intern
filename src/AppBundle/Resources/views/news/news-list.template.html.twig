@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation example">
+<nav>
     <ul class="pagination">
         <li class="page-item">
             <a class="page-link" href="#" ng-click="[viewby(0), setPage(1)]">&larr;</a>
@@ -32,14 +32,14 @@
 
 <table class="table table-bordered">
     <thead>
-        <tr>
-            <th class="success">Номер</th>
-            <th class="success">Заголовок</th>
-            <th class="success news-column-date">Дата</th>
-            <th class="warning">Изображение</th>
-            <th class="warning">Содержание</th>
-            <th class="warning">Описание</th>
-        </tr>
+    <tr>
+        <th class="success">{{ 'news.news.num' | trans}}</th>
+        <th class="success">{{ 'news.news.title_news' | trans}}</th>
+        <th class="success news-column-date">{{ 'news.news.date' | trans}}</th>
+        <th class="warning">{{ 'news.news.img' | trans}}</th>
+        <th class="warning">{{ 'news.news.content' | trans}}</th>
+        <th class="warning">{{ 'news.news.description' | trans}}</th>
+    </tr>
     </thead>
 
     <tr ng-repeat="item_news in news">

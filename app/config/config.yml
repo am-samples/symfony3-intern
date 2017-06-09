@@ -9,9 +9,9 @@ parameters:
     locale: ru
 
 framework:
+    default_locale: '%locale%'
     translator: { fallbacks: ["%locale%"] }
-    #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+
     secret: '%secret%'
     router:
         resource: '%kernel.root_dir%/config/routing.yml'

@@ -3,16 +3,17 @@
 angular.
 module('NewsApp').
 component('newsList', {
-    templateUrl: '/partials/news-list.template.html',
+    templateUrl:  '/app_dev.php/news_list' + window.appinit.init,
     controller: function NewsListController($scope, $http) {
         var self = this;
 
-        $http.get('getJsonNews').success(function(data) {
+        $http.get('/app_dev.php/getJsonNews').success(function(data) {
             $scope.news = data;
             $scope.totalItems = data['all'];
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.totalPages = Math.ceil($scope.totalItems / 10);
+            var item = $scope.currentPage;
         });
 
         $scope.setPage = function (pageNo) {
@@ -20,10 +21,11 @@ component('newsList', {
         };
 
         $scope.viewby = function (countNews) {
-            $http.get('getJsonNews/'+countNews).success(function(data) {
+            $http.get('/app_dev.php/getJsonNews/'+countNews).success(function(data) {
                 $scope.news = data;
                 console.log('Вызвана функция, значение - ' + countNews);
             });
         }
     }
 });
+
