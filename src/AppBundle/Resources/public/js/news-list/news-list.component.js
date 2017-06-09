@@ -3,7 +3,7 @@
 angular.
 module('NewsApp').
 component('newsList', {
-    templateUrl:  '/app_dev.php/news_list' + window.appinit.init,
+    templateUrl:  '/app_dev.php/news_list',
     controller: function NewsListController($scope, $http) {
         var self = this;
 
@@ -13,6 +13,7 @@ component('newsList', {
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.totalPages = Math.ceil($scope.totalItems / 10);
+            var it = $scope.locale;
             var item = $scope.currentPage;
         });
 
