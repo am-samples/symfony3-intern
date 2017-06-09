@@ -34,7 +34,7 @@ services:
 
     app.message:
         class: AppBundle\Service\MessageService
-        arguments: ['@mailer', '@twig', '@kernel']
+        arguments: ['@mailer', '@twig', '%mailer_user%', '%mailer_recipient%']
 
     app.database_callback:
         class: AppBundle\Service\CallbackService
