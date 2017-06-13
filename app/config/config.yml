@@ -138,3 +138,8 @@ knp_menu:
         template: KnpMenuBundle::menu.html.twig
     templating: false
     default_renderer: twig
+
+jms_i18n_routing:
+    default_locale: ru
+    locales: [en, ru]
+    strategy: prefix

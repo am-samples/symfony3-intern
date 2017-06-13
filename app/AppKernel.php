@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
 
         ];
 
