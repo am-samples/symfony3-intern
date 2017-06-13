@@ -3,11 +3,11 @@
 angular.
 module('NewsApp').
 component('newsList', {
-    templateUrl:  '/app_dev.php/news_list',
+    templateUrl:  '/app_dev.php/ru/news_list',
     controller: function NewsListController($scope, $http) {
         var self = this;
 
-        $http.get('/app_dev.php/getJsonNews').success(function(data) {
+        $http.get('/app_dev.php/ru/getJsonNews').success(function(data) {
             $scope.news = data;
             $scope.totalItems = data.all;
             $scope.currentPage = 1;
@@ -22,7 +22,7 @@ component('newsList', {
         };
 
         $scope.viewby = function (countNews) {
-            $http.get('/app_dev.php/getJsonNews/'+countNews).success(function(data) {
+            $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
                 $scope.news = data;
                 console.log('Вызвана функция, значение - ' + countNews);
             });
