@@ -7,7 +7,7 @@
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
         {% form_theme form 'bootstrap_3_layout.html.twig' %}
-        {{ form_start(form, {'attr': {'class': 'form-group row', 'action': '/app_dev.php/callback'} } ) }}
+        {{ form_start(form, {'attr': {'class': 'form-group row', 'action': '/app_dev.php/'~ locale ~ '/callback'} } ) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>

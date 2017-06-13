@@ -38,8 +38,11 @@ class CallbackController extends Controller
             return $this->redirectToRoute('callback_success');
         }
 
+        $locale = $request->getLocale();
+
         return $this->render('AppBundle:callback:form.html.twig', [
             'form' => $form->createView(),
+            'locale' => $locale,
         ]);
     }
 

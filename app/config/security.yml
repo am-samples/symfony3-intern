@@ -20,7 +20,11 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-            logout:    true
+                default_target_path: /%locale%/login_check
+            logout:
+                path:   /%locale%/logout
+                target: /%locale%/login
+                invalidate_session: true
             anonymous: true
 
         dev:
@@ -34,6 +38,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/cms, role: ROLE_ADMIN }
+        - { path: ^/%locale%/cms, role: ROLE_ADMIN }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/callback_list, role: ROLE_MANAGER }
