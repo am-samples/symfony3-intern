@@ -11,6 +11,22 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class NewsAdmin extends AbstractAdmin
 {
+
+    /**
+     * Получение названия текущего файла изображения
+     *
+     */
+    protected function getImageName($slug)
+    {
+        $dbservice = $this->getConfigurationPool()->getContainer()->get('app.database_news');
+        $resQuery = $dbservice->getNewsBySlug($slug);
+
+        $imageName = explode('/', $resQuery[0]->getImage());
+        $imageName = $imageName[count($imageName)-1];
+
+        return $imageName;
+    }
+
     /**
      * Формирование полей формы
      *
@@ -18,6 +34,7 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $slug = $formMapper->add('slug', 'text')->getAdmin()->getSubject()->getSlug();
 
         $formMapper
             ->add('title', 'text', [
@@ -45,8 +62,8 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Текущее изображение:',
                 'attr' => [
                     'readonly' => true,
-                    'placeholder' => 'Something.jpg',
-                    'style' => 'width: 200px; font-size: 16px;',
+                    'placeholder' => $this->getImageName($slug),
+                    'style' => 'width: 420px; font-size: 16px;',
                 ],
                 'required' => false,
             ])
