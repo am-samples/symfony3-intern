@@ -40,7 +40,6 @@ class NewsAdmin extends AbstractAdmin
             ->add('title', 'text', [
                 'label' => 'Заголовок'
             ])
-            ->add('slug', 'text')
             ->add('publicationDate', 'datetime', [
                 'label' => 'Дата публикации'
             ])
