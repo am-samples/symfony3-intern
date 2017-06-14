@@ -94,7 +94,7 @@ class NewsAdmin extends AbstractAdmin
             ->addIdentifier('image')
             ->addIdentifier('slug')
             ->addIdentifier('publicationDate', 'datetime', [
-                'format' => 'Y-m-d',
+                'format' => 'd.m.Y',
                 'timezone' => 'America/New_York'
             ])
             ->addIdentifier('active')
