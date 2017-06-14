@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Cocur\Slugify\Slugify;
 
 class NewsAdmin extends AbstractAdmin
 {
@@ -110,7 +110,11 @@ class NewsAdmin extends AbstractAdmin
     {
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
+        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
         $correctPath = $imgService->upload($news, $path);
+
+        $slug = $cocur->activateRuleset('russian')->slugify($news->getTitle());
+        $news->setSlug($slug);
 
         if ($news->getDel() == 1 && !empty($news->getImage())) {
             $imgService->remove($news->getImage());
