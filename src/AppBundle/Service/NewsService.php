@@ -70,6 +70,7 @@ class NewsService
         $qb = $em->createQueryBuilder();
         $qb ->add('select', 'u')
             ->add('from', 'AppBundle:News u')
+            ->add('where', 'u.active=1')
             ->setFirstResult( $start )
             ->setMaxResults( $count );
 

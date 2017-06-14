@@ -21,11 +21,13 @@ class NewsAdmin extends AbstractAdmin
         $dbservice = $this->getConfigurationPool()->getContainer()->get('app.database_news');
         $resQuery = $dbservice->getNewsBySlug($slug);
 
-        (!empty($slug)) ?
+        if (!empty($slug)) {
             $imageName = explode('/', $resQuery[0]->getImage());
             $imageName = $imageName[count($imageName)-1];
-        : $imageName = $slug;
-
+        }
+        else {
+            $imageName = $slug;
+        }
 
         return $imageName;
     }
@@ -51,7 +53,8 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Содержание'
             ])
             ->add('active', 'checkbox', [
-                'label' => 'Активен'
+                'label' => 'Активен',
+                'required' => false
             ])
             ->add('description', 'text', [
                 'label' => 'Описание'
@@ -94,7 +97,6 @@ class NewsAdmin extends AbstractAdmin
                 'format' => 'Y-m-d',
                 'timezone' => 'America/New_York'
             ])
-            ->addIdentifier('content')
             ->addIdentifier('active')
             ->addIdentifier('description')
             ->add('_action', 'actions', [
@@ -118,6 +120,9 @@ class NewsAdmin extends AbstractAdmin
         elseif ($news->getDel() == 0) {
             if(!empty($correctPath) && empty($news->getImage())){
                 $news->setImage($correctPath);
+            }
+            elseif (!empty($news->getImage()) && empty($correctPath)) {
+                $news->setActive($news->getActive());
             }
             else {
                 if ($correctPath != $news->getImage()) {

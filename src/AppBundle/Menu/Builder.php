@@ -18,7 +18,6 @@ class Builder implements ContainerAwareInterface
         $resQuery = $em->getRepository('AppBundle:Menu')->findBy(['active' => '1']);
 
         $token = $this->container->get('security.token_storage')->getToken();
-//        $roles = $token->getUser()->getRoles();
 
         $roles = gettype( $token->getUser()) != 'string' ?
             $token->getUser()->getRoles() :
