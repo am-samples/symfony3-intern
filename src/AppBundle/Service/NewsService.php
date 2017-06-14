@@ -36,6 +36,7 @@ class NewsService
         $qb = $em->createQueryBuilder();
         $qb->select('COUNT(n.id)');
         $qb->from('AppBundle:News','n');
+        $qb->where('n.active=1');
 
         $resQuery = $qb->getQuery()->getSingleScalarResult();
 
