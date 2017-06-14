@@ -40,7 +40,6 @@ class NewsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $slug = $formMapper->add('slug', 'text')->getAdmin()->getSubject()->getSlug();
-        $slug = !empty($slug) ? $slug : '';
 
         $formMapper
             ->add('title', 'text', [
