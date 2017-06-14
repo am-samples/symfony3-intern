@@ -68,7 +68,7 @@ class MainMenuAdmin extends AbstractAdmin
                 }
             }
         }
-        
+
         return $correctRoutes;
 
     }

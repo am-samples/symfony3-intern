@@ -21,8 +21,11 @@ class NewsAdmin extends AbstractAdmin
         $dbservice = $this->getConfigurationPool()->getContainer()->get('app.database_news');
         $resQuery = $dbservice->getNewsBySlug($slug);
 
-        $imageName = explode('/', $resQuery[0]->getImage());
-        $imageName = $imageName[count($imageName)-1];
+        (!empty($slug)) ?
+            $imageName = explode('/', $resQuery[0]->getImage());
+            $imageName = $imageName[count($imageName)-1];
+        : $imageName = $slug;
+
 
         return $imageName;
     }
@@ -35,6 +38,7 @@ class NewsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $slug = $formMapper->add('slug', 'text')->getAdmin()->getSubject()->getSlug();
+        $slug = !empty($slug) ? $slug : '';
 
         $formMapper
             ->add('title', 'text', [
