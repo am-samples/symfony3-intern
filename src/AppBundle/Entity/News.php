@@ -48,12 +48,6 @@ class News
     protected $fileImage;
 
     /**
-     * Название файла текущего изображения в админке
-     *
-     */
-    protected $nameOfImage;
-
-    /**
      * Дата публикации
      *
      * @ORM\Column(type="datetime")
@@ -245,23 +239,6 @@ class News
     public function setFileImage($fileImage)
     {
         $this->fileImage = $fileImage;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNameOfImage()
-    {
-        return $this->nameOfImage;
-    }
-
-    /**
-     * @param mixed $nameOfImage
-     */
-    public function setNameOfImage($nameOfImage)
-    {
-        $this->nameOfImage = $nameOfImage;
         return $this;
     }
 
