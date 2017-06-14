@@ -7,10 +7,31 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Cocur\Slugify\Slugify;
 
 class NewsAdmin extends AbstractAdmin
 {
+
+    /**
+     * Получение названия текущего файла изображения
+     *
+     */
+    protected function getImageName($slug)
+    {
+        $dbservice = $this->getConfigurationPool()->getContainer()->get('app.database_news');
+        $resQuery = $dbservice->getNewsBySlug($slug);
+
+        if (!empty($slug)) {
+            $imageName = explode('/', $resQuery[0]->getImage());
+            $imageName = $imageName[count($imageName)-1];
+        }
+        else {
+            $imageName = $slug;
+        }
+
+        return $imageName;
+    }
+
     /**
      * Формирование полей формы
      *
@@ -18,12 +39,12 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $slug = $formMapper->add('slug', 'text')->getAdmin()->getSubject()->getSlug();
 
         $formMapper
             ->add('title', 'text', [
                 'label' => 'Заголовок'
             ])
-            ->add('slug', 'text')
             ->add('publicationDate', 'datetime', [
                 'label' => 'Дата публикации'
             ])
@@ -31,7 +52,8 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Содержание'
             ])
             ->add('active', 'checkbox', [
-                'label' => 'Активен'
+                'label' => 'Активен',
+                'required' => false
             ])
             ->add('description', 'text', [
                 'label' => 'Описание'
@@ -45,8 +67,8 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Текущее изображение:',
                 'attr' => [
                     'readonly' => true,
-                    'placeholder' => 'Something.jpg',
-                    'style' => 'width: 200px; font-size: 16px;',
+                    'placeholder' => $this->getImageName($slug),
+                    'style' => 'width: 420px; font-size: 16px;',
                 ],
                 'required' => false,
             ])
@@ -71,10 +93,9 @@ class NewsAdmin extends AbstractAdmin
             ->addIdentifier('image')
             ->addIdentifier('slug')
             ->addIdentifier('publicationDate', 'datetime', [
-                'format' => 'Y-m-d',
+                'format' => 'd.m.Y',
                 'timezone' => 'America/New_York'
             ])
-            ->addIdentifier('content')
             ->addIdentifier('active')
             ->addIdentifier('description')
             ->add('_action', 'actions', [
@@ -89,23 +110,31 @@ class NewsAdmin extends AbstractAdmin
     {
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
+        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
         $correctPath = $imgService->upload($news, $path);
 
-        if(($news->getDel() == 1) && (!empty($news->getImage()))) {
+        $slug = $cocur->activateRuleset('russian')->slugify($news->getTitle());
+        $news->setSlug($slug);
+
+        if ($news->getDel() == 1 && !empty($news->getImage())) {
             $imgService->remove($news->getImage());
             $news->setImage(null);
         }
-
-        if(!empty($correctPath) && !empty($news->getImage()) && $news->getDel() == 0) {
-            if ($correctPath != $news->getImage()) {
-                $imgService->remove($news->getImage());
+        elseif ($news->getDel() == 0) {
+            if(!empty($correctPath) && empty($news->getImage())){
                 $news->setImage($correctPath);
+            }
+            elseif (!empty($news->getImage()) && empty($correctPath)) {
+                $news->setActive($news->getActive());
+            }
+            else {
+                if ($correctPath != $news->getImage()) {
+                    $imgService->remove($news->getImage());
+                    $news->setImage($correctPath);
+                }
             }
         }
 
-        if(!empty($correctPath) && empty($news->getImage()) && $news->getDel() == 0) {
-            $news->setImage($correctPath);
-        }
 
     }
 

@@ -20,7 +20,11 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-            logout:    true
+                check_path: fos_user_security_check
+                failure_path: fos_user_security_login
+            logout:
+                path:   fos_user_security_logout
+                invalidate_session: true
             anonymous: true
 
         dev:
@@ -31,9 +35,8 @@ security:
             anonymous: ~
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/cms, role: ROLE_ADMIN }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/callback_list, role: ROLE_MANAGER }
+        - { path: ^/\w\w/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/\w\w/cms, role: ROLE_ADMIN }
+        - { path: ^/\w\w/callback_list, role: ROLE_MANAGER }

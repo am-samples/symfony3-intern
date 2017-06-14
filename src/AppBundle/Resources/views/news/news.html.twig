@@ -1,6 +1,9 @@
 {% extends 'AppBundle::base.html.twig' %}
 {% trans_default_domain 'messages' %}
 
+{% block title %}
+    {{ 'news.news.title'|trans  }}
+{% endblock %}
 {% block body %}
     <div class="news-column">
         {{ include('AppBundle:default:navigation_user.html.twig') }}

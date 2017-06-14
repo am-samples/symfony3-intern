@@ -13,7 +13,7 @@ class CallbackServiceTest extends WebTestCase
     public function test_save()
     {
 
-        $client = self::createClient();
+
 
         $save = $this->getMockBuilder(EntityManager::class)
             ->setMethods(['persist', 'flush'])

@@ -38,8 +38,11 @@ class CallbackController extends Controller
             return $this->redirectToRoute('callback_success');
         }
 
+        $locale = $request->getLocale();
+
         return $this->render('AppBundle:callback:form.html.twig', [
             'form' => $form->createView(),
+            'locale' => $locale,
         ]);
     }
 
@@ -60,7 +63,7 @@ class CallbackController extends Controller
     public function listAction(Request $request)
     {
         $clientManager = $mail = $this->container->get('app.database_callback');
-        $res = $clientManager->showCallback();
+        $res = $clientManager->getCallbackList();
 
         return $this->render('AppBundle:callback:list.html.twig', [
             'orders' => $res,

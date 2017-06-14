@@ -14,19 +14,35 @@ class Builder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
 
-        // Routes from Database
         $em = $this->container->get('doctrine')->getManager();
         $resQuery = $em->getRepository('AppBundle:Menu')->findBy(['active' => '1']);
 
-        foreach ($resQuery as $item) {
-            if($item->getCustomLink()){
-                $menu->addChild($item->getName(), ['uri' => $item->getCustomLink()]);
-            }
-            else {
-                $menu->addChild($item->getName(), ['route' => $item->getLink()]);
-            }
-        }
+        $token = $this->container->get('security.token_storage')->getToken();
 
+        $roles = gettype( $token->getUser()) != 'string' ?
+            $token->getUser()->getRoles() :
+            [];
+
+            foreach ($resQuery as $item) {
+
+                if ($item->getName() == 'Заявки' && !in_array('ROLE_MANAGER', $roles)) {
+                    continue;
+
+                }
+                elseif ($item->getName() == 'CMS' && !in_array('ROLE_ADMIN', $roles)) {
+                    continue;
+                }
+
+                else {
+
+                    if($item->getCustomLink()){
+                        $menu->addChild($item->getName(), ['uri' => $item->getCustomLink()]);
+                    }
+                    else {
+                        $menu->addChild($item->getName(), ['route' => $item->getLink()]);
+                    }
+                }
+        }
         return $menu;
     }
 }
