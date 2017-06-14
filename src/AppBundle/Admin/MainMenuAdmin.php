@@ -62,12 +62,13 @@ class MainMenuAdmin extends AbstractAdmin
 
             if ($key[0] == 'AppBundle' || in_array($k, $trueNamespaces)) {
                 foreach ($item_route as $route) {
-                    $correctRoutes[$route] = $route;
+                    $tmp_route = substr($route,8);
+                    $correctRoutes[$tmp_route] = $tmp_route;
 
                 }
             }
         }
-
+        
         return $correctRoutes;
 
     }
