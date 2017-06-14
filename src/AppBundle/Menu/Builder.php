@@ -18,31 +18,31 @@ class Builder implements ContainerAwareInterface
         $resQuery = $em->getRepository('AppBundle:Menu')->findBy(['active' => '1']);
 
         $token = $this->container->get('security.token_storage')->getToken();
-        $roles = $token->getUser()->getRoles();
 
-        foreach ($resQuery as $item) {
+        $roles = gettype( $token->getUser()) != 'string' ?
+            $token->getUser()->getRoles() :
+            [];
 
-            if ($item->getName() == 'Заявки' && !in_array('ROLE_MANAGER', $roles)) {
-                continue;
+            foreach ($resQuery as $item) {
 
-            }
-            elseif ($item->getName() == 'CMS' && !in_array('ROLE_ADMIN', $roles)) {
-                continue;
-            }
+                if ($item->getName() == 'Заявки' && !in_array('ROLE_MANAGER', $roles)) {
+                    continue;
 
-            else {
-
-                if($item->getCustomLink()){
-                    $menu->addChild($item->getName(), ['uri' => $item->getCustomLink()]);
                 }
+                elseif ($item->getName() == 'CMS' && !in_array('ROLE_ADMIN', $roles)) {
+                    continue;
+                }
+
                 else {
-                    $menu->addChild($item->getName(), ['route' => $item->getLink()]);
+
+                    if($item->getCustomLink()){
+                        $menu->addChild($item->getName(), ['uri' => $item->getCustomLink()]);
+                    }
+                    else {
+                        $menu->addChild($item->getName(), ['route' => $item->getLink()]);
+                    }
                 }
-            }
-
-
         }
-
         return $menu;
     }
 }

@@ -22,7 +22,7 @@ class ShowCallbackCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $clientManager = $this->getContainer()->get('app.database_callback');
-        $res = $clientManager->showCallback();
+        $res = $clientManager->getCallbackList();
 
         $results = [];
         foreach ($res as $k => $item){

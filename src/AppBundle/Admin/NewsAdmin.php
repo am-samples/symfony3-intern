@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Cocur\Slugify\Slugify;
 
 class NewsAdmin extends AbstractAdmin
 {
@@ -25,11 +25,11 @@ class NewsAdmin extends AbstractAdmin
             $imageName = $resQuery[0]->getImage();
             $liipm =  $this->getConfigurationPool()->getContainer()->get('liip_imagine.cache.manager');
             $imageName = $liipm->getBrowserPath($imageName, 'my_thumb');
+
         }
         else {
             $imageName = $slug;
         }
-
 
         return $imageName;
     }
@@ -54,7 +54,8 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Содержание'
             ])
             ->add('active', 'checkbox', [
-                'label' => 'Активен'
+                'label' => 'Активен',
+                'required' => false
             ])
             ->add('description', 'text', [
                 'label' => 'Описание'
@@ -86,10 +87,9 @@ class NewsAdmin extends AbstractAdmin
             ->addIdentifier('image')
             ->addIdentifier('slug')
             ->addIdentifier('publicationDate', 'datetime', [
-                'format' => 'Y-m-d',
+                'format' => 'd.m.Y',
                 'timezone' => 'America/New_York'
             ])
-            ->addIdentifier('content')
             ->addIdentifier('active')
             ->addIdentifier('description')
             ->add('_action', 'actions', [
@@ -104,7 +104,11 @@ class NewsAdmin extends AbstractAdmin
     {
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
+        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
         $correctPath = $imgService->upload($news, $path);
+
+        $slug = $cocur->activateRuleset('russian')->slugify($news->getTitle());
+        $news->setSlug($slug);
 
         if ($news->getDel() == 1 && !empty($news->getImage())) {
             $imgService->remove($news->getImage());
@@ -113,6 +117,9 @@ class NewsAdmin extends AbstractAdmin
         elseif ($news->getDel() == 0) {
             if(!empty($correctPath) && empty($news->getImage())){
                 $news->setImage($correctPath);
+            }
+            elseif (!empty($news->getImage()) && empty($correctPath)) {
+                $news->setActive($news->getActive());
             }
             else {
                 if ($correctPath != $news->getImage()) {

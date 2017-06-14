@@ -1,6 +1,9 @@
 {% extends 'AppBundle::base.html.twig' %}
 {% trans_default_domain 'messages' %}
 
+{% block title %}
+    {{ 'default.forest.title'|trans  }}
+{% endblock %}
 {% block body %}
     <h1 align="center">{{ 'default.forest.title'|trans  }}</h1>
     <div class="login-align">
