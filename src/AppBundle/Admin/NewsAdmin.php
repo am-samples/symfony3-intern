@@ -28,7 +28,12 @@ class NewsAdmin extends AbstractAdmin
         if (!empty($slug)) {
             $imageName = $resQuery[0]->getImage();
             $liipm =  $this->getConfigurationPool()->getContainer()->get('liip_imagine.cache.manager');
+<<<<<<< HEAD
             $imageName = !empty($imageName) ? $liipm->getBrowserPath($imageName, 'my_thumb') : '';
+=======
+            $imageName = $liipm->getBrowserPath($imageName, 'my_thumb');
+
+>>>>>>> a7134ec96a65068d34f5c41ac64923aae145d63e
         }
         else {
             $imageName = '';
