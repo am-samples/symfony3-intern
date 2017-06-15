@@ -7,6 +7,9 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\CoreBundle\Validator\ErrorElement;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Cocur\Slugify\Slugify;
 
 
@@ -103,26 +106,36 @@ class NewsAdmin extends AbstractAdmin
         $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
         $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
         $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
-        $correctPath = $imgService->upload($news, $path);
+
+        $uploadedImage = $imgService->upload($news, $path);
+        $currentImage = $news->getImage();
+
+        $fs = new Filesystem();
+        $statusFile = $fs->exists(substr($currentImage,1));
 
         $slug = $news->getSlug();
         $newSlug = $cocur->activateRuleset('russian')->slugify($news->getTitle());
         $news->setSlug($newSlug);
 
-        if ($news->getDel() == 1 && !empty($news->getImage())) {
-            $imgService->remove($news->getImage());
-            $news->setImage(null);
+        if ($news->getDel() == 1 && !empty($currentImage)) {
+
+            if ($statusFile) {
+                $imgService->remove($currentImage);
+                $news->setImage(null);
+            }
+            else { $news->setImage(null); }
+
         }
         elseif ($news->getDel() == 0) {
-            if(empty($news->getImage()) && (empty($correctPath) || !empty($correctPath))){
-                $news->setImage($correctPath);
+            if(empty($currentImage) && (empty($uploadedImage) || !empty($uploadedImage))){
+                $news->setImage($uploadedImage);
             }
-            elseif (!empty($news->getImage()) && !empty($correctPath)) {
-                if($correctPath != $news->getImage()) {
-                    $imgService->remove($news->getImage());
-                    $news->setImage($correctPath);
+            elseif (!empty($currentImage) && !empty($uploadedImage)) {
+                if($uploadedImage != $currentImage) {
+                    $imgService->remove($currentImage);
+                    $news->setImage($uploadedImage);
                 }
-                else { $news->setImage($correctPath); }
+                else { $news->setImage($uploadedImage); }
             }
         }
 
