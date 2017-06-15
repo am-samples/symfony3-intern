@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * Класс работы с новостями
@@ -23,6 +23,7 @@ class News
     /**
      * Заголовок
      *
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     protected $title;
@@ -50,6 +51,7 @@ class News
     /**
      * Дата публикации
      *
+     * @Assert\NotBlank()
      * @ORM\Column(type="datetime")
      */
     protected $publicationDate;
@@ -57,6 +59,7 @@ class News
     /**
      * Содержание новости
      *
+     * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
     protected $content;
@@ -71,6 +74,7 @@ class News
     /**
      * Описание новости
      *
+     * @Assert\NotBlank()
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
@@ -87,6 +91,15 @@ class News
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -241,5 +254,6 @@ class News
         $this->fileImage = $fileImage;
         return $this;
     }
+
 
 }
