@@ -37,6 +37,59 @@ class NewsAdmin extends AbstractAdmin
         return $imageName;
     }
 
+    protected function dbManager()
+    {
+        $dbm = $this->getConfigurationPool()->getContainer()->get('app.database_news');
+        return $dbm;
+    }
+
+    protected function initImageService()
+    {
+        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
+        return $imgService;
+    }
+
+    protected function uploadImage(News $news)
+    {
+        $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
+        $imgService = $this->initImageService();
+        $uploadedImage = $imgService->upload($news, $path);
+
+        return $uploadedImage;
+    }
+
+
+    protected function initTranslation(News $news)
+    {
+        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
+
+        return $cocur;
+    }
+
+    protected function executeImageLogic(News $news, $currentImage, $uploadedImage, $statusFile, $imgService)
+    {
+        if ($news->getDel() == 1 && !empty($currentImage)) {
+
+            if ($statusFile) {
+                $imgService->remove($currentImage);
+                $news->setImage(null);
+            } else {
+                $news->setImage(null);
+            }
+        } elseif ($news->getDel() == 0) {
+            if (empty($currentImage) && (empty($uploadedImage) || !empty($uploadedImage))) {
+                $news->setImage($uploadedImage);
+            } elseif (!empty($currentImage) && !empty($uploadedImage)) {
+                if ($uploadedImage != $currentImage) {
+                    $imgService->remove($currentImage);
+                    $news->setImage($uploadedImage);
+                } else {
+                    $news->setImage($uploadedImage);
+                }
+            }
+        }
+    }
+
     /**
      * Формирование полей формы
      *
@@ -106,42 +159,22 @@ class NewsAdmin extends AbstractAdmin
 
     public function preValidate($news)
     {
-        $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
-        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
-        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
-
-        $uploadedImage = $imgService->upload($news, $path);
-        $currentImage = $news->getImage();
-
         $fs = new Filesystem();
-        $statusFile = $fs->exists(substr($currentImage,1));
+
+        $uploadedImage = $this->uploadImage($news);
+        $currentImage = $news->getImage();
+        $statusFile = $fs->exists(substr($currentImage, 1));
+        $imgService = $this->initImageService();
+
+
+
+        $translation = $this->initTranslation($news);
 
         $slug = $news->getSlug();
-        $newSlug = $cocur->activateRuleset('russian')->slugify($news->getTitle());
+        $newSlug = $translation->activateRuleset('russian')->slugify($news->getTitle());
         $news->setSlug($newSlug);
 
-        if ($news->getDel() == 1 && !empty($currentImage)) {
-
-            if ($statusFile) {
-                $imgService->remove($currentImage);
-                $news->setImage(null);
-            }
-            else { $news->setImage(null); }
-
-        }
-        elseif ($news->getDel() == 0) {
-            if(empty($currentImage) && (empty($uploadedImage) || !empty($uploadedImage))){
-                $news->setImage($uploadedImage);
-            }
-            elseif (!empty($currentImage) && !empty($uploadedImage)) {
-                if($uploadedImage != $currentImage) {
-                    $imgService->remove($currentImage);
-                    $news->setImage($uploadedImage);
-                }
-                else { $news->setImage($uploadedImage); }
-            }
-        }
-
+        $this->executeImageLogic($news, $currentImage, $uploadedImage, $statusFile, $imgService);
 
     }
 

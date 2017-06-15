@@ -94,6 +94,15 @@ class News
     }
 
     /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getTitle()
@@ -245,5 +254,6 @@ class News
         $this->fileImage = $fileImage;
         return $this;
     }
+
 
 }
