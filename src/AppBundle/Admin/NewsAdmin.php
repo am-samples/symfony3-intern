@@ -124,14 +124,10 @@ class NewsAdmin extends AbstractAdmin
             if(!empty($correctPath) && empty($news->getImage())){
                 $news->setImage($correctPath);
             }
-            elseif (!empty($news->getImage()) && empty($correctPath)) {
-                $news->setActive($news->getActive());
-            }
-            else {
-                if ($correctPath != $news->getImage()) {
-                    $imgService->remove($news->getImage());
-                    $news->setImage($correctPath);
-                }
+            elseif ($correctPath != $news->getImage() && $news->getActive() == 1) {
+                $imgService->remove($news->getImage());
+                $news->setImage($correctPath);
+
             }
         }
 
