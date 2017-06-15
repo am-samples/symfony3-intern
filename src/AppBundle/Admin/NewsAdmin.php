@@ -44,11 +44,14 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $slug = $formMapper->add('slug', 'text',['required' => false,])->getAdmin()->getSubject()->getSlug();
+        $slug = $formMapper->getAdmin()->getSubject()->getSlug();
 
         $formMapper
             ->add('title', 'text', [
                 'label' => 'Заголовок'
+            ])
+            ->add('slug', 'text',[
+                'required' => false,
             ])
             ->add('publicationDate', 'datetime', [
                 'label' => 'Дата публикации'
