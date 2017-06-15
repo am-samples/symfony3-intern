@@ -16,7 +16,7 @@ class NewsAdmin extends AbstractAdmin
      * Получение названия текущего файла изображения
      *
      */
-    protected function getImageThumb($slug)
+    protected function getImageName($slug)
     {
         $dbservice = $this->getConfigurationPool()->getContainer()->get('app.database_news');
         $resQuery = $dbservice->getNewsBySlug($slug);
@@ -27,9 +27,8 @@ class NewsAdmin extends AbstractAdmin
             $imageName = $liipm->getBrowserPath($imageName, 'my_thumb');
         }
         else {
-            $imageName = $slug;
+            $imageName = '';
         }
-
 
         return $imageName;
     }
@@ -63,7 +62,15 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Изображение',
                 'required' => false,
                 'data_class' => null,
-                'help' => '<img src="'.$this->getImageThumb($slug).'" class="admin-preview" />',
+            ])
+            ->add('nameOfImage', 'text', [
+                'label' => 'Текущее изображение:',
+                'attr' => [
+                    'readonly' => true,
+                    'placeholder' => $this->getImageName($slug),
+                    'style' => 'width: 420px; font-size: 16px;',
+                ],
+                'required' => false,
             ])
             ->add('del', 'checkbox', [
                 'label'=> 'Удалить изображение',

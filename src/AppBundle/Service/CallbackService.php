@@ -36,7 +36,7 @@ class CallbackService
         $em->flush();
     }
 
-    public function showCallback()
+    public function getCallbackList()
     {
         $em = $this->em;
         $repo = $em->getRepository('AppBundle:Callback');

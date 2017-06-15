@@ -14,66 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class MainMenuAdmin extends AbstractAdmin
 {
     /**
-     * Получение массива нужных имен путей
-     */
-    protected function getNameOfRoutes()
-    {
-        /**
-         * @var $router \Symfony\Component\Routing\Router
-         */
-        $container = $this->getConfigurationPool()->getContainer();
-        $router = $container->get('router');
-        /**
-         * @var $collection \Symfony\Component\Routing\RouteCollection
-         */
-        $collection = $router->getRouteCollection();
-        $allRoutes = $collection->all();
-        $routes = [];
-
-        /**
-         * @var $params \Symfony\Component\Routing\Route
-         */
-        foreach ($allRoutes as $route => $params)
-        {
-            $defaults = $params->getDefaults();
-
-            if (isset($defaults['_controller']))
-            {
-                $controllerAction = explode(':', $defaults['_controller']);
-                $controller = $controllerAction[0];
-
-                if (!isset($routes[$controller])) {
-                    $routes[$controller] = [];
-                }
-
-                $routes[$controller][]= $route;
-            }
-        }
-
-        $correctRoutes = [];
-        $trueNamespaces = [
-            'Sonata\AdminBundle\Controller\CoreController',
-            'FOS\UserBundle\Controller\SecurityController',
-            'FOS\UserBundle\Controller\RegistrationController'
-        ];
-        foreach ($routes as $k => $item_route)
-        {
-            $key = explode('\C', $k);
-
-            if ($key[0] == 'AppBundle' || in_array($k, $trueNamespaces)) {
-                foreach ($item_route as $route) {
-                    $tmp_route = substr($route,8);
-                    $correctRoutes[$tmp_route] = $tmp_route;
-
-                }
-            }
-        }
-        
-        return $correctRoutes;
-
-    }
-
-    /**
      * Формирование полей формы для работы с пунктом меню
      *
      * @param FormMapper $formMapper
@@ -85,12 +25,21 @@ class MainMenuAdmin extends AbstractAdmin
                 'label' => 'Название пункта меню'
             ])
             ->add('link', ChoiceType::class, [
-                'label' => 'Путь',
+                'label' => 'Модуль',
                 'required' => false,
-                'choices'  => $this->getNameOfRoutes(),
+                'choices'  => [
+                    'Главная' => 'homepage',
+                    'Новости' => 'news',
+                    'Заявки' => 'callback_list',
+                    'Кавычки' => 'forest',
+                    'Обратная связь' => 'callback_form',
+                    'CMS' => 'sonata_admin_dashboard',
+                    'Регистрация' => 'fos_user_registration_register',
+                    'Авторизация' => 'fos_user_security_login',
+                ],
             ])
             ->add('customLink', 'text',[
-                'label' => 'Свой путь',
+                'label' => 'Путь',
                 'required' => false,
             ])
             ->add('active', 'checkbox',[

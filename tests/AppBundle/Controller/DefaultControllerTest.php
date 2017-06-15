@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/ru/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Привет TradeDealer!', $crawler->filter('#container h1')->text());
