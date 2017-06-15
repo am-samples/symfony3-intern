@@ -63,15 +63,7 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Изображение',
                 'required' => false,
                 'data_class' => null,
-            ])
-            ->add('nameOfImage', 'text', [
-                'label' => 'Текущее изображение:',
-                'attr' => [
-                    'readonly' => true,
-                    'placeholder' => $this->getImageName($slug),
-                    'style' => 'width: 420px; font-size: 16px;',
-                ],
-                'required' => false,
+                'help' => '<img src="'.$this->getImageName($slug).'" alt="img">',
             ])
             ->add('del', 'checkbox', [
                 'label'=> 'Удалить изображение',
