@@ -89,10 +89,12 @@ class NewsController extends Controller
         $cm = $this->clientManager();
 
         $news = $cm->getNewsBySlug($slug);
+        $title = $news[0]->getTitle();
 
         if ($news) {
             return $this->render('AppBundle:news:news_post.html.twig',[
                 'news' => $news,
+                'title' => $title,
             ]);
         }
         else {
