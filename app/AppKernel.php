@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
 
         ];
 

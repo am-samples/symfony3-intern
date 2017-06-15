@@ -65,7 +65,7 @@ class NewsController extends Controller
                 'news_post', ['slug' => $item->getSlug()]
             );
             $news_arr[$k]["image"] = $item->getImage();
-            $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d-m-Y');
+            $news_arr[$k]["publication_date"] = $item->getPublicationDate()->format('d.m.Y');
             $news_arr[$k]["active"] = $item->getActive();
             $news_arr[$k]["description"] = $item->getDescription();
 
@@ -89,10 +89,12 @@ class NewsController extends Controller
         $cm = $this->clientManager();
 
         $news = $cm->getNewsBySlug($slug);
+        $title = $news[0]->getTitle();
 
         if ($news) {
             return $this->render('AppBundle:news:news_post.html.twig',[
                 'news' => $news,
+                'title' => $title,
             ]);
         }
         else {

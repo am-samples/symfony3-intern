@@ -70,7 +70,7 @@ class News
     /**
      * Cтатус новости
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $active;
 
