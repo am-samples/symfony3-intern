@@ -157,7 +157,26 @@ class NewsAdmin extends AbstractAdmin
             ]);
     }
 
+    public function prePersist($news)
+    {
+        $dbm = $this->dbManager();
+        $id = $dbm->getLastNewsId();
+        $news->setId($id+1);
+
+        $uploadedImage = $this->uploadImage($news);
+        $news->setImage($uploadedImage);
+    }
+
     public function preValidate($news)
+    {
+        $translation = $this->initTranslation($news);
+
+        $slug = $news->getSlug();
+        $newSlug = $translation->activateRuleset('russian')->slugify($news->getTitle());
+        $news->setSlug($newSlug);
+    }
+
+    public function preUpdate($news)
     {
         $fs = new Filesystem();
 
@@ -165,14 +184,6 @@ class NewsAdmin extends AbstractAdmin
         $currentImage = $news->getImage();
         $statusFile = $fs->exists(substr($currentImage, 1));
         $imgService = $this->initImageService();
-
-
-
-        $translation = $this->initTranslation($news);
-
-        $slug = $news->getSlug();
-        $newSlug = $translation->activateRuleset('russian')->slugify($news->getTitle());
-        $news->setSlug($newSlug);
 
         $this->executeImageLogic($news, $currentImage, $uploadedImage, $statusFile, $imgService);
 
