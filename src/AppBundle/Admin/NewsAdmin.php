@@ -26,7 +26,7 @@ class NewsAdmin extends AbstractAdmin
             $imageName = $imageName[count($imageName)-1];
         }
         else {
-            $imageName = $slug;
+            $imageName = '';
         }
 
         return $imageName;
