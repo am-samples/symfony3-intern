@@ -7,14 +7,14 @@ component('newsList', {
     controller: function NewsListController($scope, $http) {
         var self = this;
 
-        var totalPages;
+        var totalItems;
         $http.get('/app_dev.php/ru/getJsonNews').success(function(data) {
             $scope.news = data;
             $scope.totalItems = data.all;
             $scope.currentPage = 1;
             $scope.itemsPerPage = $scope.viewby;
             $scope.totalPages = Math.ceil($scope.totalItems / 10);
-            totalPages = $scope.totalPages;
+            totalItems = $scope.totalItems;
             var it = $scope.locale;
             var item = $scope.currentPage;
         });
@@ -24,7 +24,8 @@ component('newsList', {
         };
 
         $scope.viewby = function (countNews) {
-            if (countNews === 0 || countNews === totalPages) {
+            console.log(totalItems);
+            if ((countNews === 0) || (countNews === totalItems)) {
                 $scope.disabled = true;
             }
             else {
