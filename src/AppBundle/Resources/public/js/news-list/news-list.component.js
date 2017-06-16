@@ -23,18 +23,24 @@ component('newsList', {
             $scope.currentPage = pageNo;
         };
 
+        var jsonContent = {};
         $scope.viewby = function (countNews) {
-            console.log(totalItems);
             if ((countNews === 0) || (countNews === totalItems)) {
                 $scope.disabled = true;
             }
             else {
                 $scope.disabled = false;
             }
-            $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
-                $scope.news = data;
-                console.log('Вызвана функция, значение - ' + countNews);
-            });
+            if(typeof jsonContent[countNews] === 'undefined') {
+                $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
+                    $scope.news = data;
+                    jsonContent[countNews] = data;
+                    console.log('Вызвана функция, значение - ' + countNews);
+                });
+            }
+            else {
+                $scope.news = jsonContent[countNews];
+            }
         }
     }
 });

@@ -25,11 +25,32 @@ class NewsService
     }
 
     /**
-     * Получение количества новостей
+     * Получение количества всех новостей
      *
      * @return mixed
      */
-    public function getCountNews()
+    public function getLastNewsId()
+    {
+        $em = $this->em;
+
+        $qb = $em->createQueryBuilder();
+        $qb->select('n.id');
+        $qb->from('AppBundle:News','n');
+        $qb->orderBy('n.id','DESC');
+        $qb->setMaxResults(1);
+
+
+        $resQuery = $qb->getQuery()->getSingleScalarResult();
+
+        return $resQuery;
+    }
+
+    /**
+     * Получение количества активных новостей
+     *
+     * @return mixed
+     */
+    public function getCountActiveNews()
     {
         $em = $this->em;
 
