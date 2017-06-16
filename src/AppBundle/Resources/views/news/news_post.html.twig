@@ -10,17 +10,15 @@
         {{ include('AppBundle:default:navigation_user.html.twig') }}
         {{ knp_menu_render('AppBundle:Builder:mainMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
 
-        {% for item_news in news %}
-                    <h2>{{ item_news.title }}</h2>
-                    <span><b>Опубликовано</b> - {{ item_news.publicationDate|date('d.m.Y')}}</span>
-                    {% if item_news.image != null %}
-                        <div><img src="{{ asset(item_news.image) | imagine_filter('post_img') }}" alt=""></div>
-                    {% else %}
-                        <div></div>
-                    {% endif %}
-                    <article>
-                        {{ item_news.content | raw }}
-                    </article>
-        {% endfor %}
+        <h2>{{ news.title }}</h2>
+        <span><b>Опубликовано</b> - {{ news.publicationDate|date('d.m.Y')}}</span>
+        {% if news.image != null %}
+            <div><img src="{{ asset(news.image) | imagine_filter('post_img') }}" alt=""></div>
+        {% else %}
+            <div></div>
+        {% endif %}
+        <article>
+            {{ news.content | raw }}
+        </article>
     </div>
 {% endblock %}
