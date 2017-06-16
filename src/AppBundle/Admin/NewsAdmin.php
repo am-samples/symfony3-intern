@@ -22,7 +22,7 @@ class NewsAdmin extends AbstractAdmin
         $resQuery = $dbservice->getNewsBySlug($slug);
 
         if (!empty($slug)) {
-            $imageName = explode('/', $resQuery[0]->getImage());
+            $imageName = explode('/', $resQuery->getImage());
             $imageName = $imageName[count($imageName)-1];
         }
         else {
