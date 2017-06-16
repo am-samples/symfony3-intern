@@ -92,12 +92,11 @@ class NewsController extends Controller
         $news_arr = [];
 
         if ($news) {
-
             $title = $news->getTitle();
-            $news_arr["title"] = $title;
-            $news_arr["publicationDate"] = $news->getPublicationDate();
-            $news_arr["image"] = $news->getImage();
-            $news_arr["content"] = $news->getContent();
+            $news_arr['title'] = $title;
+            $news_arr['publicationDate'] = $news->getPublicationDate();
+            $news_arr['image'] = $news->getImage();
+            $news_arr['content'] = $news->getContent();
 
             return $this->render('AppBundle:news:news_post.html.twig',[
                 'news' => $news_arr,
@@ -107,8 +106,5 @@ class NewsController extends Controller
         else {
             throw $this->createNotFoundException('Нет такой страницы!');
         }
-
-
-
     }
 }
