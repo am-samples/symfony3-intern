@@ -21,11 +21,22 @@ component('newsList', {
             $scope.currentPage = pageNo;
         };
 
+        var execFiles = [];
+        var jsonContent = {};
         $scope.viewby = function (countNews) {
-            $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
-                $scope.news = data;
-                console.log('Вызвана функция, значение - ' + countNews);
-            });
+            var existStatus = execFiles.indexOf('/app_dev.php/ru/getJsonNews/'+countNews);
+            if(existStatus == -1) {
+                $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
+                    $scope.news = data;
+                    execFiles.push('/app_dev.php/ru/getJsonNews/'+countNews);
+                    jsonContent[countNews] = data;
+                    console.log('Вызвана функция, значение - ' + countNews);
+                });
+            }
+            else {
+                $scope.news = jsonContent[countNews];
+            }
+
         }
     }
 });
