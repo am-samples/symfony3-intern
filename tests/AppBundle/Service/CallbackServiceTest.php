@@ -12,9 +12,6 @@ class CallbackServiceTest extends WebTestCase
 {
     public function test_save()
     {
-
-
-
         $save = $this->getMockBuilder(EntityManager::class)
             ->setMethods(['persist', 'flush'])
             ->disableOriginalConstructor()

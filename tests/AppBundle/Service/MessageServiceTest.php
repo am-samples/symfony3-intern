@@ -13,7 +13,6 @@ class MessageServiceTest extends WebTestCase
 
     public function test_send()
     {
-
         $client = self::createClient();
 
         $mailer = $this->getMockBuilder(Swift_Mailer::class)
