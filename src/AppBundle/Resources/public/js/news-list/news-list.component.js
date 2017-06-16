@@ -33,7 +33,6 @@ component('newsList', {
             else {
                 $scope.news = jsonContent[countNews];
             }
-
         }
     }
 });
