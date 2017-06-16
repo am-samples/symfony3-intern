@@ -21,11 +21,18 @@ component('newsList', {
             $scope.currentPage = pageNo;
         };
 
+        var jsonContent = {};
         $scope.viewby = function (countNews) {
-            $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
-                $scope.news = data;
-                console.log('Вызвана функция, значение - ' + countNews);
-            });
+            if(typeof jsonContent[countNews] === 'undefined') {
+                $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
+                    $scope.news = data;
+                    jsonContent[countNews] = data;
+                    console.log('Вызвана функция, значение - ' + countNews);
+                });
+            }
+            else {
+                $scope.news = jsonContent[countNews];
+            }
         }
     }
 });

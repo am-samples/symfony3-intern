@@ -114,7 +114,7 @@ class NewsService
         $em = $this->em;
         $repo = $em->getRepository('AppBundle:News');
 
-        $resQuery = $repo->findBy(
+        $resQuery = $repo->findOneBy(
             ['slug' => $slug]
         );
 

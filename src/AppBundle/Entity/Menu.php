@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Класс пунктов меню
  *
  * @ORM\Entity
  * @ORM\Table(name="items_menu")
+ * @UniqueEntity("link")
  */
 class Menu
 {
@@ -30,7 +32,7 @@ class Menu
     /**
      * Путь
      *
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true, unique=true)
      */
     protected $link;
 

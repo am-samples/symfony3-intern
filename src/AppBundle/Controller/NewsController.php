@@ -89,19 +89,22 @@ class NewsController extends Controller
         $cm = $this->clientManager();
 
         $news = $cm->getNewsBySlug($slug);
-        $title = $news[0]->getTitle();
+        $news_arr = [];
 
         if ($news) {
+            $title = $news->getTitle();
+            $news_arr['title'] = $title;
+            $news_arr['publicationDate'] = $news->getPublicationDate();
+            $news_arr['image'] = $news->getImage();
+            $news_arr['content'] = $news->getContent();
+
             return $this->render('AppBundle:news:news_post.html.twig',[
-                'news' => $news,
+                'news' => $news_arr,
                 'title' => $title,
             ]);
         }
         else {
             throw $this->createNotFoundException('Нет такой страницы!');
         }
-
-
-
     }
 }
