@@ -20,7 +20,7 @@ component('newsList', {
         $scope.setPage = function (pageNo) {
             $scope.currentPage = pageNo;
         };
-
+        $scope.disabled = false;
         $scope.viewby = function (countNews) {
             $http.get('/app_dev.php/ru/getJsonNews/'+countNews).success(function(data) {
                 $scope.news = data;
