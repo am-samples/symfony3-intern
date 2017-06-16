@@ -41,3 +41,9 @@ span.lang-bar {
     text-align: center;
 }
 
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #999;
+}
+

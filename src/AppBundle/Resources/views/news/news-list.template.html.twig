@@ -1,7 +1,7 @@
 <nav>
     <ul class="pagination">
         <li class="page-item">
-            <a class="page-link" href="#" ng-click="[viewby(0), setPage(1)]">&larr;</a>
+            <a class="page-link" ng-class="{disabled: disabled}" href="#" ng-click="[viewby(0), setPage(1)]">&larr;</a>
         </li>
 
         <li class="page-item">
@@ -25,7 +25,7 @@
         </li>
 
         <li class="page-item">
-            <a class="page-link" href="#" ng-click="[viewby(totalItems-10), setPage(totalPages)]">&rarr;</a>
+            <a class="page-link" ng-class="{disabled: disabled}" href="#" ng-click="[viewby(totalItems-10), setPage(totalPages)]">&rarr;</a>
         </li>
     </ul>
 </nav>
