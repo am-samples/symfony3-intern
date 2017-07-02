@@ -7,7 +7,11 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\CoreBundle\Validator\ErrorElement;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Cocur\Slugify\Slugify;
+
 
 class NewsAdmin extends AbstractAdmin
 {
@@ -16,20 +20,75 @@ class NewsAdmin extends AbstractAdmin
      * Получение названия текущего файла изображения
      *
      */
-    protected function getImageName($slug)
+    protected function getImageThumb($slug)
     {
         $dbservice = $this->getConfigurationPool()->getContainer()->get('app.database_news');
         $resQuery = $dbservice->getNewsBySlug($slug);
 
         if (!empty($slug)) {
-            $imageName = explode('/', $resQuery->getImage());
-            $imageName = $imageName[count($imageName)-1];
+
+            $imageName = $resQuery[0]->getImage();
+            $liipm =  $this->getConfigurationPool()->getContainer()->get('liip_imagine.cache.manager');
+            $imageName = !empty($imageName) ? $liipm->getBrowserPath($imageName, 'my_thumb') : '';
         }
         else {
             $imageName = '';
         }
 
         return $imageName;
+    }
+
+    protected function dbManager()
+    {
+        $dbm = $this->getConfigurationPool()->getContainer()->get('app.database_news');
+        return $dbm;
+    }
+
+    protected function initImageService()
+    {
+        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
+        return $imgService;
+    }
+
+    protected function uploadImage(News $news)
+    {
+        $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
+        $imgService = $this->initImageService();
+        $uploadedImage = $imgService->upload($news, $path);
+
+        return $uploadedImage;
+    }
+
+
+    protected function initTranslation(News $news)
+    {
+        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
+
+        return $cocur;
+    }
+
+    protected function executeImageLogic(News $news, $currentImage, $uploadedImage, $statusFile, $imgService)
+    {
+        if ($news->getDel() == 1 && !empty($currentImage)) {
+
+            if ($statusFile) {
+                $imgService->remove($currentImage);
+                $news->setImage(null);
+            } else {
+                $news->setImage(null);
+            }
+        } elseif ($news->getDel() == 0) {
+            if (empty($currentImage) && (empty($uploadedImage) || !empty($uploadedImage))) {
+                $news->setImage($uploadedImage);
+            } elseif (!empty($currentImage) && !empty($uploadedImage)) {
+                if ($uploadedImage != $currentImage) {
+                    $imgService->remove($currentImage);
+                    $news->setImage($uploadedImage);
+                } else {
+                    $news->setImage($uploadedImage);
+                }
+            }
+        }
     }
 
     /**
@@ -39,11 +98,14 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $slug = $formMapper->add('slug', 'text')->getAdmin()->getSubject()->getSlug();
+        $slug = $formMapper->getAdmin()->getSubject()->getSlug();
 
         $formMapper
             ->add('title', 'text', [
                 'label' => 'Заголовок'
+            ])
+            ->add('slug', 'text',[
+                'required' => false,
             ])
             ->add('publicationDate', 'datetime', [
                 'label' => 'Дата публикации'
@@ -53,7 +115,7 @@ class NewsAdmin extends AbstractAdmin
             ])
             ->add('active', 'checkbox', [
                 'label' => 'Активен',
-                'required' => false
+                'required' => false,
             ])
             ->add('description', 'text', [
                 'label' => 'Описание'
@@ -62,22 +124,12 @@ class NewsAdmin extends AbstractAdmin
                 'label' => 'Изображение',
                 'required' => false,
                 'data_class' => null,
-            ])
-            ->add('nameOfImage', 'text', [
-                'label' => 'Текущее изображение:',
-                'attr' => [
-                    'readonly' => true,
-                    'placeholder' => $this->getImageName($slug),
-                    'style' => 'width: 420px; font-size: 16px;',
-                ],
-                'required' => false,
+                'help' => '<img src="'.$this->getImageThumb($slug).'" alt="Картинки нет">',
             ])
             ->add('del', 'checkbox', [
                 'label'=> 'Удалить изображение',
                 'required' => false,
             ]);
-
-
 
     }
 
@@ -106,31 +158,35 @@ class NewsAdmin extends AbstractAdmin
             ]);
     }
 
+    public function prePersist($news)
+    {
+        $dbm = $this->dbManager();
+        $id = $dbm->getLastNewsId();
+        $news->setId($id+1);
+
+        $uploadedImage = $this->uploadImage($news);
+        $news->setImage($uploadedImage);
+    }
+
+    public function preValidate($news)
+    {
+        $translation = $this->initTranslation($news);
+
+        $slug = $news->getSlug();
+        $newSlug = $translation->activateRuleset('russian')->slugify($news->getTitle());
+        $news->setSlug($newSlug);
+    }
+
     public function preUpdate($news)
     {
-        $path = $this->getConfigurationPool()->getContainer()->getParameter('img_path');
-        $imgService = $this->getConfigurationPool()->getContainer()->get('app.image_manager');
-        $cocur = $this->getConfigurationPool()->getContainer()->get('cocur_slugify');
-        $correctPath = $imgService->upload($news, $path);
+        $fs = new Filesystem();
 
-        $slug = $cocur->activateRuleset('russian')->slugify($news->getTitle());
-        $news->setSlug($slug);
+        $uploadedImage = $this->uploadImage($news);
+        $currentImage = $news->getImage();
+        $statusFile = $fs->exists(substr($currentImage, 1));
+        $imgService = $this->initImageService();
 
-        if ($news->getDel() == 1 && !empty($news->getImage())) {
-            $imgService->remove($news->getImage());
-            $news->setImage(null);
-        }
-        elseif ($news->getDel() == 0) {
-            if(!empty($correctPath) && empty($news->getImage())){
-                $news->setImage($correctPath);
-            }
-            elseif ($correctPath != $news->getImage() && $news->getActive() == 1) {
-                $imgService->remove($news->getImage());
-                $news->setImage($correctPath);
-
-            }
-        }
-
+        $this->executeImageLogic($news, $currentImage, $uploadedImage, $statusFile, $imgService);
 
     }
 

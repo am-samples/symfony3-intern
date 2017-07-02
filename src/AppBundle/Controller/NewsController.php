@@ -52,7 +52,7 @@ class NewsController extends Controller
     {
         $cm = $this->clientManager();
         $news = $cm->getLimitNews($start, $count);
-        $allNews = $cm->getCountNews();
+        $allNews = $cm->getCountActiveNews();
 
         $news_arr = [];
         $liipm = $this->container->get('liip_imagine.cache.manager');
